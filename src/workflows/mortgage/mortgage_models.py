@@ -143,7 +143,7 @@ class UnderwritingInput(BaseModel):
     """Input to the underwriting workflow."""
 
     case_id: str
-    applicant: MortgageApplication
+    image_dir: str
 
 
 class UnderwritingMetrics(BaseModel):
@@ -256,6 +256,13 @@ class SupervisorDecision(BaseModel):
 
     next_agent: str
     rationale: str
+
+
+class ApplicationOcrTask(BaseModel):
+    """Activity input for OCR application extraction."""
+
+    case_id: str
+    image_dir: str
 
 
 class CriticTask(BaseModel):

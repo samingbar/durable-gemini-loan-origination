@@ -13,6 +13,7 @@ from temporalio.worker import Worker
 from src.workflows.mortgage.mortgage_models import (
     AgentResult,
     AgentTask,
+    ApplicationOcrTask,
     CriticResult,
     CriticTask,
     DecisionRecommendation,
@@ -39,6 +40,13 @@ def _load_case(index: int) -> dict:
 @activity.defn(name="retrieve_policy_context")
 async def fake_retrieve_policy_context(query: str) -> str:
     return "policy context"
+
+
+@activity.defn(name="extract_application_from_images")
+async def fake_extract_application_from_images(task: ApplicationOcrTask) -> MortgageApplication:
+    case = _load_case(1)
+    case["case_id"] = task.case_id
+    return MortgageApplication(**case)
 
 
 @activity.defn(name="run_supervisor")
@@ -76,6 +84,7 @@ async def test_workflow_human_review_signal(client) -> None:
         task_queue=TASK_QUEUE,
         workflows=[MortgageUnderwritingWorkflow],
         activities=[
+            fake_extract_application_from_images,
             fake_retrieve_policy_context,
             fake_run_supervisor,
             fake_run_agent_analysis,
@@ -84,8 +93,7 @@ async def test_workflow_human_review_signal(client) -> None:
         ],
     ):
         case = _load_case(1)
-        applicant = MortgageApplication(**case)
-        workflow_input = UnderwritingInput(case_id=case["case_id"], applicant=applicant)
+        workflow_input = UnderwritingInput(case_id=case["case_id"], image_dir="/tmp/fake-images")
 
         handle = await client.start_workflow(
             MortgageUnderwritingWorkflow.run,

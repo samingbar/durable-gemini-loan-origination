@@ -8,6 +8,7 @@ from temporalio import workflow
 
 with workflow.unsafe.imports_passed_through():
     from .mortgage_activities import (
+        extract_application_from_images,
         retrieve_policy_context,
         run_agent_analysis,
         run_critic_review,
@@ -22,6 +23,7 @@ from .mortgage_models import (
     HumanReviewInput,
     HumanReviewPacket,
     HumanReviewResult,
+    ApplicationOcrTask,
     SupervisorTask,
     UnderwritingAnalyses,
     UnderwritingInput,
@@ -66,9 +68,16 @@ class MortgageUnderwritingWorkflow:
     async def run(self, input_data: UnderwritingInput) -> UnderwritingOutput:
         workflow.logger.info("Starting underwriting for case %s", input_data.case_id)
 
-        sanitized = sanitize_pii(input_data.applicant)
-        metrics = compute_metrics(input_data.applicant)
-        risk_flags = derive_risk_flags(input_data.applicant, metrics)
+        applicant = await workflow.execute_activity(
+            extract_application_from_images,
+            ApplicationOcrTask(case_id=input_data.case_id, image_dir=input_data.image_dir),
+            start_to_close_timeout=timedelta(minutes=2),
+        )
+
+        sanitized = sanitize_pii(applicant)
+        sanitized_payload = sanitized.model_dump(by_alias=True)
+        metrics = compute_metrics(applicant)
+        risk_flags = derive_risk_flags(applicant, metrics)
 
         policy_queries = {
             "credit": "credit score minimums, bankruptcy, late payments",
@@ -105,7 +114,7 @@ class MortgageUnderwritingWorkflow:
             supervisor_decision = await workflow.execute_activity(
                 run_supervisor,
                 SupervisorTask(
-                    applicant=sanitized,
+                    applicant=sanitized_payload,
                     metrics=metrics,
                     completed_agents=sorted(completed),
                     remaining_agents=remaining,
@@ -121,7 +130,7 @@ class MortgageUnderwritingWorkflow:
 
             agent_task = AgentTask(
                 agent_name=next_agent.title(),
-                applicant=sanitized,
+                applicant=sanitized_payload,
                 metrics=metrics,
                 policy_context=policy_context[next_agent],
             )
@@ -144,7 +153,7 @@ class MortgageUnderwritingWorkflow:
                 run_agent_analysis,
                 AgentTask(
                     agent_name=agent.title(),
-                    applicant=sanitized,
+                    applicant=sanitized_payload,
                     metrics=metrics,
                     policy_context=policy_context[agent],
                 ),
@@ -158,7 +167,7 @@ class MortgageUnderwritingWorkflow:
         critic_review = await workflow.execute_activity(
             run_critic_review,
             CriticTask(
-                applicant=sanitized,
+                applicant=sanitized_payload,
                 metrics=metrics,
                 analyses=analyses,
                 risk_flags=risk_flags,
@@ -170,7 +179,7 @@ class MortgageUnderwritingWorkflow:
         decision_result = await workflow.execute_activity(
             run_decision_memo,
             DecisionTask(
-                applicant=sanitized,
+                applicant=sanitized_payload,
                 metrics=metrics,
                 analyses=analyses,
                 risk_flags=risk_flags,
@@ -181,7 +190,7 @@ class MortgageUnderwritingWorkflow:
         decision_recommendation = DecisionRecommendation.model_validate(
             decision_result.recommendation.model_dump()
         )
-        real_name = input_data.applicant.name or "[APPLICANT_NAME]"
+        real_name = applicant.name or "[APPLICANT_NAME]"
         memo_with_name = decision_recommendation.memo.replace("[APPLICANT_NAME]", real_name)
 
         bias_flags = []
@@ -196,7 +205,7 @@ class MortgageUnderwritingWorkflow:
             bias_flags.extend(detect_bias_signals(text))
         bias_flags = sorted(set(bias_flags))
 
-        policy_violations = hard_stop_violations(input_data.applicant, metrics)
+        policy_violations = hard_stop_violations(applicant, metrics)
         if policy_violations and decision_recommendation.decision == "APPROVED":
             decision_recommendation = decision_recommendation.model_copy(
                 update={
@@ -214,8 +223,8 @@ class MortgageUnderwritingWorkflow:
         if human_review_required:
             self._review_packet = HumanReviewPacket(
                 case_id=input_data.case_id,
-                display_name=format_display_name(input_data.applicant),
-                sanitized_applicant=sanitized,
+                display_name=format_display_name(applicant),
+                sanitized_applicant=sanitized_payload,
                 metrics=metrics,
                 analyses=analyses,
                 critic_review=critic_review.review,
@@ -230,7 +239,7 @@ class MortgageUnderwritingWorkflow:
 
         return UnderwritingOutput(
             case_id=input_data.case_id,
-            sanitized_applicant=sanitized,
+            sanitized_applicant=sanitized_payload,
             metrics=metrics,
             analyses=analyses,
             critic_review=critic_review.review,
