@@ -13,6 +13,7 @@ from temporalio.worker import Worker
 from src.workflows.mortgage.mortgage_models import (
     AgentResult,
     AgentTask,
+    ApplicationOcrTask,
     CriticResult,
     CriticTask,
     DecisionRecommendation,
@@ -41,6 +42,13 @@ async def fake_retrieve_policy_context(query: str) -> str:
     return "policy context"
 
 
+@activity.defn(name="extract_application_from_images")
+async def fake_extract_application_from_images(task: ApplicationOcrTask) -> MortgageApplication:
+    case = _load_case(1)
+    case["case_id"] = task.case_id
+    return MortgageApplication(**case)
+
+
 @activity.defn(name="run_supervisor")
 async def fake_run_supervisor(task: SupervisorTask) -> SupervisorDecision:
     next_agent = task.remaining_agents[0] if task.remaining_agents else "decision"
@@ -60,7 +68,7 @@ async def fake_run_critic_review(task: CriticTask) -> CriticResult:
 @activity.defn(name="run_decision_memo")
 async def fake_run_decision_memo(task: DecisionTask) -> DecisionResult:
     recommendation = DecisionRecommendation(
-        decision="HUMAN_REVIEW",
+        decision="CONDITIONAL",
         risk_score=55,
         memo="needs human review",
         conditions=[],
@@ -76,6 +84,7 @@ async def test_workflow_human_review_signal(client) -> None:
         task_queue=TASK_QUEUE,
         workflows=[MortgageUnderwritingWorkflow],
         activities=[
+            fake_extract_application_from_images,
             fake_retrieve_policy_context,
             fake_run_supervisor,
             fake_run_agent_analysis,
@@ -84,8 +93,7 @@ async def test_workflow_human_review_signal(client) -> None:
         ],
     ):
         case = _load_case(1)
-        applicant = MortgageApplication(**case)
-        workflow_input = UnderwritingInput(case_id=case["case_id"], applicant=applicant)
+        workflow_input = UnderwritingInput(case_id=case["case_id"], image_dir="/tmp/fake-images")
 
         handle = await client.start_workflow(
             MortgageUnderwritingWorkflow.run,
@@ -102,7 +110,7 @@ async def test_workflow_human_review_signal(client) -> None:
             await asyncio.sleep(0.1)
 
         assert packet is not None
-        assert packet.decision_recommendation.decision == "HUMAN_REVIEW"
+        assert packet.decision_recommendation.decision == "CONDITIONAL"
         assert packet.display_name
 
         await handle.signal(

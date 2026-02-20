@@ -14,6 +14,7 @@ from pypdf import PdfReader
 from temporalio import activity
 
 from .mortgage_models import (
+    ApplicationOcrTask,
     AgentResult,
     AgentTask,
     CriticResult,
@@ -21,6 +22,7 @@ from .mortgage_models import (
     DecisionRecommendation,
     DecisionResult,
     DecisionTask,
+    MortgageApplication,
     SupervisorDecision,
     SupervisorTask,
 )
@@ -97,6 +99,161 @@ async def _generate_text(prompt: str) -> str:
     return response.text or ""
 
 
+def _list_image_paths(image_dir: Path, case_id: str) -> list[Path]:
+    if not image_dir.exists():
+        return []
+
+    case_images = sorted(image_dir.glob(f"{case_id}_p*.png"))
+    if case_images:
+        return case_images
+
+    images: list[Path] = []
+    for pattern in ("*.png", "*.jpg", "*.jpeg"):
+        images.extend(image_dir.glob(pattern))
+    return sorted(images)
+
+
+def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
+    data = dict(payload)
+
+    applicant_info = data.pop("applicant_information", None)
+    if isinstance(applicant_info, dict):
+        for field in ("case_id", "name", "ssn", "email", "phone", "address", "credit_score"):
+            if field not in data and field in applicant_info:
+                data[field] = applicant_info[field]
+
+    credit_info = data.pop("credit_information", None)
+    if isinstance(credit_info, dict):
+        if "credit_score" not in data and "credit_score" in credit_info:
+            data["credit_score"] = credit_info["credit_score"]
+        if "credit_history" not in data:
+            if "credit_history" in credit_info:
+                data["credit_history"] = credit_info["credit_history"]
+            elif "history" in credit_info:
+                data["credit_history"] = credit_info["history"]
+
+    for source_key, target_key in (
+        ("employment_information", "employment"),
+        ("income_information", "employment"),
+        ("loan_information", "loan"),
+        ("loan_details", "loan"),
+        ("property_information", "property"),
+        ("collateral", "property"),
+        ("asset_information", "assets"),
+        ("assets_information", "assets"),
+        ("debt_information", "debts"),
+        ("liabilities", "debts"),
+    ):
+        section = data.pop(source_key, None)
+        if isinstance(section, dict) and target_key not in data:
+            data[target_key] = section
+
+    if not data.get("case_id"):
+        data["case_id"] = case_id
+
+    credit_history = data.get("credit_history")
+    if isinstance(credit_history, dict):
+        credit_history.setdefault("late_payments_12mo", 0)
+        credit_history.setdefault("late_payments_24mo", 0)
+        credit_history.setdefault("collections", [])
+        credit_history.setdefault("inquiries_6mo", 0)
+        credit_history.setdefault("credit_notes", "")
+
+    debts = data.get("debts")
+    if isinstance(debts, dict) and "total_monthly_debt" not in debts:
+        total = 0.0
+        for key in ("car_loan", "student_loan", "credit_cards", "personal_loan"):
+            value = debts.get(key, 0) or 0
+            try:
+                total += float(value)
+            except (TypeError, ValueError):
+                continue
+        debts["total_monthly_debt"] = total
+
+    assets = data.get("assets")
+    if isinstance(assets, dict):
+        if "liquid_assets_total" not in assets:
+            checking = assets.get("checking", 0) or 0
+            savings = assets.get("savings", 0) or 0
+            try:
+                assets["liquid_assets_total"] = float(checking) + float(savings)
+            except (TypeError, ValueError):
+                assets["liquid_assets_total"] = 0
+        recent_deposits = assets.get("recent_deposits")
+        if isinstance(recent_deposits, list):
+            for deposit in recent_deposits:
+                if isinstance(deposit, dict) and "description" not in deposit:
+                    deposit["description"] = "Not provided"
+
+    employment = data.get("employment")
+    if isinstance(employment, dict):
+        income_details = employment.get("income_details")
+        if isinstance(income_details, dict):
+            income_details.setdefault("bonus_2023", 0)
+            income_details.setdefault("bonus_2024", 0)
+            income_details.setdefault("bonus_stable", False)
+            income_details.setdefault("employer_confirmation", "")
+
+    loan = data.get("loan")
+    property_info = data.get("property")
+    if isinstance(property_info, dict):
+        if "type" not in property_info and "property_type" in property_info:
+            property_info["type"] = property_info["property_type"]
+    if isinstance(loan, dict):
+        if "property_type" not in loan and isinstance(property_info, dict):
+            prop_type = property_info.get("type") or property_info.get("property_type")
+            if prop_type:
+                loan["property_type"] = prop_type
+
+    if "dti_ratio" not in data:
+        monthly_debt = None
+        monthly_income = None
+        if isinstance(debts, dict):
+            monthly_debt = debts.get("total_monthly_debt")
+        if isinstance(employment, dict):
+            monthly_income = employment.get("monthly_income")
+        try:
+            if monthly_debt is not None and monthly_income:
+                data["dti_ratio"] = float(monthly_debt) / float(monthly_income)
+        except (TypeError, ValueError, ZeroDivisionError):
+            pass
+
+    return data
+
+
+async def _ocr_application_from_images(image_paths: list[Path], case_id: str) -> str:
+    client = _gemini_client()
+    schema = json.dumps(MortgageApplication.model_json_schema(), indent=2)
+    contents: list[types.Part | str] = [
+        "Extract the mortgage application data from these images.\n"
+        "Return JSON ONLY (no markdown) that matches the MortgageApplication schema exactly.\n"
+        "Rules:\n"
+        f"- Use case_id exactly as: {case_id}\n"
+        "- Output a single JSON object with the exact field names.\n"
+        "- Include ALL required fields even if blank.\n"
+        "- Optional fields may be null.\n"
+        "- If a numeric value is missing, use 0.\n"
+        "- If a string value is missing, use an empty string.\n"
+        "- If a list is missing, use an empty list.\n"
+        "Schema:\n"
+        f"{schema}",
+    ]
+
+    for path in image_paths:
+        suffix = path.suffix.lower()
+        if suffix in {".jpg", ".jpeg"}:
+            mime_type = "image/jpeg"
+        else:
+            mime_type = "image/png"
+        contents.append(types.Part.from_bytes(data=path.read_bytes(), mime_type=mime_type))
+
+    response = await client.aio.models.generate_content(
+        model=_model_name(),
+        contents=contents,
+    )
+    return response.text or ""
+
+
 def _format_applicant(task: AgentTask | CriticTask | DecisionTask | SupervisorTask) -> str:
     return json.dumps(task.applicant.model_dump(by_alias=True), indent=2)
 
@@ -107,6 +264,24 @@ async def retrieve_policy_context(query: str) -> str:
 
     activity.logger.info("Retrieving policy context for query: %s", query)
     return await asyncio.to_thread(_retrieve_policies, query)
+
+
+@activity.defn
+async def extract_application_from_images(task: ApplicationOcrTask) -> MortgageApplication:
+    """Extract mortgage application data from a directory of scanned images."""
+
+    image_dir = Path(task.image_dir)
+    image_paths = _list_image_paths(image_dir, task.case_id)
+    if not image_paths:
+        raise RuntimeError(f"No images found in {image_dir} for case {task.case_id}")
+
+    raw_text = await _ocr_application_from_images(image_paths, task.case_id)
+    data = parse_llm_json(raw_text)
+    if not isinstance(data, dict):
+        raise RuntimeError("OCR did not return a JSON object")
+
+    normalized = _normalize_ocr_payload(data, task.case_id)
+    return MortgageApplication.model_validate(normalized)
 
 
 @activity.defn

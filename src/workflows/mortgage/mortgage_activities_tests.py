@@ -9,6 +9,7 @@ import pytest
 from src.workflows.mortgage import mortgage_activities as activities
 from src.workflows.mortgage.mortgage_models import (
     AgentTask,
+    ApplicationOcrTask,
     CriticTask,
     DecisionTask,
     MortgageApplication,
@@ -109,6 +110,25 @@ async def test_retrieve_policy_context(monkeypatch) -> None:
     )
     result = await activities.retrieve_policy_context("credit score minimum")
     assert "credit score" in result.lower()
+
+
+async def test_extract_application_from_images(monkeypatch, tmp_path) -> None:
+    applicant = _sample_applicant()
+    case_id = applicant.case_id
+    image_path = tmp_path / f"{case_id}_p1.png"
+    image_path.write_bytes(b"fake-image")
+    (tmp_path / "OTHER_p1.png").write_bytes(b"other-image")
+
+    async def fake_ocr(image_paths, case_id_value):
+        assert case_id_value == case_id
+        assert [path.name for path in image_paths] == [image_path.name]
+        return json.dumps(applicant.model_dump(by_alias=True))
+
+    monkeypatch.setattr(activities, "_ocr_application_from_images", fake_ocr)
+
+    task = ApplicationOcrTask(case_id=case_id, image_dir=str(tmp_path))
+    result = await activities.extract_application_from_images(task)
+    assert result.case_id == case_id
 
 
 async def test_run_supervisor_parses_json(monkeypatch) -> None:

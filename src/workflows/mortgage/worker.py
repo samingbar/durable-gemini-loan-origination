@@ -11,6 +11,7 @@ from temporalio.contrib.pydantic import pydantic_data_converter
 from temporalio.worker import Worker
 
 from .mortgage_activities import (
+    extract_application_from_images,
     retrieve_policy_context,
     run_agent_analysis,
     run_supervisor,
@@ -54,6 +55,7 @@ async def main() -> None:
         task_queue=TASK_QUEUE,
         workflows=[MortgageUnderwritingWorkflow],
         activities=[
+            extract_application_from_images,
             retrieve_policy_context,
             run_agent_analysis,
             run_supervisor,

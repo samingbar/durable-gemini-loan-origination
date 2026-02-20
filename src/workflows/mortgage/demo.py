@@ -1,23 +1,17 @@
-"""Run the mortgage underwriting workflow against the sample test cases."""
+"""Run the mortgage underwriting workflow against OCR-extracted images."""
 
 from __future__ import annotations
 
+import argparse
 import asyncio
-import json
 import os
+import re
 from pathlib import Path
 
 from temporalio.client import Client
 from temporalio.contrib.pydantic import pydantic_data_converter
 
-from .mortgage_activities import (
-    retrieve_policy_context,
-    run_agent_analysis,
-    run_supervisor,
-    run_critic_review,
-    run_decision_memo,
-)
-from .mortgage_models import MortgageApplication, UnderwritingInput
+from .mortgage_models import UnderwritingInput
 from .mortgage_workflow import MortgageUnderwritingWorkflow
 
 TASK_QUEUE = "mortgage-underwriting"
@@ -43,27 +37,34 @@ def _load_dotenv() -> None:
             os.environ[key] = value
 
 
-def _load_test_cases() -> list[dict]:
-    repo_root = Path(__file__).resolve().parents[3]
-    data_path = repo_root / "notebook-inspiration" / "mortgage_test_cases.json"
-    payload = json.loads(data_path.read_text())
-    return payload["test_cases"]
+def _find_case_ids(image_dir: Path) -> list[str]:
+    if not image_dir.exists():
+        return []
+
+    case_ids: set[str] = set()
+    pattern = re.compile(r"^(?P<case_id>.+)_p\d+\.(png|jpg|jpeg)$", re.IGNORECASE)
+    for path in image_dir.iterdir():
+        if not path.is_file():
+            continue
+        match = pattern.match(path.name)
+        if match:
+            case_ids.add(match.group("case_id"))
+    return sorted(case_ids)
 
 
-async def _run_case(client, case: dict) -> None:
-    applicant = MortgageApplication(**case)
-    input_data = UnderwritingInput(case_id=case["case_id"], applicant=applicant)
+async def _run_case(client: Client, case_id: str, image_dir: str) -> None:
+    input_data = UnderwritingInput(case_id=case_id, image_dir=image_dir)
 
     result = await client.execute_workflow(
         MortgageUnderwritingWorkflow.run,
         input_data,
-        id=f"mortgage-{case['case_id']}",
+        id=f"mortgage-{case_id}",
         task_queue=TASK_QUEUE,
     )
 
     print("=" * 80)
-    print(f"Case {case['case_id']} - Expected {case['expected_decision']}")
-    print(f"Workflow ID: mortgage-{case['case_id']}")
+    print(f"Case {case_id}")
+    print(f"Workflow ID: mortgage-{case_id}")
     print(f"Final decision: {result.final_decision}")
     print(f"Risk score: {result.risk_score}")
     print(f"Human review required: {result.human_review_required}")
@@ -82,12 +83,26 @@ async def _run_case(client, case: dict) -> None:
 
 async def main() -> None:
     _load_dotenv()
+    parser = argparse.ArgumentParser(description="Run OCR-first mortgage demo.")
+    parser.add_argument(
+        "--image-dir",
+        default="datasets/images",
+        help="Directory containing OCR input images (default: datasets/images).",
+    )
+    args = parser.parse_args()
+
+    image_dir = Path(args.image_dir)
+    case_ids = _find_case_ids(image_dir)
+    if not case_ids:
+        print(f"No case images found in {image_dir}.")
+        return
+
     client = await Client.connect(
         TEMPORAL_ADDRESS,
         data_converter=pydantic_data_converter,
     )
-    for case in _load_test_cases():
-        await _run_case(client, case)
+    for case_id in case_ids:
+        await _run_case(client, case_id, str(image_dir))
 
 
 if __name__ == "__main__":
