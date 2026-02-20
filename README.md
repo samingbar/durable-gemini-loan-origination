@@ -60,6 +60,58 @@ A modern, production-ready template for building Temporal applications using [Te
    uv run -m src.workflows.http.http_workflow
    ```
 
+### Mortgage Underwriting Demo (Agentic + Human Review)
+
+This demo runs the Temporal-based mortgage underwriting workflow with Gemini-powered agents and a local human review UI.
+
+1. **Install dependencies:**
+
+   ```bash
+   uv sync --dev
+   ```
+
+1. **Set environment variables:**
+
+   ```bash
+   export GEMINI_API_KEY="your_api_key"
+   # Optional: override the Gemini model
+   export GEMINI_MODEL="gemini-2.5-flash"
+   # Optional: Temporal server address (defaults to localhost:7233)
+   export TEMPORAL_ADDRESS="localhost:7233"
+   ```
+
+1. **Start a local Temporal server:**
+
+   ```bash
+   temporal server start-dev
+   ```
+
+1. **Start the worker (new terminal):**
+
+   ```bash
+   uv run -m src.workflows.mortgage.worker
+   ```
+
+1. **Start the human review UI (new terminal):**
+
+   ```bash
+   uv run uvicorn src.workflows.mortgage.review_app:app --reload
+   ```
+
+   Open the UI in your browser:
+
+   ```text
+   http://localhost:8000
+   ```
+
+1. **Run the demo workflow (new terminal):**
+
+   ```bash
+   uv run -m src.workflows.mortgage.demo
+   ```
+
+   If a case pauses for human review, use the UI to submit a decision.
+
 ### Next Steps
 
 - Check out some [example prompts](./docs/example-prompts.md) to generate Temporal Workflows using your favorite tool.

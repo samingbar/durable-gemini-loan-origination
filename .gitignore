@@ -13,6 +13,9 @@ coverage.xml
 # Virtual environments
 .venv
 
+# env files
+.env
+
 # Data
 bin/
 
