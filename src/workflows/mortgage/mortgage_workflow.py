@@ -206,10 +206,18 @@ class MortgageUnderwritingWorkflow:
         bias_flags = sorted(set(bias_flags))
 
         policy_violations = hard_stop_violations(applicant, metrics)
+        if decision_recommendation.decision == "HUMAN_REVIEW":
+            decision_recommendation = decision_recommendation.model_copy(
+                update={
+                    "decision": "CONDITIONAL",
+                    "human_review_reason": decision_recommendation.human_review_reason
+                    or "LLM requested human review.",
+                },
+            )
         if policy_violations and decision_recommendation.decision == "APPROVED":
             decision_recommendation = decision_recommendation.model_copy(
                 update={
-                    "decision": "HUMAN_REVIEW",
+                    "decision": "CONDITIONAL",
                     "human_review_reason": "Policy hard-stop violations require review.",
                 },
             )
@@ -217,7 +225,7 @@ class MortgageUnderwritingWorkflow:
         final_decision = decision_recommendation.decision
         risk_score = decision_recommendation.risk_score
 
-        human_review_required = final_decision == "HUMAN_REVIEW"
+        human_review_required = final_decision == "CONDITIONAL"
         human_review: HumanReviewResult | None = None
 
         if human_review_required:

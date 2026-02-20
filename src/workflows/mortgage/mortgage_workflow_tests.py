@@ -68,7 +68,7 @@ async def fake_run_critic_review(task: CriticTask) -> CriticResult:
 @activity.defn(name="run_decision_memo")
 async def fake_run_decision_memo(task: DecisionTask) -> DecisionResult:
     recommendation = DecisionRecommendation(
-        decision="HUMAN_REVIEW",
+        decision="CONDITIONAL",
         risk_score=55,
         memo="needs human review",
         conditions=[],
@@ -110,7 +110,7 @@ async def test_workflow_human_review_signal(client) -> None:
             await asyncio.sleep(0.1)
 
         assert packet is not None
-        assert packet.decision_recommendation.decision == "HUMAN_REVIEW"
+        assert packet.decision_recommendation.decision == "CONDITIONAL"
         assert packet.display_name
 
         await handle.signal(
