@@ -51,6 +51,7 @@ class MortgageUnderwritingWorkflow:
     async def submit_human_review(self, review: HumanReviewInput) -> None:
         """Receive human review decision and notes."""
 
+        # Capture reviewer input; this unblocks the wait_condition in run().
         self._human_review = HumanReviewResult(
             reviewer=review.reviewer,
             decision=review.decision,
@@ -68,17 +69,20 @@ class MortgageUnderwritingWorkflow:
     async def run(self, input_data: UnderwritingInput) -> UnderwritingOutput:
         workflow.logger.info("Starting underwriting for case %s", input_data.case_id)
 
+        # OCR intake: convert uploaded images into a validated MortgageApplication.
         applicant = await workflow.execute_activity(
             extract_application_from_images,
             ApplicationOcrTask(case_id=input_data.case_id, image_dir=input_data.image_dir),
             start_to_close_timeout=timedelta(minutes=2),
         )
 
+        # Sanitize PII for safe LLM usage and compute deterministic metrics.
         sanitized = sanitize_pii(applicant)
         sanitized_payload = sanitized.model_dump(by_alias=True)
         metrics = compute_metrics(applicant)
         risk_flags = derive_risk_flags(applicant, metrics)
 
+        # Retrieve policy snippets in parallel to keep prompts grounded.
         policy_queries = {
             "credit": "credit score minimums, bankruptcy, late payments",
             "income": "income verification requirements, self-employment, DTI limits",
@@ -98,6 +102,7 @@ class MortgageUnderwritingWorkflow:
         }
         policy_context = {key: await fut for key, fut in policy_futures.items()}
 
+        # Agentic loop: supervisor decides which specialist to run next.
         analyses = UnderwritingAnalyses(credit="", income="", assets="", collateral="")
         completed: set[str] = set()
         max_steps = 6
@@ -117,13 +122,14 @@ class MortgageUnderwritingWorkflow:
                     applicant=sanitized_payload,
                     metrics=metrics,
                     completed_agents=sorted(completed),
-                    remaining_agents=remaining,
-                    risk_flags=risk_flags,
-                    policy_context=policy_context["supervisor"],
-                ),
-                start_to_close_timeout=timedelta(seconds=30),
-            )
+                remaining_agents=remaining,
+                risk_flags=risk_flags,
+                policy_context=policy_context["supervisor"],
+            ),
+            start_to_close_timeout=timedelta(seconds=30),
+        )
 
+            # Ensure we only run an agent that is still missing.
             next_agent = supervisor_decision.next_agent
             if next_agent not in remaining:
                 next_agent = remaining[0]
@@ -143,6 +149,7 @@ class MortgageUnderwritingWorkflow:
             setattr(analyses, next_agent, result.analysis)
             completed.add(next_agent)
 
+        # Run any remaining specialist analyses not covered by the supervisor.
         remaining = [
             agent
             for agent in ["credit", "income", "assets", "collateral"]
@@ -162,6 +169,7 @@ class MortgageUnderwritingWorkflow:
             setattr(analyses, agent, result.analysis)
             completed.add(agent)
 
+        # Critic pass to check for missed risks or inconsistencies.
         critic_policy = policy_context["decision"]
 
         critic_review = await workflow.execute_activity(
@@ -176,6 +184,7 @@ class MortgageUnderwritingWorkflow:
             start_to_close_timeout=timedelta(seconds=60),
         )
 
+        # Decision memo from LLM (structured JSON with decision + memo).
         decision_result = await workflow.execute_activity(
             run_decision_memo,
             DecisionTask(
@@ -190,9 +199,11 @@ class MortgageUnderwritingWorkflow:
         decision_recommendation = DecisionRecommendation.model_validate(
             decision_result.recommendation.model_dump()
         )
+        # Re-inject the real name only in the final memo (not in LLM inputs).
         real_name = applicant.name or "[APPLICANT_NAME]"
         memo_with_name = decision_recommendation.memo.replace("[APPLICANT_NAME]", real_name)
 
+        # Scan outputs for potential bias language.
         bias_flags = []
         for text in [
             analyses.credit,
@@ -205,6 +216,7 @@ class MortgageUnderwritingWorkflow:
             bias_flags.extend(detect_bias_signals(text))
         bias_flags = sorted(set(bias_flags))
 
+        # Hard-stop policy checks can force a conditional review.
         policy_violations = hard_stop_violations(applicant, metrics)
         if decision_recommendation.decision == "HUMAN_REVIEW":
             decision_recommendation = decision_recommendation.model_copy(
@@ -225,10 +237,12 @@ class MortgageUnderwritingWorkflow:
         final_decision = decision_recommendation.decision
         risk_score = decision_recommendation.risk_score
 
+        # Human review gate: only block when decision is CONDITIONAL.
         human_review_required = final_decision == "CONDITIONAL"
         human_review: HumanReviewResult | None = None
 
         if human_review_required:
+            # Store a sanitized packet for the review UI to query.
             self._review_packet = HumanReviewPacket(
                 case_id=input_data.case_id,
                 display_name=format_display_name(applicant),
@@ -241,10 +255,12 @@ class MortgageUnderwritingWorkflow:
                 policy_violations=policy_violations,
                 risk_score=risk_score,
             )
+            # Pause until a human reviewer signals the workflow.
             await workflow.wait_condition(lambda: self._human_review is not None)
             human_review = self._human_review
             final_decision = human_review.decision
 
+        # Emit the final underwriting output for the case.
         return UnderwritingOutput(
             case_id=input_data.case_id,
             sanitized_applicant=sanitized_payload,
