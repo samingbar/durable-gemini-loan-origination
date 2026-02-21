@@ -38,6 +38,7 @@ def _repo_root() -> Path:
 
 @lru_cache(maxsize=1)
 def _load_policy_chunks() -> list[str]:
+    # Load and chunk policy PDF text for lightweight retrieval.
     policy_path = _repo_root() / "resources" / "underwriting_policies.pdf"
     reader = PdfReader(policy_path)
     pages = [page.extract_text() or "" for page in reader.pages]
@@ -65,6 +66,7 @@ def _load_policy_chunks() -> list[str]:
 
 
 def _retrieve_policies(query: str, top_k: int = 4) -> str:
+    # Simple token-overlap ranking for top-k policy snippets.
     chunks = _load_policy_chunks()
     query_tokens = tokenize(query)
     scored = [(score_chunk(query_tokens, chunk), chunk) for chunk in chunks]
@@ -75,6 +77,7 @@ def _retrieve_policies(query: str, top_k: int = 4) -> str:
 
 @lru_cache(maxsize=1)
 def _gemini_client() -> genai.Client:
+    # Build a cached Gemini client (uses GEMINI_API_KEY / GOOGLE_API_KEY).
     api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
     if not api_key:
         raise RuntimeError("Set GEMINI_API_KEY (or GOOGLE_API_KEY) to use Gemini.")
@@ -91,6 +94,7 @@ def _model_name() -> str:
 
 
 async def _generate_text(prompt: str) -> str:
+    # Shared helper for LLM text generation.
     client = _gemini_client()
     response = await client.aio.models.generate_content(
         model=_model_name(),
@@ -100,6 +104,7 @@ async def _generate_text(prompt: str) -> str:
 
 
 def _list_image_paths(image_dir: Path, case_id: str) -> list[Path]:
+    # Prefer case-scoped page files, otherwise use all images in the directory.
     if not image_dir.exists():
         return []
 
@@ -114,6 +119,7 @@ def _list_image_paths(image_dir: Path, case_id: str) -> list[Path]:
 
 
 def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
+    # Normalize common OCR output variants into MortgageApplication schema.
     data = dict(payload)
 
     applicant_info = data.pop("applicant_information", None)
@@ -222,6 +228,7 @@ def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
 
 
 async def _ocr_application_from_images(image_paths: list[Path], case_id: str) -> str:
+    # Send all image pages in one request to extract a single JSON object.
     client = _gemini_client()
     schema = json.dumps(MortgageApplication.model_json_schema(), indent=2)
     contents: list[types.Part | str] = [
@@ -270,11 +277,13 @@ async def retrieve_policy_context(query: str) -> str:
 async def extract_application_from_images(task: ApplicationOcrTask) -> MortgageApplication:
     """Extract mortgage application data from a directory of scanned images."""
 
+    # Collect images in deterministic order and fail fast if none exist.
     image_dir = Path(task.image_dir)
     image_paths = _list_image_paths(image_dir, task.case_id)
     if not image_paths:
         raise RuntimeError(f"No images found in {image_dir} for case {task.case_id}")
 
+    # OCR -> JSON -> normalize -> strict validation.
     raw_text = await _ocr_application_from_images(image_paths, task.case_id)
     data = parse_llm_json(raw_text)
     if not isinstance(data, dict):
@@ -346,6 +355,7 @@ Respond ONLY as JSON with:
     response = await _generate_text(prompt)
     data = parse_llm_json(response)
 
+    # Validate the supervisor response with a safe fallback.
     next_agent = str(data.get("next_agent", "")).lower()
     rationale = str(data.get("rationale", "")).strip()
 
@@ -437,6 +447,7 @@ Write your response ONLY as JSON:
     raw_response = await _generate_text(prompt)
     data = parse_llm_json(raw_response)
 
+    # Validate structured output and fall back deterministically if needed.
     decision = str(data.get("decision", "")).upper()
     risk_score = data.get("risk_score")
     if isinstance(risk_score, str) and risk_score.isdigit():

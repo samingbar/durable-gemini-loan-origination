@@ -3,19 +3,26 @@
 from __future__ import annotations
 
 import html
+import json
 import os
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Optional
+from urllib.parse import quote
 
-from fastapi import FastAPI, Form
-from fastapi.responses import HTMLResponse, PlainTextResponse
+from fastapi import FastAPI, File, Form, UploadFile
+from fastapi.responses import HTMLResponse, PlainTextResponse, RedirectResponse, Response
 from temporalio.client import Client
 from temporalio.contrib.pydantic import pydantic_data_converter
 from temporalio.exceptions import TemporalError
 
-from .mortgage_models import HumanReviewInput
+from .mortgage_models import HumanReviewInput, UnderwritingInput, UnderwritingOutput
 from .mortgage_workflow import MortgageUnderwritingWorkflow
 
 TEMPORAL_ADDRESS = os.environ.get("TEMPORAL_ADDRESS", "localhost:7233")
+TASK_QUEUE = os.environ.get("MORTGAGE_TASK_QUEUE", "mortgage-underwriting")
+UPLOAD_ROOT = Path(os.environ.get("UPLOAD_ROOT", "datasets/uploads"))
+MANIFEST_PATH = UPLOAD_ROOT / "cases.json"
 
 app = FastAPI(title="Mortgage Human Review")
 
@@ -26,15 +33,20 @@ async def _startup() -> None:
         TEMPORAL_ADDRESS,
         data_converter=pydantic_data_converter,
     )
+    UPLOAD_ROOT.mkdir(parents=True, exist_ok=True)
 
 
-def _page(title: str, body: str) -> HTMLResponse:
+def _page(title: str, body: str, refresh_seconds: int | None = None) -> HTMLResponse:
+    refresh_meta = ""
+    if refresh_seconds:
+        refresh_meta = f'<meta http-equiv="refresh" content="{refresh_seconds}">'
     html = f"""
 <!doctype html>
 <html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {refresh_meta}
   <title>{title}</title>
   <style>
     :root {{
@@ -117,6 +129,45 @@ def _page(title: str, body: str) -> HTMLResponse:
       font-size: 12px;
       font-weight: 600;
     }}
+    table {{
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }}
+    th, td {{
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }}
+    th {{
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }}
+    .actions {{
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }}
+    .alert {{
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      border: 1px solid transparent;
+      font-weight: 600;
+    }}
+    .alert-success {{
+      background: #ecfdf3;
+      color: #065f46;
+      border-color: #d1fae5;
+    }}
+    .alert-error {{
+      background: #fef2f2;
+      color: #991b1b;
+      border-color: #fee2e2;
+    }}
   </style>
 </head>
 <body>
@@ -161,22 +212,128 @@ def _render_list(items: list[str]) -> str:
     return "<ul>" + "".join([f"<li>{_escape(item)}</li>" for item in items]) + "</ul>"
 
 
+def _load_manifest() -> list[dict]:
+    if not MANIFEST_PATH.exists():
+        return []
+    try:
+        payload = json.loads(MANIFEST_PATH.read_text())
+        if isinstance(payload, list):
+            return payload
+    except json.JSONDecodeError:
+        return []
+    return []
+
+
+def _write_manifest(entries: list[dict]) -> None:
+    MANIFEST_PATH.write_text(json.dumps(entries, indent=2))
+
+
+def _scan_cases() -> list[dict]:
+    if not UPLOAD_ROOT.exists():
+        return []
+    entries: list[dict] = []
+    for path in UPLOAD_ROOT.iterdir():
+        if path.name == MANIFEST_PATH.name or not path.is_dir():
+            continue
+        created_at = datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
+        entries.append(
+            {
+                "case_id": path.name,
+                "created_at": created_at,
+                "image_dir": str(path),
+            }
+        )
+    return entries
+
+
+def _generate_case_id() -> str:
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%d")
+    suffix = datetime.now(timezone.utc).strftime("%H%M%S")
+    return f"MTG-{timestamp}-{suffix}"
+
+
+def _safe_extension(filename: str) -> str:
+    lower = filename.lower()
+    if lower.endswith(".png"):
+        return ".png"
+    if lower.endswith(".jpg"):
+        return ".jpg"
+    if lower.endswith(".jpeg"):
+        return ".jpeg"
+    return ".png"
+
+
+async def _fetch_status(client: Client, case_id: str) -> str:
+    handle = client.get_workflow_handle(_workflow_id(case_id))
+    try:
+        description = await handle.describe()
+        if description.status:
+            return description.status.name.replace("WORKFLOW_EXECUTION_STATUS_", "")
+    except TemporalError:
+        return "NOT_FOUND"
+    return "UNKNOWN"
+
+
+def _redirect_with_message(case_id: str, message: str | None = None, error: str | None = None) -> RedirectResponse:
+    query = []
+    if message:
+        query.append(f"message={quote(message)}")
+    if error:
+        query.append(f"error={quote(error)}")
+    suffix = f"?{'&'.join(query)}" if query else ""
+    return RedirectResponse(url=f"/case/{case_id}{suffix}", status_code=303)
+
+
 @app.get("/", response_class=HTMLResponse)
 async def index() -> HTMLResponse:
-    body = """
-<h1>Mortgage Human Review</h1>
-<p class="muted">Enter a case ID to load the review packet.</p>
+    client = await _get_client()
+    entries = _load_manifest()
+    if not entries:
+        entries = _scan_cases()
+    entries = sorted(entries, key=lambda item: item.get("created_at", ""), reverse=True)
+
+    rows = []
+    for entry in entries:
+        case_id = entry.get("case_id", "")
+        status = await _fetch_status(client, case_id) if case_id else "UNKNOWN"
+        rows.append(
+            f"<tr>"
+            f"<td><a href=\"/case/{_escape(case_id)}\">{_escape(case_id)}</a></td>"
+            f"<td>{_escape(entry.get('created_at', ''))}</td>"
+            f"<td><span class=\"badge\">{_escape(status)}</span></td>"
+            f"</tr>"
+        )
+
+    body = f"""
+<h1>Mortgage Admin Console</h1>
+<p class="muted">Upload a new case or review the status of existing workflows.</p>
 
 <div class="card">
-  <h2>Load Case</h2>
-  <form method="get" action="/case/">
-    <label>Case ID</label>
-    <input name="case_id" placeholder="MTG-2025-001" />
-    <button type="submit">Load</button>
+  <h2>Upload Loan Images</h2>
+  <form method="post" action="/upload" enctype="multipart/form-data">
+    <label>Loan Form Images (PNG/JPG)</label>
+    <input type="file" name="files" multiple required />
+    <button type="submit">Upload & Start Workflow</button>
   </form>
 </div>
+
+<div class="card">
+  <h2>Recent Cases</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Case ID</th>
+        <th>Created</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {''.join(rows) if rows else '<tr><td colspan="3" class="muted">No cases yet.</td></tr>'}
+    </tbody>
+  </table>
+</div>
 """
-    return _page("Human Review", body)
+    return _page("Admin Console", body, refresh_seconds=10)
 
 
 @app.get("/case/", response_class=HTMLResponse)
@@ -185,9 +342,12 @@ async def case_redirect(case_id: str) -> HTMLResponse:
 
 
 @app.get("/case/{case_id}", response_class=HTMLResponse)
-async def case_view(case_id: str) -> HTMLResponse:
+async def case_view(case_id: str, message: str | None = None, error: str | None = None) -> HTMLResponse:
     client = await _get_client()
-    handle = client.get_workflow_handle(_workflow_id(case_id))
+    handle = client.get_workflow_handle(
+        _workflow_id(case_id),
+        result_type=UnderwritingOutput,
+    )
     status_label = "UNKNOWN"
     try:
         description = await handle.describe()
@@ -198,26 +358,6 @@ async def case_view(case_id: str) -> HTMLResponse:
             "Case Not Found",
             f"<h1>Case {case_id}</h1><p>Unable to load workflow: {exc}</p>",
         )
-    try:
-        packet = await handle.query(MortgageUnderwritingWorkflow.get_review_packet)
-    except TemporalError as exc:
-        return _page(
-            "Case Not Found",
-            f"<h1>Case {case_id}</h1><p>Unable to load workflow: {exc}</p>",
-        )
-
-    if packet is None:
-        return _page(
-            "Case Not Ready",
-            f"<h1>Case {case_id}</h1><p>No review packet available yet.</p>",
-        )
-
-    applicant = packet.sanitized_applicant
-    metrics = packet.metrics
-    analyses = packet.analyses
-    recommendation = packet.decision_recommendation
-    allow_submit = status_label == "RUNNING" and recommendation.decision == "CONDITIONAL"
-
     final_decision_block = ""
     if status_label == "COMPLETED":
         try:
@@ -240,15 +380,36 @@ async def case_view(case_id: str) -> HTMLResponse:
 </div>
 """
 
-    body = f"""
-<h1>Case {_escape(case_id)} — {_escape(packet.display_name)}</h1>
-<p class="muted">Workflow ID: {_escape(_workflow_id(case_id))}</p>
-<div class="card">
-  <h2>Status</h2>
-  <p><span class="badge">{_escape(status_label)}</span></p>
-</div>
-{final_decision_block}
+    alert_block = ""
+    if message:
+        alert_block = f"<div class=\"alert alert-success\">{_escape(message)}</div>"
+    if error:
+        alert_block = f"<div class=\"alert alert-error\">{_escape(error)}</div>"
 
+    packet = None
+    try:
+        packet = await handle.query(MortgageUnderwritingWorkflow.get_review_packet)
+    except TemporalError:
+        packet = None
+
+    allow_submit = False
+    recommendation_block = ""
+    details_block = ""
+    if packet is None:
+        recommendation_block = """
+<div class="card">
+  <h2>Review Packet</h2>
+  <p class="muted">No review packet available yet.</p>
+</div>
+"""
+    else:
+        applicant = packet.sanitized_applicant
+        metrics = packet.metrics
+        analyses = packet.analyses
+        recommendation = packet.decision_recommendation
+        allow_submit = status_label == "RUNNING" and recommendation.decision == "CONDITIONAL"
+
+        recommendation_block = f"""
 <div class="card">
   <h2>Recommendation</h2>
   <p><span class="badge">{_escape(recommendation.decision)}</span></p>
@@ -259,7 +420,9 @@ async def case_view(case_id: str) -> HTMLResponse:
   <p><strong>Memo:</strong></p>
   <pre>{_escape(recommendation.memo)}</pre>
 </div>
+"""
 
+        details_block = f"""
 <div class="card">
   <h2>Applicant Summary (Sanitized)</h2>
   <div class="grid">
@@ -320,6 +483,20 @@ async def case_view(case_id: str) -> HTMLResponse:
   <h2>Policy Violations</h2>
   {_render_list(packet.policy_violations)}
 </div>
+"""
+
+    body = f"""
+<h1>Case {_escape(case_id)}{f" — {_escape(packet.display_name)}" if packet else ""}</h1>
+<p class="muted">Workflow ID: {_escape(_workflow_id(case_id))}</p>
+{alert_block}
+<div class="card">
+  <h2>Status</h2>
+  <p><span class="badge">{_escape(status_label)}</span></p>
+</div>
+{final_decision_block}
+
+{recommendation_block}
+{details_block}
 
 {"""
 <div class="card">
@@ -332,7 +509,6 @@ async def case_view(case_id: str) -> HTMLResponse:
     <label>Decision</label>
     <select name="decision">
       <option value="APPROVED">APPROVED</option>
-      <option value="CONDITIONAL">CONDITIONAL</option>
       <option value="REJECTED">REJECTED</option>
     </select>
 
@@ -344,7 +520,8 @@ async def case_view(case_id: str) -> HTMLResponse:
 </div>
 """ if allow_submit else ""}
 """
-    return _page(f"Case {case_id}", body)
+    refresh_seconds = 10 if status_label == "RUNNING" else None
+    return _page(f"Case {case_id}", body, refresh_seconds=refresh_seconds)
 
 
 @app.post("/submit")
@@ -360,11 +537,8 @@ async def submit_review(
     decision = decision.strip().upper()
     notes = notes.strip()
 
-    if decision not in {"APPROVED", "CONDITIONAL", "REJECTED"}:
-        return PlainTextResponse(
-            "Invalid decision. Use APPROVED, CONDITIONAL, or REJECTED.",
-            status_code=400,
-        )
+    if decision not in {"APPROVED", "REJECTED"}:
+        return _redirect_with_message(case_id, error="Invalid decision. Use APPROVED or REJECTED.")
 
     handle = client.get_workflow_handle(_workflow_id(case_id))
 
@@ -372,31 +546,57 @@ async def submit_review(
         description = await handle.describe()
         status = description.status.name.replace("WORKFLOW_EXECUTION_STATUS_", "") if description.status else "UNKNOWN"
         if status != "RUNNING":
-            return PlainTextResponse(
-                f"Cannot submit review: workflow status is {status}.",
-                status_code=409,
-            )
+            return _redirect_with_message(case_id, error=f"Cannot submit review: workflow status is {status}.")
 
         packet = await handle.query(MortgageUnderwritingWorkflow.get_review_packet)
         if packet is None:
-            return PlainTextResponse(
-                "Cannot submit review: no review packet available yet.",
-                status_code=409,
-            )
+            return _redirect_with_message(case_id, error="Cannot submit review: no review packet available yet.")
         if packet.decision_recommendation.decision != "CONDITIONAL":
-            return PlainTextResponse(
-                "Cannot submit review: workflow is not awaiting human review.",
-                status_code=409,
-            )
+            return _redirect_with_message(case_id, error="Cannot submit review: workflow is not awaiting human review.")
 
         await handle.signal(
             MortgageUnderwritingWorkflow.submit_human_review,
             HumanReviewInput(reviewer=reviewer, decision=decision, notes=notes),
         )
     except TemporalError as exc:
-        return PlainTextResponse(
-            f"Unable to submit review: {exc}",
-            status_code=400,
-        )
+        return _redirect_with_message(case_id, error=f"Unable to submit review: {exc}")
 
-    return PlainTextResponse(f"Submitted review for {case_id}.")
+    return _redirect_with_message(case_id, message=f"Submitted review for {case_id}.")
+
+
+@app.post("/upload")
+async def upload_case(files: list[UploadFile] = File(...)) -> Response:
+    if not files:
+        return PlainTextResponse("No files uploaded.", status_code=400)
+
+    case_id = _generate_case_id()
+    case_dir = UPLOAD_ROOT / case_id
+    case_dir.mkdir(parents=True, exist_ok=True)
+
+    for index, upload in enumerate(files, start=1):
+        ext = _safe_extension(upload.filename or "")
+        filename = f"{case_id}_p{index}{ext}"
+        target = case_dir / filename
+        content = await upload.read()
+        target.write_bytes(content)
+
+    client = await _get_client()
+    await client.start_workflow(
+        MortgageUnderwritingWorkflow.run,
+        UnderwritingInput(case_id=case_id, image_dir=str(case_dir)),
+        id=_workflow_id(case_id),
+        task_queue=TASK_QUEUE,
+    )
+
+    entries = _load_manifest()
+    created_at = datetime.now(timezone.utc).isoformat()
+    entries.append(
+        {
+            "case_id": case_id,
+            "created_at": created_at,
+            "image_dir": str(case_dir),
+        }
+    )
+    _write_manifest(entries)
+
+    return RedirectResponse(url=f"/case/{case_id}", status_code=303)
