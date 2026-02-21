@@ -38,7 +38,7 @@ def _repo_root() -> Path:
 
 @lru_cache(maxsize=1)
 def _load_policy_chunks() -> list[str]:
-    policy_path = _repo_root() / "notebook-inspiration" / "underwriting_policies.pdf"
+    policy_path = _repo_root() / "resources" / "underwriting_policies.pdf"
     reader = PdfReader(policy_path)
     pages = [page.extract_text() or "" for page in reader.pages]
     raw_text = "\n".join(pages)
