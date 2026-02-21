@@ -59,7 +59,7 @@ def _gemini_client() -> genai.Client:
 
 
 def _load_seed_profiles() -> list[dict[str, Any]]:
-    data_path = _repo_root() / "notebook-inspiration" / "mortgage_test_cases.json"
+    data_path = _repo_root() / "resources" / "mortgage_test_cases.json"
     payload = json.loads(data_path.read_text())
     return payload["test_cases"]
 
