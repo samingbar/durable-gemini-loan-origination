@@ -1,11 +1,11 @@
 [
   {
     "case_id": "MTG-2026-001",
-    "name": "Elena Petrova",
-    "ssn": "789-01-2345",
-    "email": "elena.petrova@prodesign.com",
-    "phone": "(206) 555-1123",
-    "address": "789 Willow Lane, Seattle, WA 98101",
+    "name": "Emily White",
+    "ssn": "333-22-1111",
+    "email": "emily.white@consulting.com",
+    "phone": "206-555-1234",
+    "address": "789 Pine Lane, Seattle, WA 98101",
     "credit_score": 790,
     "credit_history": {
       "bankruptcies": 0,
@@ -16,98 +16,98 @@
       "inquiries_6mo": 1,
       "oldest_tradeline_years": 20.0,
       "total_tradelines": 15,
-      "credit_notes": "Impeccable credit history. Longstanding accounts with no derogatory marks. Very low credit utilization."
+      "credit_notes": "Impeccable credit history. No derogatory marks, consistent on-time payments. Long-standing accounts."
     },
     "employment": {
-      "employer": "Architectural Innovations Group",
-      "position": "Lead Architect",
-      "years": 10.0,
-      "monthly_income": 14000.0,
+      "employer": "Global Tech Consulting",
+      "position": "Principal Consultant",
+      "years": 8.0,
+      "monthly_income": 16000.0,
       "type": "W2",
       "employment_gap": "None",
       "gap_explanation": "N/A",
       "employment_history": [
         {
-          "employer": "Architectural Innovations Group",
-          "position": "Lead Architect",
-          "years": 10.0,
-          "income": 168000.0
+          "employer": "Global Tech Consulting",
+          "position": "Principal Consultant",
+          "years": 8.0,
+          "income": 192000.0
         },
         {
-          "employer": "Design Pro Solutions",
-          "position": "Architect",
+          "employer": "Innovate Solutions",
+          "position": "Senior Consultant",
           "years": 5.0,
-          "income": 90000.0
+          "income": 120000.0
         }
       ],
       "income_details": {
-        "base_salary": 160000.0,
-        "bonus_2023": 10000.0,
-        "bonus_2024": 8000.0,
+        "base_salary": 180000.0,
+        "bonus_2023": 25000.0,
+        "bonus_2024": 28000.0,
         "bonus_stable": true,
-        "employer_confirmation": "Bonus program consistent and expected to continue per HR letter dated 2025-01-20."
+        "employer_confirmation": "Bonus structure consistent for past 5 years and expected to continue."
       }
     },
     "debts": {
-      "car_loan": 450.0,
+      "car_loan": 700.0,
       "student_loan": 0.0,
-      "credit_cards": 500.0,
+      "credit_cards": 1300.0,
       "personal_loan": 0,
-      "total_monthly_debt": 950.0
+      "total_monthly_debt": 2000.0
     },
     "assets": {
-      "checking": 90000.0,
+      "checking": 100000.0,
       "savings": 150000.0,
-      "liquid_assets_total": 240000.0,
+      "liquid_assets_total": 250000.0,
       "401k": 300000.0,
       "recent_deposits": [
         {
           "date": "2024-12-28",
-          "amount": 7000.0,
-          "description": "Regular bi-weekly salary"
+          "amount": 16000.0,
+          "description": "Monthly salary"
         },
         {
-          "date": "2024-12-15",
-          "amount": 8000.0,
-          "description": "Year-end performance bonus"
+          "date": "2024-12-10",
+          "amount": 28000.0,
+          "description": "Annual performance bonus"
         },
         {
-          "date": "2024-12-14",
-          "amount": 7000.0,
-          "description": "Regular bi-weekly salary"
+          "date": "2024-11-28",
+          "amount": 16000.0,
+          "description": "Monthly salary"
         }
       ],
-      "deposit_explanations": "All deposits sourced from regular W2 income and documented annual bonus.",
-      "reserves_months": 22
+      "deposit_explanations": "Monthly salary and annual bonus as confirmed by employer.",
+      "reserves_months": 45
     },
     "loan": {
-      "amount": 500000.0,
+      "amount": 600000.0,
       "down_payment": 200000.0,
-      "closing_costs": 15000.0,
+      "closing_costs": 18000.0,
       "estimated_payment": 3500.0,
       "property_type": "Single Family",
       "use": "Primary Residence",
       "monthly_piti": 3500.0
     },
     "property": {
-      "purchase_price": 700000.0,
-      "appraised_value": 720000.0,
+      "purchase_price": 800000.0,
+      "appraised_value": 810000.0,
       "condition": "C2 - Good",
       "type": "Single Family Home",
       "required_repairs": 0.0,
       "repair_details": "No repairs required. Property in excellent condition."
     },
-    "dti_ratio": 0.06785714285714285,
+    "dti_ratio": 0.125,
     "expected_decision": "APPROVED"
   },
   {
     "case_id": "MTG-2026-002",
-    "name": "David Kim",
-    "ssn": "012-34-5678",
-    "email": "david.kim@medicare.org",
-    "phone": "(206) 555-1122",
-    "address": "456 Cedar Street, Portland, OR 97201",
-    "credit_score": 740,
+    "name": "David Lee",
+    "ssn": "111-22-3333",
+    "email": "david.lee@austinbuilders.net",
+    "phone": "512-555-4321",
+    "address": "101 Lake View Drive, Austin, TX 78704",
+    "credit_score": 720,
     "credit_history": {
       "bankruptcies": 0,
       "foreclosures": 0,
@@ -115,268 +115,283 @@
       "late_payments_24mo": 1,
       "collections": [],
       "inquiries_6mo": 3,
-      "oldest_tradeline_years": 12.0,
+      "oldest_tradeline_years": 10.0,
       "total_tradelines": 10,
-      "credit_notes": "Good payment history overall. One 30-day late on a credit card 20 months ago due to travel. All other accounts current."
+      "credit_notes": "One 30-day late payment on a credit card 15 months ago, attributed to an auto-pay error and subsequently resolved. Otherwise, good payment history."
     },
     "employment": {
-      "employer": "Portland General Hospital",
-      "position": "Staff Physician",
-      "years": 7.0,
-      "monthly_income": 11000.0,
+      "employer": "Austin Builders Group",
+      "position": "Construction Manager",
+      "years": 3.0,
+      "monthly_income": 10000.0,
       "type": "W2",
       "employment_gap": "None",
       "gap_explanation": "N/A",
       "employment_history": [
         {
-          "employer": "Portland General Hospital",
-          "position": "Staff Physician",
-          "years": 7.0,
-          "income": 132000.0
+          "employer": "Austin Builders Group",
+          "position": "Construction Manager",
+          "years": 3.0,
+          "income": 120000.0
         },
         {
-          "employer": "Seattle Medical Center",
-          "position": "Resident Physician",
+          "employer": "Dallas Development Co.",
+          "position": "Project Coordinator",
           "years": 4.0,
-          "income": 60000.0
+          "income": 80000.0
         }
       ],
       "income_details": {
-        "base_salary": 132000.0,
-        "bonus_2023": 0.0,
-        "bonus_2024": 5000.0,
-        "bonus_stable": false,
-        "employer_confirmation": "Discretionary year-end bonus, not guaranteed annually."
+        "base_salary": 100000.0,
+        "bonus_2023": 10000.0,
+        "bonus_2024": 15000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Bonus is performance-based but has been consistently paid for the last 3 years."
       }
     },
     "debts": {
       "car_loan": 550.0,
-      "student_loan": 700.0,
-      "credit_cards": 1000.0,
+      "student_loan": 350.0,
+      "credit_cards": 900.0,
       "personal_loan": 0,
-      "total_monthly_debt": 2250.0
+      "total_monthly_debt": 1800.0
     },
     "assets": {
-      "checking": 45000.0,
-      "savings": 60000.0,
-      "liquid_assets_total": 105000.0,
-      "401k": 180000.0,
+      "checking": 40000.0,
+      "savings": 30000.0,
+      "liquid_assets_total": 70000.0,
+      "401k": 80000.0,
       "recent_deposits": [
         {
-          "date": "2024-12-25",
-          "amount": 5500.0,
-          "description": "Regular bi-weekly salary"
+          "date": "2024-12-15",
+          "amount": 5000.0,
+          "description": "Bi-weekly salary"
         },
         {
           "date": "2024-12-01",
+          "amount": 15000.0,
+          "description": "Annual bonus deposit"
+        },
+        {
+          "date": "2024-11-30",
           "amount": 5000.0,
-          "description": "Discretionary year-end bonus"
+          "description": "Bi-weekly salary"
         }
       ],
-      "deposit_explanations": "December bonus verified by pay stub. All other deposits are regular bi-weekly salary.",
+      "deposit_explanations": "Standard salary deposits and documented annual bonus.",
       "reserves_months": 15
     },
     "loan": {
-      "amount": 450000.0,
-      "down_payment": 100000.0,
+      "amount": 380000.0,
+      "down_payment": 70000.0,
       "closing_costs": 10000.0,
-      "estimated_payment": 3000.0,
-      "property_type": "Single Family",
+      "estimated_payment": 2800.0,
+      "property_type": "Townhouse",
       "use": "Primary Residence",
-      "monthly_piti": 3000.0
+      "monthly_piti": 2800.0
     },
     "property": {
-      "purchase_price": 550000.0,
-      "appraised_value": 550000.0,
+      "purchase_price": 450000.0,
+      "appraised_value": 455000.0,
       "condition": "C3 - Average",
-      "type": "Single Family Home",
+      "type": "Townhouse",
       "required_repairs": 0.0,
-      "repair_details": "No immediate repairs required. Minor cosmetic updates suggested."
+      "repair_details": "No significant repairs needed, general maintenance items noted."
     },
-    "dti_ratio": 0.20454545454545456,
+    "dti_ratio": 0.18,
     "expected_decision": "APPROVED"
   },
   {
     "case_id": "MTG-2026-003",
-    "name": "Maria Garcia",
-    "ssn": "345-67-8901",
-    "email": "m.garcia@startuphub.net",
-    "phone": "(720) 555-4455",
-    "address": "101 Birch Street, Denver, CO 80203",
-    "credit_score": 690,
+    "name": "Jessica Kim",
+    "ssn": "444-55-6666",
+    "email": "jessica.kim@denverdesign.org",
+    "phone": "720-555-8765",
+    "address": "202 Riverwalk, Denver, CO 80202",
+    "credit_score": 670,
     "credit_history": {
       "bankruptcies": 0,
       "foreclosures": 0,
-      "late_payments_12mo": 1,
+      "late_payments_12mo": 2,
       "late_payments_24mo": 3,
       "collections": [],
       "inquiries_6mo": 4,
       "oldest_tradeline_years": 7.0,
       "total_tradelines": 8,
-      "credit_notes": "One 30-day late payment on a student loan 9 months ago. Two other 30-day lates in the last 24 months. Credit utilization is moderate."
+      "credit_notes": "Two 30-day late payments in the last year on different credit cards, attributed to medical expenses and temporary financial strain. Accounts are now current."
     },
     "employment": {
-      "employer": "Innovate Denver Startup",
-      "position": "Marketing Manager",
-      "years": 2.0,
-      "monthly_income": 8000.0,
+      "employer": "Mile High Design Agency",
+      "position": "Graphic Designer",
+      "years": 4.0,
+      "monthly_income": 8500.0,
       "type": "W2",
       "employment_gap": "None",
       "gap_explanation": "N/A",
       "employment_history": [
         {
-          "employer": "Innovate Denver Startup",
-          "position": "Marketing Manager",
-          "years": 2.0,
-          "income": 96000.0
+          "employer": "Mile High Design Agency",
+          "position": "Graphic Designer",
+          "years": 4.0,
+          "income": 102000.0
         },
         {
-          "employer": "Marketing Solutions Inc.",
-          "position": "Marketing Coordinator",
-          "years": 3.0,
-          "income": 70000.0
+          "employer": "Creative Spark Studios",
+          "position": "Junior Designer",
+          "years": 2.0,
+          "income": 60000.0
         }
       ],
       "income_details": {
-        "base_salary": 90000.0,
-        "bonus_2023": 5000.0,
-        "bonus_2024": 3000.0,
+        "base_salary": 95000.0,
+        "bonus_2023": 7000.0,
+        "bonus_2024": 7000.0,
         "bonus_stable": false,
-        "employer_confirmation": "Bonus highly variable based on company performance, not guaranteed."
+        "employer_confirmation": "Bonus is discretionary and not guaranteed to continue."
       }
     },
     "debts": {
       "car_loan": 400.0,
       "student_loan": 600.0,
-      "credit_cards": 2000.0,
-      "personal_loan": 0,
-      "total_monthly_debt": 3000.0
+      "credit_cards": 500.0,
+      "personal_loan": 0.0,
+      "total_monthly_debt": 1500.0
     },
     "assets": {
-      "checking": 25000.0,
-      "savings": 20000.0,
-      "liquid_assets_total": 45000.0,
-      "401k": 60000.0,
-      "recent_deposits": [
-        {
-          "date": "2024-12-20",
-          "amount": 4000.0,
-          "description": "Regular bi-weekly salary"
-        },
-        {
-          "date": "2024-11-20",
-          "amount": 4000.0,
-          "description": "Regular bi-weekly salary"
-        }
-      ],
-      "deposit_explanations": "All deposits represent regular bi-weekly salary. Bonus not recent.",
-      "reserves_months": 4
-    },
-    "loan": {
-      "amount": 320000.0,
-      "down_payment": 40000.0,
-      "closing_costs": 7000.0,
-      "estimated_payment": 2600.0,
-      "property_type": "Townhouse",
-      "use": "Primary Residence",
-      "monthly_piti": 2600.0
-    },
-    "property": {
-      "purchase_price": 360000.0,
-      "appraised_value": 355000.0,
-      "condition": "C3 - Average",
-      "type": "Townhouse",
-      "required_repairs": 1500.0,
-      "repair_details": "Minor plumbing fixtures need replacement. Cosmetic updates."
-    },
-    "dti_ratio": 0.375,
-    "expected_decision": "CONDITIONAL"
-  },
-  {
-    "case_id": "MTG-2026-004",
-    "name": "John Miller",
-    "ssn": "678-90-1234",
-    "email": "john.miller@construct.com",
-    "phone": "(720) 555-6677",
-    "address": "202 Pine Ridge Rd, Phoenix, AZ 85004",
-    "credit_score": 630,
-    "credit_history": {
-      "bankruptcies": 0,
-      "foreclosures": 0,
-      "late_payments_12mo": 2,
-      "late_payments_24mo": 4,
-      "collections": [
-        {
-          "type": "utility",
-          "amount": 350.0
-        }
-      ],
-      "inquiries_6mo": 6,
-      "oldest_tradeline_years": 9.0,
-      "total_tradelines": 7,
-      "credit_notes": "Multiple 30-day late payments on credit cards. One small utility collection, recently paid. High credit seeking activity in the last 6 months."
-    },
-    "employment": {
-      "employer": "Desert Builds Construction",
-      "position": "Construction Foreman",
-      "years": 5.0,
-      "monthly_income": 6500.0,
-      "type": "W2",
-      "employment_gap": "None",
-      "gap_explanation": "N/A",
-      "employment_history": [
-        {
-          "employer": "Desert Builds Construction",
-          "position": "Construction Foreman",
-          "years": 5.0,
-          "income": 78000.0
-        },
-        {
-          "employer": "Southwest Builders LLC",
-          "position": "Lead Carpenter",
-          "years": 3.0,
-          "income": 55000.0
-        }
-      ],
-      "income_details": {
-        "base_salary": 78000.0,
-        "bonus_2023": 0.0,
-        "bonus_2024": 0.0,
-        "bonus_stable": false,
-        "employer_confirmation": "No bonus program for this position."
-      }
-    },
-    "debts": {
-      "car_loan": 700.0,
-      "student_loan": 800.0,
-      "credit_cards": 2500.0,
-      "personal_loan": 300.0,
-      "total_monthly_debt": 4300.0
-    },
-    "assets": {
-      "checking": 15000.0,
-      "savings": 10000.0,
-      "liquid_assets_total": 25000.0,
+      "checking": 20000.0,
+      "savings": 15000.0,
+      "liquid_assets_total": 35000.0,
       "401k": 30000.0,
       "recent_deposits": [
         {
           "date": "2024-12-20",
-          "amount": 3250.0,
-          "description": "Regular bi-weekly salary"
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
         },
         {
-          "date": "2024-12-05",
-          "amount": 3250.0,
-          "description": "Regular bi-weekly salary"
+          "date": "2024-12-06",
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-22",
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
         }
       ],
-      "deposit_explanations": "All deposits are regular bi-weekly salary.",
-      "reserves_months": 1
+      "deposit_explanations": "Regular bi-weekly salary deposits.",
+      "reserves_months": 8
+    },
+    "loan": {
+      "amount": 280000.0,
+      "down_payment": 40000.0,
+      "closing_costs": 9000.0,
+      "estimated_payment": 2500.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 2500.0
+    },
+    "property": {
+      "purchase_price": 320000.0,
+      "appraised_value": 315000.0,
+      "condition": "C3 - Average",
+      "type": "Condominium",
+      "required_repairs": 1500.0,
+      "repair_details": "Minor plumbing repair needed in bathroom. HOA responsible for common areas."
+    },
+    "dti_ratio": 0.17647058823529413,
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "MTG-2026-004",
+    "name": "Brian Miller",
+    "ssn": "777-88-9999",
+    "email": "brian.miller@freelancecorp.com",
+    "phone": "602-555-7890",
+    "address": "303 Main Street, Phoenix, AZ 85003",
+    "credit_score": 620,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 3,
+      "late_payments_24mo": 5,
+      "collections": [
+        {
+          "type": "utility",
+          "amount": 450.0
+        }
+      ],
+      "inquiries_6mo": 6,
+      "oldest_tradeline_years": 5.0,
+      "total_tradelines": 7,
+      "credit_notes": "Several recent 30-day late payments on credit cards. One utility collection from 18 months ago. High inquiry count suggests attempts to secure additional credit."
+    },
+    "employment": {
+      "employer": "Self-Employed (IT Consultant)",
+      "position": "IT Consultant",
+      "years": 3.0,
+      "monthly_income": 6000.0,
+      "type": "Self-Employed",
+      "employment_gap": "Yes",
+      "gap_explanation": "6-month gap between a full-time position and starting freelance work. Income shows volatility based on contract availability.",
+      "employment_history": [
+        {
+          "employer": "Self-Employed (IT Consultant)",
+          "position": "IT Consultant",
+          "years": 3.0,
+          "income": 72000.0
+        },
+        {
+          "employer": "Desert Systems Inc.",
+          "position": "Network Engineer",
+          "years": 2.0,
+          "income": 65000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 0.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Self-employed, income verified through tax returns (Schedule C). Income showed a 10% decrease from prior year."
+      }
+    },
+    "debts": {
+      "car_loan": 450.0,
+      "student_loan": 0.0,
+      "credit_cards": 750.0,
+      "personal_loan": 0.0,
+      "total_monthly_debt": 1200.0
+    },
+    "assets": {
+      "checking": 10000.0,
+      "savings": 5000.0,
+      "liquid_assets_total": 15000.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-25",
+          "amount": 3500.0,
+          "description": "Client payment (Project A)"
+        },
+        {
+          "date": "2024-12-10",
+          "amount": 2500.0,
+          "description": "Client payment (Project B)"
+        },
+        {
+          "date": "2024-11-28",
+          "amount": 6000.0,
+          "description": "Client payment (Project C)"
+        }
+      ],
+      "deposit_explanations": "Deposits represent client payments for consulting services.",
+      "reserves_months": 4
     },
     "loan": {
       "amount": 250000.0,
       "down_payment": 25000.0,
-      "closing_costs": 5000.0,
+      "closing_costs": 7500.0,
       "estimated_payment": 2000.0,
       "property_type": "Single Family",
       "use": "Primary Residence",
@@ -387,25 +402,25 @@
       "appraised_value": 270000.0,
       "condition": "C4 - Fair",
       "type": "Single Family Home",
-      "required_repairs": 4000.0,
-      "repair_details": "Needs new water heater, minor electrical work required."
+      "required_repairs": 5000.0,
+      "repair_details": "Older roof needs patching, some water damage noted in garage. Electrical system dated."
     },
-    "dti_ratio": 0.6615384615384615,
-    "expected_decision": "REJECTED"
+    "dti_ratio": 0.2,
+    "expected_decision": "CONDITIONAL"
   },
   {
     "case_id": "MTG-2026-005",
-    "name": "Brenda Williams",
-    "ssn": "901-23-4567",
-    "email": "brenda.w@shoplocal.biz",
-    "phone": "(702) 555-0000",
-    "address": "303 Desert View Ln, Las Vegas, NV 89101",
-    "credit_score": 580,
+    "name": "Ashley Rodriguez",
+    "ssn": "999-00-1111",
+    "email": "ashley.rodriguez@email.org",
+    "phone": "305-555-9012",
+    "address": "404 Elm Street, Miami, FL 33101",
+    "credit_score": 560,
     "credit_history": {
       "bankruptcies": 1,
       "foreclosures": 0,
-      "late_payments_12mo": 4,
-      "late_payments_24mo": 8,
+      "late_payments_12mo": 5,
+      "late_payments_24mo": 9,
       "collections": [
         {
           "type": "medical",
@@ -419,44 +434,1565 @@
       "inquiries_6mo": 7,
       "oldest_tradeline_years": 3.0,
       "total_tradelines": 5,
-      "credit_notes": "Chapter 7 bankruptcy filed 1.5 years ago (discharged 1 year ago). Multiple recent 60-day late payments. Two active collections. Very short credit history post-bankruptcy."
+      "credit_notes": "Chapter 7 bankruptcy discharged 1.5 years ago. Multiple 60-day and 90-day late payments on new credit accounts. Two outstanding collections. Limited credit history post-bankruptcy."
     },
     "employment": {
-      "employer": "Local Market Grocers",
-      "position": "Retail Supervisor",
+      "employer": "Local Retail Store",
+      "position": "Assistant Manager",
       "years": 1.0,
-      "monthly_income": 3500.0,
+      "monthly_income": 4500.0,
       "type": "W2",
       "employment_gap": "Yes",
-      "gap_explanation": "6-month gap between previous retail job and current due to store closure and relocation.",
+      "gap_explanation": "10-month gap after previous employment due to family health issues and seeking new job after bankruptcy. Current job is recent.",
       "employment_history": [
         {
-          "employer": "Local Market Grocers",
-          "position": "Retail Supervisor",
+          "employer": "Local Retail Store",
+          "position": "Assistant Manager",
           "years": 1.0,
-          "income": 42000.0
+          "income": 54000.0
         },
         {
-          "employer": "MegaMart",
-          "position": "Sales Associate",
+          "employer": "Service Industry",
+          "position": "Supervisor",
           "years": 2.0,
-          "income": 30000.0
+          "income": 40000.0
         }
       ],
       "income_details": {
-        "base_salary": 42000.0,
+        "base_salary": 50000.0,
         "bonus_2023": 0.0,
         "bonus_2024": 0.0,
         "bonus_stable": false,
-        "employer_confirmation": "No bonus structure for this position. Hourly pay."
+        "employer_confirmation": "Hourly wage with occasional overtime. No bonus structure."
+      }
+    },
+    "debts": {
+      "car_loan": 300.0,
+      "student_loan": 0.0,
+      "credit_cards": 700.0,
+      "personal_loan": 0.0,
+      "total_monthly_debt": 1000.0
+    },
+    "assets": {
+      "checking": 5000.0,
+      "savings": 2000.0,
+      "liquid_assets_total": 7000.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-29",
+          "amount": 2250.0,
+          "description": "Bi-weekly pay"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 2250.0,
+          "description": "Bi-weekly pay"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 2250.0,
+          "description": "Bi-weekly pay"
+        }
+      ],
+      "deposit_explanations": "Regular bi-weekly payroll deposits.",
+      "reserves_months": 2
+    },
+    "loan": {
+      "amount": 180000.0,
+      "down_payment": 20000.0,
+      "closing_costs": 6000.0,
+      "estimated_payment": 1800.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 1800.0
+    },
+    "property": {
+      "purchase_price": 200000.0,
+      "appraised_value": 195000.0,
+      "condition": "C5 - Poor",
+      "type": "Condominium",
+      "required_repairs": 10000.0,
+      "repair_details": "Significant water damage to ceiling, mold detected in bathroom. HVAC system needs replacement."
+    },
+    "dti_ratio": 0.2222222222222222,
+    "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-006",
+    "name": "Olivia Davis",
+    "ssn": "111-22-3333",
+    "email": "olivia.davis@email.com",
+    "phone": "555-111-2222",
+    "address": "789 Pine Ridge Road, Seattle, WA 98101",
+    "credit_score": 790,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 1,
+      "oldest_tradeline_years": 20.0,
+      "total_tradelines": 15,
+      "credit_notes": "Excellent credit history. Longstanding credit accounts with perfect payment record. Low credit utilization. No derogatory items."
+    },
+    "employment": {
+      "employer": "Global Innovations Corp",
+      "position": "Director of Operations",
+      "years": 10.0,
+      "monthly_income": 15000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Global Innovations Corp",
+          "position": "Director of Operations",
+          "years": 10.0,
+          "income": 180000.0
+        },
+        {
+          "employer": "Market Solutions Inc",
+          "position": "Operations Manager",
+          "years": 7.0,
+          "income": 110000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 180000.0,
+        "bonus_2023": 25000.0,
+        "bonus_2024": 30000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Bonus consistently paid for last 5 years, expected to continue."
+      }
+    },
+    "debts": {
+      "car_loan": 900.0,
+      "student_loan": 0.0,
+      "credit_cards": 1000.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1900.0
+    },
+    "assets": {
+      "checking": 100000.0,
+      "savings": 150000.0,
+      "liquid_assets_total": 250000.0,
+      "401k": 400000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 30000.0,
+          "description": "Annual bonus"
+        },
+        {
+          "date": "2024-11-29",
+          "amount": 7500.0,
+          "description": "Regular salary"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 7500.0,
+          "description": "Regular salary"
+        }
+      ],
+      "deposit_explanations": "December bonus documented with pay stub. All other deposits are regular bi-weekly salary.",
+      "reserves_months": 25
+    },
+    "loan": {
+      "amount": 600000.0,
+      "down_payment": 200000.0,
+      "closing_costs": 15000.0,
+      "estimated_payment": 4000.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 4000.0
+    },
+    "property": {
+      "purchase_price": 800000.0,
+      "appraised_value": 810000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required"
+    },
+    "dti_ratio": 0.12666666666666668,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-007",
+    "name": "Benjamin Garcia",
+    "ssn": "444-55-6666",
+    "email": "ben.garcia@gmail.com",
+    "phone": "(503) 555-3333",
+    "address": "456 River View Drive, Portland, OR 97201",
+    "credit_score": 730,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 1,
+      "collections": [],
+      "inquiries_6mo": 3,
+      "oldest_tradeline_years": 12.0,
+      "total_tradelines": 10,
+      "credit_notes": "One 30-day late payment 20 months ago on a department store card. Otherwise solid payment history. Credit utilization is moderate."
+    },
+    "employment": {
+      "employer": "Northwest Data Solutions",
+      "position": "Data Analyst",
+      "years": 4.0,
+      "monthly_income": 8500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Northwest Data Solutions",
+          "position": "Data Analyst",
+          "years": 4.0,
+          "income": 102000.0
+        },
+        {
+          "employer": "Pacific Retail Group",
+          "position": "Assistant Manager",
+          "years": 3.0,
+          "income": 60000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 102000.0,
+        "bonus_2023": 5000.0,
+        "bonus_2024": 6000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Small annual bonus typically provided based on company performance."
+      }
+    },
+    "debts": {
+      "car_loan": 400.0,
+      "student_loan": 300.0,
+      "credit_cards": 1200.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1900.0
+    },
+    "assets": {
+      "checking": 25000.0,
+      "savings": 40000.0,
+      "liquid_assets_total": 65000.0,
+      "401k": 90000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-10",
+          "amount": 4250.0,
+          "description": "Regular bi-weekly salary"
+        },
+        {
+          "date": "2024-11-26",
+          "amount": 4250.0,
+          "description": "Regular bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "All deposits are regular bi-weekly salary.",
+      "reserves_months": 5
+    },
+    "loan": {
+      "amount": 320000.0,
+      "down_payment": 80000.0,
+      "closing_costs": 9000.0,
+      "estimated_payment": 2500.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 2500.0
+    },
+    "property": {
+      "purchase_price": 400000.0,
+      "appraised_value": 405000.0,
+      "condition": "C3 - Average",
+      "type": "Condominium",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required"
+    },
+    "dti_ratio": 0.2235294117647059,
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "MTG-2026-008",
+    "name": "Sophia Wilson",
+    "ssn": "777-88-9999",
+    "email": "sophia.w@creative.net",
+    "phone": "555-444-5555",
+    "address": "101 Cactus Lane, Austin, TX 78704",
+    "credit_score": 710,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 2,
+      "oldest_tradeline_years": 10.0,
+      "total_tradelines": 8,
+      "credit_notes": "Consistent payment history. Good mix of credit accounts. Credit utilization is low."
+    },
+    "employment": {
+      "employer": "Self-Employed (Graphic Design Studio)",
+      "position": "Owner/Designer",
+      "years": 5.0,
+      "monthly_income": 10000.0,
+      "type": "Self-Employed",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Self-Employed (Graphic Design Studio)",
+          "position": "Owner/Designer",
+          "years": 5.0,
+          "income": 120000.0
+        },
+        {
+          "employer": "Digital Marketing Agency",
+          "position": "Lead Designer",
+          "years": 3.0,
+          "income": 80000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 0.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Self-employed, income verified through 2 years of tax returns (showing consistent/increasing income)."
+      }
+    },
+    "debts": {
+      "car_loan": 550.0,
+      "student_loan": 0.0,
+      "credit_cards": 900.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1450.0
+    },
+    "assets": {
+      "checking": 40000.0,
+      "savings": 70000.0,
+      "liquid_assets_total": 110000.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-01",
+          "amount": 10500.0,
+          "description": "Client payments (multiple invoices)"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 9800.0,
+          "description": "Client payments (multiple invoices)"
+        }
+      ],
+      "deposit_explanations": "Multiple client payments representing monthly income, consistent with tax returns.",
+      "reserves_months": 10
+    },
+    "loan": {
+      "amount": 420000.0,
+      "down_payment": 80000.0,
+      "closing_costs": 10000.0,
+      "estimated_payment": 3000.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 3000.0
+    },
+    "property": {
+      "purchase_price": 500000.0,
+      "appraised_value": 500000.0,
+      "condition": "C3 - Average",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required"
+    },
+    "dti_ratio": 0.145,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-009",
+    "name": "Liam Rodriguez",
+    "ssn": "222-33-4444",
+    "email": "liam.r@company.com",
+    "phone": "555-666-7777",
+    "address": "246 Mountain Peak Way, Denver, CO 80203",
+    "credit_score": 660,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 1,
+      "late_payments_24mo": 3,
+      "collections": [
+        {
+          "type": "medical",
+          "amount": 800.0
+        }
+      ],
+      "inquiries_6mo": 6,
+      "oldest_tradeline_years": 7.0,
+      "total_tradelines": 7,
+      "credit_notes": "One 60-day late payment on a credit card 8 months ago. Two 30-day late payments 22 months ago during a period of unemployment. One medical collection for $800, currently being disputed. High credit utilization on one card."
+    },
+    "employment": {
+      "employer": "Mile High Logistics",
+      "position": "Logistics Coordinator",
+      "years": 1.0,
+      "monthly_income": 6000.0,
+      "type": "W2",
+      "employment_gap": "Yes",
+      "gap_explanation": "6-month gap between jobs after a company downsizing. Documented with severance and new offer letter.",
+      "employment_history": [
+        {
+          "employer": "Mile High Logistics",
+          "position": "Logistics Coordinator",
+          "years": 1.0,
+          "income": 72000.0
+        },
+        {
+          "employer": "Summit Delivery Services",
+          "position": "Operations Assistant",
+          "years": 4.0,
+          "income": 60000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 72000.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "No bonuses for this position."
+      }
+    },
+    "debts": {
+      "car_loan": 500.0,
+      "student_loan": 250.0,
+      "credit_cards": 1800.0,
+      "personal_loan": 150.0,
+      "total_monthly_debt": 2700.0
+    },
+    "assets": {
+      "checking": 8000.0,
+      "savings": 12000.0,
+      "liquid_assets_total": 20000.0,
+      "401k": 25000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-15",
+          "amount": 3000.0,
+          "description": "Regular bi-weekly salary"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 3000.0,
+          "description": "Regular bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "All deposits are regular bi-weekly salary.",
+      "reserves_months": 2
+    },
+    "loan": {
+      "amount": 250000.0,
+      "down_payment": 25000.0,
+      "closing_costs": 7000.0,
+      "estimated_payment": 2000.0,
+      "property_type": "Townhouse",
+      "use": "Primary Residence",
+      "monthly_piti": 2000.0
+    },
+    "property": {
+      "purchase_price": 275000.0,
+      "appraised_value": 270000.0,
+      "condition": "C3 - Average",
+      "type": "Townhouse",
+      "required_repairs": 1500.0,
+      "repair_details": "Minor roof shingle repairs needed. HVAC system serviced recently."
+    },
+    "dti_ratio": 0.45,
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "MTG-2026-010",
+    "name": "Mia Lee",
+    "ssn": "888-99-0000",
+    "email": "mia.lee@example.com",
+    "phone": "555-888-9999",
+    "address": "303 Ocean Breeze Lane, Miami, FL 33101",
+    "credit_score": 590,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 1,
+      "late_payments_12mo": 4,
+      "late_payments_24mo": 8,
+      "collections": [
+        {
+          "type": "medical",
+          "amount": 3500.0
+        },
+        {
+          "type": "utility",
+          "amount": 500.0
+        }
+      ],
+      "inquiries_6mo": 10,
+      "oldest_tradeline_years": 3.0,
+      "total_tradelines": 5,
+      "credit_notes": "Foreclosure filed 1.5 years ago (completed 6 months ago). Multiple recent 30/60/90-day late payments across various accounts. Two active collections totaling $4,000. Very high inquiry rate, suggesting desperation for credit. Limited credit history."
+    },
+    "employment": {
+      "employer": "Sunshine Retail Solutions",
+      "position": "Sales Associate",
+      "years": 0.5,
+      "monthly_income": 3000.0,
+      "type": "W2",
+      "employment_gap": "Yes",
+      "gap_explanation": "Extensive 18-month employment gap after foreclosure and job loss. Recently re-employed part-time.",
+      "employment_history": [
+        {
+          "employer": "Sunshine Retail Solutions",
+          "position": "Sales Associate",
+          "years": 0.5,
+          "income": 36000.0
+        },
+        {
+          "employer": "Coastal Department Store",
+          "position": "Department Manager",
+          "years": 6.0,
+          "income": 45000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 36000.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Part-time, no guaranteed hours beyond 20 per week."
+      }
+    },
+    "debts": {
+      "car_loan": 350.0,
+      "student_loan": 800.0,
+      "credit_cards": 1000.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2150.0
+    },
+    "assets": {
+      "checking": 2000.0,
+      "savings": 500.0,
+      "liquid_assets_total": 2500.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 1500.0,
+          "description": "Bi-weekly pay"
+        },
+        {
+          "date": "2024-12-05",
+          "amount": 1500.0,
+          "description": "Bi-weekly pay"
+        }
+      ],
+      "deposit_explanations": "All deposits are regular bi-weekly pay. No other significant assets.",
+      "reserves_months": 0
+    },
+    "loan": {
+      "amount": 180000.0,
+      "down_payment": 5000.0,
+      "closing_costs": 5000.0,
+      "estimated_payment": 1500.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 1500.0
+    },
+    "property": {
+      "purchase_price": 185000.0,
+      "appraised_value": 175000.0,
+      "condition": "C4 - Fair",
+      "type": "Condominium",
+      "required_repairs": 6000.0,
+      "repair_details": "Older HVAC unit, needs replacement. Water damage in bathroom ceiling."
+    },
+    "dti_ratio": 0.7166666666666667,
+    "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-011",
+    "name": "Emily White",
+    "ssn": "111-22-3333",
+    "email": "emily.white@email.net",
+    "phone": "(650) 555-1111",
+    "address": "789 Pine Ridge Road, San Jose, CA 95123",
+    "credit_score": 790,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 1,
+      "oldest_tradeline_years": 20.0,
+      "total_tradelines": 15,
+      "credit_notes": "Impeccable credit history. No late payments, no derogatory items. Long-standing credit relationships."
+    },
+    "employment": {
+      "employer": "Global Innovations Corp",
+      "position": "Director of Operations",
+      "years": 10.0,
+      "monthly_income": 15000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Global Innovations Corp",
+          "position": "Director of Operations",
+          "years": 10.0,
+          "income": 180000.0
+        },
+        {
+          "employer": "Growth Solutions Inc",
+          "position": "Operations Manager",
+          "years": 5.0,
+          "income": 110000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 180000.0,
+        "bonus_2023": 30000.0,
+        "bonus_2024": 35000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Bonus consistently paid for 5+ years, expected to continue."
+      }
+    },
+    "debts": {
+      "car_loan": 0.0,
+      "student_loan": 0.0,
+      "credit_cards": 500.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 500.0
+    },
+    "assets": {
+      "checking": 100000.0,
+      "savings": 150000.0,
+      "liquid_assets_total": 250000.0,
+      "401k": 400000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-28",
+          "amount": 35000.0,
+          "description": "Annual bonus payout"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 7500.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 7500.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Annual bonus confirmed by employer letter. Regular deposits are bi-weekly salary.",
+      "reserves_months": 35
+    },
+    "loan": {
+      "amount": 600000.0,
+      "down_payment": 200000.0,
+      "closing_costs": 18000.0,
+      "estimated_payment": 4000.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 4000.0
+    },
+    "property": {
+      "purchase_price": 800000.0,
+      "appraised_value": 810000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required"
+    },
+    "dti_ratio": 0.03333333333333333,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-012",
+    "name": "David Miller",
+    "ssn": "444-55-6666",
+    "email": "d.miller@designpro.com",
+    "phone": "(408) 555-2222",
+    "address": "101 Redwood Way, Santa Clara, CA 95050",
+    "credit_score": 720,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 1,
+      "collections": [],
+      "inquiries_6mo": 3,
+      "oldest_tradeline_years": 10.0,
+      "total_tradelines": 10,
+      "credit_notes": "One 60-day late payment on a credit card 18 months ago, attributed to a move and forgotten bill. Otherwise strong payment history."
+    },
+    "employment": {
+      "employer": "Creative Design Studio",
+      "position": "Lead Graphic Designer",
+      "years": 4.0,
+      "monthly_income": 10000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Creative Design Studio",
+          "position": "Lead Graphic Designer",
+          "years": 4.0,
+          "income": 120000.0
+        },
+        {
+          "employer": "Ad Agency X",
+          "position": "Graphic Designer",
+          "years": 3.0,
+          "income": 80000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 120000.0,
+        "bonus_2023": 10000.0,
+        "bonus_2024": 12000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Bonus program is stable and expected to continue annually."
+      }
+    },
+    "debts": {
+      "car_loan": 400.0,
+      "student_loan": 300.0,
+      "credit_cards": 1000.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1700.0
+    },
+    "assets": {
+      "checking": 45000.0,
+      "savings": 55000.0,
+      "liquid_assets_total": 100000.0,
+      "401k": 150000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-10",
+          "amount": 12000.0,
+          "description": "Annual performance bonus"
+        },
+        {
+          "date": "2024-11-20",
+          "amount": 5000.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Bonus confirmed by pay stub. Other deposits are regular salary.",
+      "reserves_months": 15
+    },
+    "loan": {
+      "amount": 450000.0,
+      "down_payment": 75000.0,
+      "closing_costs": 10000.0,
+      "estimated_payment": 3000.0,
+      "property_type": "Townhouse",
+      "use": "Primary Residence",
+      "monthly_piti": 3000.0
+    },
+    "property": {
+      "purchase_price": 525000.0,
+      "appraised_value": 530000.0,
+      "condition": "C3 - Average",
+      "type": "Townhouse",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required"
+    },
+    "dti_ratio": 0.17,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-013",
+    "name": "Sophia Lee",
+    "ssn": "777-88-9999",
+    "email": "sophia.lee@consulting.org",
+    "phone": "(916) 555-3333",
+    "address": "202 Riverfront Drive, Sacramento, CA 95814",
+    "credit_score": 690,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 4,
+      "oldest_tradeline_years": 7.0,
+      "total_tradelines": 8,
+      "credit_notes": "Good payment history overall. A few recent credit inquiries for shopping for a new credit card and car loan."
+    },
+    "employment": {
+      "employer": "Self-Employed (Marketing Consultant)",
+      "position": "Owner/Consultant",
+      "years": 3.0,
+      "monthly_income": 8000.0,
+      "type": "Self-Employed",
+      "employment_gap": "None",
+      "gap_explanation": "N/A - Consistent self-employment.",
+      "employment_history": [
+        {
+          "employer": "Self-Employed (Marketing Consultant)",
+          "position": "Owner/Consultant",
+          "years": 3.0,
+          "income": 96000.0
+        },
+        {
+          "employer": "Marketing Solutions Inc",
+          "position": "Marketing Specialist",
+          "years": 2.0,
+          "income": 65000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 0.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Self-employed, income verified through tax returns (Schedule C) for last 2 years. Stable growth."
       }
     },
     "debts": {
       "car_loan": 500.0,
       "student_loan": 800.0,
+      "credit_cards": 1500.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2800.0
+    },
+    "assets": {
+      "checking": 30000.0,
+      "savings": 20000.0,
+      "liquid_assets_total": 50000.0,
+      "401k": 80000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-05",
+          "amount": 8000.0,
+          "description": "Client invoice payment"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 7500.0,
+          "description": "Client invoice payment"
+        }
+      ],
+      "deposit_explanations": "Regular client payments consistent with business operations. Latest tax returns submitted.",
+      "reserves_months": 7
+    },
+    "loan": {
+      "amount": 300000.0,
+      "down_payment": 50000.0,
+      "closing_costs": 7500.0,
+      "estimated_payment": 2200.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 2200.0
+    },
+    "property": {
+      "purchase_price": 350000.0,
+      "appraised_value": 355000.0,
+      "condition": "C3 - Average",
+      "type": "Condominium",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required"
+    },
+    "dti_ratio": 0.35,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-014",
+    "name": "Daniel Kim",
+    "ssn": "888-99-0000",
+    "email": "daniel.k@corpmail.biz",
+    "phone": "(510) 555-4444",
+    "address": "303 Lakeview Terrace, Fremont, CA 94536",
+    "credit_score": 640,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 2,
+      "late_payments_24mo": 3,
+      "collections": [
+        {
+          "type": "medical",
+          "amount": 800.0
+        }
+      ],
+      "inquiries_6mo": 6,
+      "oldest_tradeline_years": 6.0,
+      "total_tradelines": 7,
+      "credit_notes": "Two 30-day late payments in past year on different credit cards. One medical collection from 1.5 years ago. High recent inquiries indicate seeking new credit, potentially due to financial strain."
+    },
+    "employment": {
+      "employer": "Logistics Solutions Inc",
+      "position": "Warehouse Supervisor",
+      "years": 2.0,
+      "monthly_income": 6000.0,
+      "type": "W2",
+      "employment_gap": "Yes",
+      "gap_explanation": "6-month gap 2 years ago during a family medical emergency, explained and documented. Employment has been stable since.",
+      "employment_history": [
+        {
+          "employer": "Logistics Solutions Inc",
+          "position": "Warehouse Supervisor",
+          "years": 2.0,
+          "income": 72000.0
+        },
+        {
+          "employer": "Retail Chain A",
+          "position": "Assistant Manager",
+          "years": 3.0,
+          "income": 50000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 72000.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "No bonuses for this position."
+      }
+    },
+    "debts": {
+      "car_loan": 350.0,
+      "student_loan": 250.0,
       "credit_cards": 1800.0,
-      "personal_loan": 200.0,
-      "total_monthly_debt": 3300.0
+      "personal_loan": 150.0,
+      "total_monthly_debt": 2550.0
+    },
+    "assets": {
+      "checking": 15000.0,
+      "savings": 10000.0,
+      "liquid_assets_total": 25000.0,
+      "401k": 20000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 3000.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-12-05",
+          "amount": 3000.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Regular bi-weekly salary deposits.",
+      "reserves_months": 4
+    },
+    "loan": {
+      "amount": 280000.0,
+      "down_payment": 20000.0,
+      "closing_costs": 5000.0,
+      "estimated_payment": 2100.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 2100.0
+    },
+    "property": {
+      "purchase_price": 300000.0,
+      "appraised_value": 295000.0,
+      "condition": "C4 - Fair",
+      "type": "Single Family Home",
+      "required_repairs": 5000.0,
+      "repair_details": "Minor plumbing leaks, older HVAC system, some exterior paint peeling."
+    },
+    "dti_ratio": 0.425,
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "MTG-2026-015",
+    "name": "Jessica Taylor",
+    "ssn": "000-11-2222",
+    "email": "jessica.t@mailme.com",
+    "phone": "(925) 555-5555",
+    "address": "404 Meadow Lane, Concord, CA 94518",
+    "credit_score": 580,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 1,
+      "late_payments_12mo": 4,
+      "late_payments_24mo": 8,
+      "collections": [
+        {
+          "type": "utility",
+          "amount": 350.0
+        },
+        {
+          "type": "credit_card",
+          "amount": 1500.0
+        }
+      ],
+      "inquiries_6mo": 7,
+      "oldest_tradeline_years": 3.0,
+      "total_tradelines": 5,
+      "credit_notes": "Foreclosure on previous property 3 years ago. Multiple recent 60+ day late payments on credit cards. Two active collections. High credit utilization across all accounts. Demonstrates significant credit risk."
+    },
+    "employment": {
+      "employer": "Retail Outlet Z",
+      "position": "Sales Associate",
+      "years": 1.0,
+      "monthly_income": 3500.0,
+      "type": "W2",
+      "employment_gap": "Yes",
+      "gap_explanation": "8-month gap prior to current employment, moved states. Documented unemployment benefits during gap.",
+      "employment_history": [
+        {
+          "employer": "Retail Outlet Z",
+          "position": "Sales Associate",
+          "years": 1.0,
+          "income": 42000.0
+        },
+        {
+          "employer": "Restaurant Group Y",
+          "position": "Server",
+          "years": 2.0,
+          "income": 30000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 30000.0,
+        "bonus_2023": 18000.0,
+        "bonus_2024": 22000.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Commission is variable and not guaranteed."
+      }
+    },
+    "debts": {
+      "car_loan": 450.0,
+      "student_loan": 800.0,
+      "credit_cards": 1200.0,
+      "personal_loan": 300.0,
+      "total_monthly_debt": 2750.0
+    },
+    "assets": {
+      "checking": 5000.0,
+      "savings": 2000.0,
+      "liquid_assets_total": 7000.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-25",
+          "amount": 1500.0,
+          "description": "Bi-weekly salary + commission"
+        },
+        {
+          "date": "2024-12-10",
+          "amount": 1500.0,
+          "description": "Bi-weekly salary + commission"
+        }
+      ],
+      "deposit_explanations": "Regular bi-weekly deposits, includes base salary and variable commission.",
+      "reserves_months": 1
+    },
+    "loan": {
+      "amount": 200000.0,
+      "down_payment": 10000.0,
+      "closing_costs": 4000.0,
+      "estimated_payment": 1500.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 1500.0
+    },
+    "property": {
+      "purchase_price": 210000.0,
+      "appraised_value": 205000.0,
+      "condition": "C5 - Poor",
+      "type": "Condominium",
+      "required_repairs": 10000.0,
+      "repair_details": "Significant water damage in bathroom, broken kitchen appliances, aging electrical system."
+    },
+    "dti_ratio": 0.7857142857142857,
+    "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-016",
+    "name": "Emily White",
+    "ssn": "333-22-1111",
+    "email": "emily.white@consulting.com",
+    "phone": "(650) 555-1234",
+    "address": "789 Pine Ridge Rd, Palo Alto, CA 94301",
+    "credit_score": 785,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 1,
+      "oldest_tradeline_years": 20.0,
+      "total_tradelines": 15,
+      "credit_notes": "Impeccable credit history. Long-standing accounts with perfect payment records. Low credit utilization across multiple credit lines."
+    },
+    "employment": {
+      "employer": "Global Consult Group",
+      "position": "Lead Management Consultant",
+      "years": 10.0,
+      "monthly_income": 15000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Global Consult Group",
+          "position": "Lead Management Consultant",
+          "years": 10.0,
+          "income": 180000.0
+        },
+        {
+          "employer": "Business Solutions Inc.",
+          "position": "Senior Analyst",
+          "years": 5.0,
+          "income": 110000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 180000.0,
+        "bonus_2023": 30000.0,
+        "bonus_2024": 35000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Annual bonus consistent and expected to continue per HR letter."
+      }
+    },
+    "debts": {
+      "car_loan": 800.0,
+      "student_loan": 0.0,
+      "credit_cards": 1000.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1800.0
+    },
+    "assets": {
+      "checking": 120000.0,
+      "savings": 150000.0,
+      "liquid_assets_total": 270000.0,
+      "401k": 400000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-28",
+          "amount": 35000.0,
+          "description": "Annual bonus"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 7500.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 7500.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Year-end bonus confirmed by employer pay stub. Other deposits are regular payroll.",
+      "reserves_months": 20
+    },
+    "loan": {
+      "amount": 600000.0,
+      "down_payment": 200000.0,
+      "closing_costs": 18000.0,
+      "estimated_payment": 4500.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 4500.0
+    },
+    "property": {
+      "purchase_price": 800000.0,
+      "appraised_value": 810000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required. Property in excellent condition."
+    },
+    "dti_ratio": 0.12,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-017",
+    "name": "David Green",
+    "ssn": "111-22-3333",
+    "email": "d.green@marketpro.net",
+    "phone": "(408) 555-7890",
+    "address": "456 Blossom Hill Rd, San Jose, CA 95123",
+    "credit_score": 715,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 1,
+      "collections": [],
+      "inquiries_6mo": 3,
+      "oldest_tradeline_years": 10.0,
+      "total_tradelines": 8,
+      "credit_notes": "One 30-day late payment on a credit card 20 months ago (disputed and resolved due to billing error). Otherwise, strong payment history. Minor increase in credit utilization recently."
+    },
+    "employment": {
+      "employer": "MarketPro Solutions",
+      "position": "Marketing Manager",
+      "years": 2.0,
+      "monthly_income": 8500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "MarketPro Solutions",
+          "position": "Marketing Manager",
+          "years": 2.0,
+          "income": 102000.0
+        },
+        {
+          "employer": "AdBoost Agency",
+          "position": "Marketing Specialist",
+          "years": 4.0,
+          "income": 75000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 102000.0,
+        "bonus_2023": 5000.0,
+        "bonus_2024": 7000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Bonuses are performance-based but have been consistent for 3+ years."
+      }
+    },
+    "debts": {
+      "car_loan": 400.0,
+      "student_loan": 300.0,
+      "credit_cards": 1500.0,
+      "personal_loan": 250.0,
+      "total_monthly_debt": 2450.0
+    },
+    "assets": {
+      "checking": 25000.0,
+      "savings": 40000.0,
+      "liquid_assets_total": 65000.0,
+      "401k": 80000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-15",
+          "amount": 7000.0,
+          "description": "Year-end bonus"
+        },
+        {
+          "date": "2024-12-01",
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Bonus confirmed by pay stub. All other deposits are regular bi-weekly salary.",
+      "reserves_months": 5
+    },
+    "loan": {
+      "amount": 320000.0,
+      "down_payment": 80000.0,
+      "closing_costs": 9000.0,
+      "estimated_payment": 2600.0,
+      "property_type": "Townhouse",
+      "use": "Primary Residence",
+      "monthly_piti": 2600.0
+    },
+    "property": {
+      "purchase_price": 400000.0,
+      "appraised_value": 395000.0,
+      "condition": "C3 - Average",
+      "type": "Townhouse",
+      "required_repairs": 1500.0,
+      "repair_details": "Minor repairs to exterior siding and a few interior paint touch-ups. Aesthetic only."
+    },
+    "dti_ratio": 0.28823529411764703,
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "MTG-2026-018",
+    "name": "Jessica Lee",
+    "ssn": "555-44-6666",
+    "email": "jessica.lee@designfirm.co",
+    "phone": "(510) 555-4321",
+    "address": "210 Waterfront St, Alameda, CA 94501",
+    "credit_score": 730,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 0,
+      "oldest_tradeline_years": 12.0,
+      "total_tradelines": 10,
+      "credit_notes": "Excellent credit history. No derogatory marks. Long average age of accounts."
+    },
+    "employment": {
+      "employer": "Self-Employed (Graphic Design Studio)",
+      "position": "Owner/Lead Designer",
+      "years": 7.0,
+      "monthly_income": 10000.0,
+      "type": "Self-Employed",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Self-Employed (Graphic Design Studio)",
+          "position": "Owner/Lead Designer",
+          "years": 7.0,
+          "income": 120000.0
+        },
+        {
+          "employer": "Creative Minds Agency",
+          "position": "Graphic Designer",
+          "years": 3.0,
+          "income": 60000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 0.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Self-employed, income verified via 2 years of tax returns and YTD P&L statements. Stable for the past 3 years."
+      }
+    },
+    "debts": {
+      "car_loan": 500.0,
+      "student_loan": 800.0,
+      "credit_cards": 1200.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2500.0
+    },
+    "assets": {
+      "checking": 45000.0,
+      "savings": 70000.0,
+      "liquid_assets_total": 115000.0,
+      "401k": 150000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 10000.0,
+          "description": "Client payment (large project)"
+        },
+        {
+          "date": "2024-12-05",
+          "amount": 5000.0,
+          "description": "Client payment"
+        },
+        {
+          "date": "2024-11-25",
+          "amount": 7500.0,
+          "description": "Client payment"
+        }
+      ],
+      "deposit_explanations": "All deposits are client payments, consistent with business operations. Verified with invoices and bank statements.",
+      "reserves_months": 9
+    },
+    "loan": {
+      "amount": 420000.0,
+      "down_payment": 100000.0,
+      "closing_costs": 13000.0,
+      "estimated_payment": 3400.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 3400.0
+    },
+    "property": {
+      "purchase_price": 520000.0,
+      "appraised_value": 525000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required. Property well-maintained."
+    },
+    "dti_ratio": 0.25,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-019",
+    "name": "Christopher Davis",
+    "ssn": "777-88-9999",
+    "email": "chris.davis@logistics.org",
+    "phone": "(925) 555-6789",
+    "address": "100 Industry Way, Concord, CA 94520",
+    "credit_score": 650,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 2,
+      "late_payments_24mo": 3,
+      "collections": [
+        {
+          "type": "utility",
+          "amount": 450.0
+        }
+      ],
+      "inquiries_6mo": 6,
+      "oldest_tradeline_years": 7.0,
+      "total_tradelines": 7,
+      "credit_notes": "Two 30-day late payments on a credit card in the last 12 months. One utility collection from 18 months ago, currently being paid off. High recent inquiries indicate seeking new credit."
+    },
+    "employment": {
+      "employer": "Global Logistics Corp",
+      "position": "Warehouse Supervisor",
+      "years": 3.0,
+      "monthly_income": 6000.0,
+      "type": "W2",
+      "employment_gap": "No",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Global Logistics Corp",
+          "position": "Warehouse Supervisor",
+          "years": 3.0,
+          "income": 72000.0
+        },
+        {
+          "employer": "Distribution Services LLC",
+          "position": "Team Lead",
+          "years": 2.0,
+          "income": 50000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 72000.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 2000.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Small discretionary bonus in 2024, not guaranteed moving forward."
+      }
+    },
+    "debts": {
+      "car_loan": 750.0,
+      "student_loan": 200.0,
+      "credit_cards": 2000.0,
+      "personal_loan": 150.0,
+      "total_monthly_debt": 3100.0
+    },
+    "assets": {
+      "checking": 10000.0,
+      "savings": 15000.0,
+      "liquid_assets_total": 25000.0,
+      "401k": 20000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-15",
+          "amount": 3000.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 3000.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 3000.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "All deposits are regular bi-weekly salary.",
+      "reserves_months": 1
+    },
+    "loan": {
+      "amount": 250000.0,
+      "down_payment": 25000.0,
+      "closing_costs": 7000.0,
+      "estimated_payment": 2100.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 2100.0
+    },
+    "property": {
+      "purchase_price": 275000.0,
+      "appraised_value": 270000.0,
+      "condition": "C4 - Fair",
+      "type": "Condominium",
+      "required_repairs": 4000.0,
+      "repair_details": "Water heater nearing end of life, some minor plumbing leaks, outdated kitchen appliances."
+    },
+    "dti_ratio": 0.5166666666666667,
+    "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-020",
+    "name": "Olivia Taylor",
+    "ssn": "999-88-7777",
+    "email": "olivia.taylor@gigworks.xyz",
+    "phone": "(916) 555-1111",
+    "address": "321 River Bend Dr, Sacramento, CA 95814",
+    "credit_score": 570,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 1,
+      "late_payments_12mo": 5,
+      "late_payments_24mo": 8,
+      "collections": [
+        {
+          "type": "medical",
+          "amount": 800.0
+        },
+        {
+          "type": "credit_card",
+          "amount": 3500.0
+        },
+        {
+          "type": "utility",
+          "amount": 600.0
+        }
+      ],
+      "inquiries_6mo": 10,
+      "oldest_tradeline_years": 3.0,
+      "total_tradelines": 4,
+      "credit_notes": "Foreclosure filed 1.5 years ago. Numerous recent late payments across all active accounts. Multiple collections totaling $4,900. Very high credit inquiries and limited credit history."
+    },
+    "employment": {
+      "employer": "Self-Employed (Gig Economy Worker)",
+      "position": "Delivery Driver / Freelancer",
+      "years": 1.5,
+      "monthly_income": 3500.0,
+      "type": "Self-Employed",
+      "employment_gap": "Yes",
+      "gap_explanation": "Frequent short-term gaps between gig contracts. Income highly variable month-to-month.",
+      "employment_history": [
+        {
+          "employer": "Self-Employed (Gig Economy Worker)",
+          "position": "Delivery Driver / Freelancer",
+          "years": 1.5,
+          "income": 42000.0
+        },
+        {
+          "employer": "Retail Store",
+          "position": "Sales Associate",
+          "years": 1.0,
+          "income": 25000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 0.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Self-employed, income shows significant fluctuation. Declining trend in the last 6 months based on bank statements."
+      }
+    },
+    "debts": {
+      "car_loan": 600.0,
+      "student_loan": 800.0,
+      "credit_cards": 1800.0,
+      "personal_loan": 300.0,
+      "total_monthly_debt": 3500.0
     },
     "assets": {
       "checking": 3000.0,
@@ -465,37 +2001,3035 @@
       "401k": 0.0,
       "recent_deposits": [
         {
-          "date": "2024-12-27",
-          "amount": 1750.0,
-          "description": "Bi-weekly pay deposit"
+          "date": "2024-12-28",
+          "amount": 1200.0,
+          "description": "Gig earnings"
         },
         {
-          "date": "2024-12-13",
-          "amount": 1750.0,
-          "description": "Bi-weekly pay deposit"
+          "date": "2024-12-10",
+          "amount": 800.0,
+          "description": "Gig earnings"
+        },
+        {
+          "date": "2024-11-25",
+          "amount": 1500.0,
+          "description": "Gig earnings"
         }
       ],
-      "deposit_explanations": "All deposits are regular bi-weekly paychecks from current employer.",
+      "deposit_explanations": "Multiple small deposits from various gig platforms. No large, consistent deposits.",
       "reserves_months": 0
     },
     "loan": {
       "amount": 200000.0,
       "down_payment": 10000.0,
-      "closing_costs": 4000.0,
+      "closing_costs": 5000.0,
       "estimated_payment": 1800.0,
+      "property_type": "Manufactured Home",
+      "use": "Investment Property",
+      "monthly_piti": 1800.0
+    },
+    "property": {
+      "purchase_price": 210000.0,
+      "appraised_value": 190000.0,
+      "condition": "C5 - Poor",
+      "type": "Manufactured Home",
+      "required_repairs": 15000.0,
+      "repair_details": "Significant structural issues with subfloor, roof leakage, non-functional heating system, mold present in bathroom."
+    },
+    "dti_ratio": 1.0,
+    "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-021",
+    "name": "Elena Petrova",
+    "ssn": "345-67-8901",
+    "email": "elena.petrova@example.com",
+    "phone": "777-123-4567",
+    "address": "789 Birch Lane, Austin, TX 78701",
+    "credit_score": 795,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 1,
+      "oldest_tradeline_years": 18.0,
+      "total_tradelines": 15,
+      "credit_notes": "Impeccable credit history. Longstanding accounts with perfect payment records. Very low credit utilization."
+    },
+    "employment": {
+      "employer": "Data Innovations Inc",
+      "position": "Lead Data Scientist",
+      "years": 8.0,
+      "monthly_income": 15000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Data Innovations Inc",
+          "position": "Lead Data Scientist",
+          "years": 8.0,
+          "income": 180000.0
+        },
+        {
+          "employer": "Analytics Solutions",
+          "position": "Data Analyst",
+          "years": 5.0,
+          "income": 100000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 180000.0,
+        "bonus_2023": 25000.0,
+        "bonus_2024": 28000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Consistent bonuses, confirmed by employer letter dated 2025-01-20."
+      }
+    },
+    "debts": {
+      "car_loan": 700.0,
+      "student_loan": 0.0,
+      "credit_cards": 300.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1000.0
+    },
+    "assets": {
+      "checking": 95000.0,
+      "savings": 150000.0,
+      "liquid_assets_total": 245000.0,
+      "401k": 350000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-28",
+          "amount": 28000.0,
+          "description": "Annual bonus"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 7500.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 7500.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Bonus deposit documented with year-end pay stub. All other deposits are regular bi-weekly salary.",
+      "reserves_months": 49
+    },
+    "loan": {
+      "amount": 480000.0,
+      "down_payment": 120000.0,
+      "closing_costs": 15000.0,
+      "estimated_payment": 4000.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 4000.0
+    },
+    "property": {
+      "purchase_price": 600000.0,
+      "appraised_value": 610000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required. Property in excellent condition."
+    },
+    "dti_ratio": 0.06666666666666667,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-022",
+    "name": "David Kim",
+    "ssn": "210-98-7654",
+    "email": "david.kim@businesscorp.com",
+    "phone": "(602) 555-1122",
+    "address": "101 Desert Bloom Rd, Phoenix, AZ 85001",
+    "credit_score": 710,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 1,
+      "collections": [],
+      "inquiries_6mo": 3,
+      "oldest_tradeline_years": 10.0,
+      "total_tradelines": 10,
+      "credit_notes": "One 60-day late payment 15 months ago on student loan due to relocation oversight, subsequently caught up. Otherwise good payment history."
+    },
+    "employment": {
+      "employer": "Global Marketing Solutions",
+      "position": "Marketing Manager",
+      "years": 3.0,
+      "monthly_income": 10500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Global Marketing Solutions",
+          "position": "Marketing Manager",
+          "years": 3.0,
+          "income": 126000.0
+        },
+        {
+          "employer": "Local Advertising Co",
+          "position": "Marketing Coordinator",
+          "years": 2.0,
+          "income": 80000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 126000.0,
+        "bonus_2023": 5000.0,
+        "bonus_2024": 7000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Annual bonuses are consistent, confirmed by employer."
+      }
+    },
+    "debts": {
+      "car_loan": 500.0,
+      "student_loan": 300.0,
+      "credit_cards": 800.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1600.0
+    },
+    "assets": {
+      "checking": 45000.0,
+      "savings": 35000.0,
+      "liquid_assets_total": 80000.0,
+      "401k": 80000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-10",
+          "amount": 7000.0,
+          "description": "Annual bonus"
+        },
+        {
+          "date": "2024-12-01",
+          "amount": 5250.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Bonus confirmed by pay stub. Regular bi-weekly salary deposits.",
+      "reserves_months": 17
+    },
+    "loan": {
+      "amount": 340000.0,
+      "down_payment": 60000.0,
+      "closing_costs": 9000.0,
+      "estimated_payment": 3000.0,
+      "property_type": "Townhouse",
+      "use": "Primary Residence",
+      "monthly_piti": 3000.0
+    },
+    "property": {
+      "purchase_price": 400000.0,
+      "appraised_value": 395000.0,
+      "condition": "C3 - Average",
+      "type": "Townhouse",
+      "required_repairs": 2000.0,
+      "repair_details": "Minor roofing repair identified during appraisal. Electrical inspection recommended."
+    },
+    "dti_ratio": 0.1523809523809524,
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "MTG-2026-023",
+    "name": "Anya Sharma",
+    "ssn": "678-90-1234",
+    "email": "anya.sharma@freelance.net",
+    "phone": "305-999-8877",
+    "address": "222 Palm Tree Blvd, Miami, FL 33139",
+    "credit_score": 730,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 2,
+      "oldest_tradeline_years": 12.0,
+      "total_tradelines": 8,
+      "credit_notes": "Clean credit history. Consistent payments. Manages credit cards responsibly."
+    },
+    "employment": {
+      "employer": "Self-Employed (Graphic Designer)",
+      "position": "Freelance Graphic Designer",
+      "years": 5.0,
+      "monthly_income": 8000.0,
+      "type": "Self-Employed",
+      "employment_gap": "None",
+      "gap_explanation": "N/A (continuous self-employment)",
+      "employment_history": [
+        {
+          "employer": "Self-Employed (Graphic Designer)",
+          "position": "Freelance Graphic Designer",
+          "years": 5.0,
+          "income": 96000.0
+        },
+        {
+          "employer": "Creative Agency Co",
+          "position": "Junior Designer",
+          "years": 3.0,
+          "income": 60000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 0.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Self-employed, income verified via 2 years of tax returns (Schedule C). Income stable over past 2 years."
+      }
+    },
+    "debts": {
+      "car_loan": 0.0,
+      "student_loan": 250.0,
+      "credit_cards": 400.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 650.0
+    },
+    "assets": {
+      "checking": 60000.0,
+      "savings": 20000.0,
+      "liquid_assets_total": 80000.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 9500.0,
+          "description": "Client payment (Project A)"
+        },
+        {
+          "date": "2024-11-25",
+          "amount": 6000.0,
+          "description": "Client payment (Project B)"
+        },
+        {
+          "date": "2024-11-10",
+          "amount": 4000.0,
+          "description": "Client payment (Project C)"
+        }
+      ],
+      "deposit_explanations": "Multiple client payments as is typical for freelance work. Verified with invoices and bank statements.",
+      "reserves_months": 25
+    },
+    "loan": {
+      "amount": 280000.0,
+      "down_payment": 70000.0,
+      "closing_costs": 8000.0,
+      "estimated_payment": 2500.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 2500.0
+    },
+    "property": {
+      "purchase_price": 350000.0,
+      "appraised_value": 355000.0,
+      "condition": "C3 - Average",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "Minor cosmetic updates recommended but no mandatory repairs."
+    },
+    "dti_ratio": 0.08125,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-024",
+    "name": "John Smith",
+    "ssn": "112-33-4455",
+    "email": "j.smith@gmail.com",
+    "phone": "(917) 111-2233",
+    "address": "456 Elm Street, Brooklyn, NY 11201",
+    "credit_score": 670,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 1,
+      "late_payments_24mo": 1,
+      "collections": [],
+      "inquiries_6mo": 4,
+      "oldest_tradeline_years": 6.0,
+      "total_tradelines": 7,
+      "credit_notes": "One 30-day late payment on a credit card 8 months ago. High credit card utilization (85%). Multiple recent inquiries for new credit cards."
+    },
+    "employment": {
+      "employer": "Mid-Tier Accounting Firm",
+      "position": "Junior Accountant",
+      "years": 2.0,
+      "monthly_income": 5500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Mid-Tier Accounting Firm",
+          "position": "Junior Accountant",
+          "years": 2.0,
+          "income": 66000.0
+        },
+        {
+          "employer": "Retail Bank",
+          "position": "Teller",
+          "years": 1.0,
+          "income": 40000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 66000.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "No bonuses expected or typically provided for this position."
+      }
+    },
+    "debts": {
+      "car_loan": 400.0,
+      "student_loan": 350.0,
+      "credit_cards": 900.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1650.0
+    },
+    "assets": {
+      "checking": 10000.0,
+      "savings": 5000.0,
+      "liquid_assets_total": 15000.0,
+      "401k": 12000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-15",
+          "amount": 2750.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 2750.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Regular bi-weekly salary deposits.",
+      "reserves_months": 4
+    },
+    "loan": {
+      "amount": 241250.0,
+      "down_payment": 8750.0,
+      "closing_costs": 7000.0,
+      "estimated_payment": 2000.0,
       "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 2000.0
+    },
+    "property": {
+      "purchase_price": 250000.0,
+      "appraised_value": 245000.0,
+      "condition": "C3 - Average",
+      "type": "Condominium",
+      "required_repairs": 0.0,
+      "repair_details": "No major repairs needed, but some cosmetic updates could improve value."
+    },
+    "dti_ratio": 0.3,
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "MTG-2026-025",
+    "name": "Emily White",
+    "ssn": "556-77-8899",
+    "email": "emily.w@webmail.com",
+    "phone": "213-444-5566",
+    "address": "789 City View Lane, Los Angeles, CA 90012",
+    "credit_score": 605,
+    "credit_history": {
+      "bankruptcies": 1,
+      "foreclosures": 0,
+      "late_payments_12mo": 3,
+      "late_payments_24mo": 5,
+      "collections": [
+        {
+          "type": "medical",
+          "amount": 800.0
+        },
+        {
+          "type": "utility",
+          "amount": 350.0
+        }
+      ],
+      "inquiries_6mo": 6,
+      "oldest_tradeline_years": 7.0,
+      "total_tradelines": 5,
+      "credit_notes": "Chapter 7 bankruptcy discharged 3 years ago. Two active collections for medical and utility bills. Multiple recent 30/60-day late payments on credit cards. High number of recent credit inquiries."
+    },
+    "employment": {
+      "employer": "Local Retail Chain",
+      "position": "Retail Associate",
+      "years": 1.5,
+      "monthly_income": 3800.0,
+      "type": "W2",
+      "employment_gap": "Yes",
+      "gap_explanation": "6-month gap between retail positions in the last 2 years, due to store closure and search for new employment.",
+      "employment_history": [
+        {
+          "employer": "Local Retail Chain",
+          "position": "Retail Associate",
+          "years": 1.5,
+          "income": 45600.0
+        },
+        {
+          "employer": "Another Retail Store",
+          "position": "Retail Assistant",
+          "years": 2.0,
+          "income": 42000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 45600.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Hourly wage, no bonuses."
+      }
+    },
+    "debts": {
+      "car_loan": 350.0,
+      "student_loan": 0.0,
+      "credit_cards": 450.0,
+      "personal_loan": 150.0,
+      "total_monthly_debt": 950.0
+    },
+    "assets": {
+      "checking": 3000.0,
+      "savings": 1500.0,
+      "liquid_assets_total": 4500.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 1900.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-12-05",
+          "amount": 1900.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Regular bi-weekly salary deposits.",
+      "reserves_months": 1
+    },
+    "loan": {
+      "amount": 190000.0,
+      "down_payment": 10000.0,
+      "closing_costs": 5000.0,
+      "estimated_payment": 1500.0,
+      "property_type": "Manufactured Home",
+      "use": "Primary Residence",
+      "monthly_piti": 1500.0
+    },
+    "property": {
+      "purchase_price": 200000.0,
+      "appraised_value": 190000.0,
+      "condition": "C5 - Poor",
+      "type": "Manufactured Home",
+      "required_repairs": 10000.0,
+      "repair_details": "Significant structural repairs identified (foundation issues). Outdated plumbing and electrical. Roof nearing end of life."
+    },
+    "dti_ratio": 0.25,
+    "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-026",
+    "name": "Emily White",
+    "ssn": "333-22-1111",
+    "email": "emily.white@email.com",
+    "phone": "555-111-2222",
+    "address": "789 Pine Ridge Rd, Austin, TX 78704",
+    "credit_score": 790,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 1,
+      "oldest_tradeline_years": 20.0,
+      "total_tradelines": 15,
+      "credit_notes": "Exceptional payment history across all accounts. Long-standing credit relationships and low credit utilization. One recent inquiry for a new credit card application, not used."
+    },
+    "employment": {
+      "employer": "Global Innovations Corp",
+      "position": "Director of Marketing",
+      "years": 8.0,
+      "monthly_income": 15000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Global Innovations Corp",
+          "position": "Director of Marketing",
+          "years": 8.0,
+          "income": 180000.0
+        },
+        {
+          "employer": "Creative Solutions Ltd",
+          "position": "Marketing Manager",
+          "years": 5.0,
+          "income": 100000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 180000.0,
+        "bonus_2023": 30000.0,
+        "bonus_2024": 35000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Bonus program is stable and expected to continue based on company performance, per HR letter dated 2025-01-20."
+      }
+    },
+    "debts": {
+      "car_loan": 850.0,
+      "student_loan": 0.0,
+      "credit_cards": 1200.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2050.0
+    },
+    "assets": {
+      "checking": 100000.0,
+      "savings": 150000.0,
+      "liquid_assets_total": 250000.0,
+      "401k": 400000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 35000.0,
+          "description": "Annual performance bonus"
+        },
+        {
+          "date": "2024-11-29",
+          "amount": 7500.0,
+          "description": "Regular bi-weekly salary"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 7500.0,
+          "description": "Regular bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Annual bonus confirmed by employer letter and paystub. All other deposits are regular salary.",
+      "reserves_months": 18
+    },
+    "loan": {
+      "amount": 600000.0,
+      "down_payment": 200000.0,
+      "closing_costs": 18000.0,
+      "estimated_payment": 4500.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 4500.0
+    },
+    "property": {
+      "purchase_price": 800000.0,
+      "appraised_value": 810000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required. Property in excellent condition."
+    },
+    "dti_ratio": 0.13666666666666666,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-027",
+    "name": "Emily Davis",
+    "ssn": "345-67-8901",
+    "email": "emily.davis@corpmail.com",
+    "phone": "(555) 789-0123",
+    "address": "789 Birch Lane, Palo Alto, CA 94301",
+    "credit_score": 810,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 1,
+      "oldest_tradeline_years": 20.0,
+      "total_tradelines": 15,
+      "credit_notes": "Impeccable credit history. Longstanding accounts with perfect payment records. No derogatory marks whatsoever."
+    },
+    "employment": {
+      "employer": "Innovate Solutions Corp",
+      "position": "Director of Product Development",
+      "years": 10.0,
+      "monthly_income": 18000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Innovate Solutions Corp",
+          "position": "Director of Product Development",
+          "years": 10.0,
+          "income": 200000.0
+        },
+        {
+          "employer": "DataFlow Technologies",
+          "position": "Senior Product Manager",
+          "years": 5.0,
+          "income": 120000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 200000.0,
+        "bonus_2023": 30000.0,
+        "bonus_2024": 35000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Bonus consistently paid and expected to continue per HR statement dated 2025-02-01."
+      }
+    },
+    "debts": {
+      "car_loan": 900.0,
+      "student_loan": 0.0,
+      "credit_cards": 1000.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1900.0
+    },
+    "assets": {
+      "checking": 120000.0,
+      "savings": 200000.0,
+      "liquid_assets_total": 320000.0,
+      "401k": 450000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-28",
+          "amount": 35000.0,
+          "description": "Annual performance bonus"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 9000.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 9000.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Bonus confirmed by employer statement. Regular deposits are bi-weekly salary.",
+      "reserves_months": 36
+    },
+    "loan": {
+      "amount": 700000.0,
+      "down_payment": 200000.0,
+      "closing_costs": 20000.0,
+      "estimated_payment": 4500.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 4500.0
+    },
+    "property": {
+      "purchase_price": 900000.0,
+      "appraised_value": 920000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required"
+    },
+    "dti_ratio": 0.10555555555555556,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-028",
+    "name": "David Lee",
+    "ssn": "678-90-1234",
+    "email": "david.lee@company.org",
+    "phone": "(555) 432-1098",
+    "address": "456 Elm Street, San Jose, CA 95113",
+    "credit_score": 735,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 1,
+      "collections": [],
+      "inquiries_6mo": 3,
+      "oldest_tradeline_years": 10.0,
+      "total_tradelines": 10,
+      "credit_notes": "One 60-day late payment on a credit card 20 months ago (disputed and removed). Otherwise, good payment history. No active collections."
+    },
+    "employment": {
+      "employer": "MediHealth Systems",
+      "position": "Healthcare Analyst",
+      "years": 4.0,
+      "monthly_income": 10500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "MediHealth Systems",
+          "position": "Healthcare Analyst",
+          "years": 4.0,
+          "income": 126000.0
+        },
+        {
+          "employer": "City Hospital",
+          "position": "Data Coordinator",
+          "years": 3.0,
+          "income": 80000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 126000.0,
+        "bonus_2023": 5000.0,
+        "bonus_2024": 7000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Small annual bonus expected to continue based on company performance."
+      }
+    },
+    "debts": {
+      "car_loan": 700.0,
+      "student_loan": 300.0,
+      "credit_cards": 1500.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2500.0
+    },
+    "assets": {
+      "checking": 45000.0,
+      "savings": 60000.0,
+      "liquid_assets_total": 105000.0,
+      "401k": 150000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-18",
+          "amount": 7000.0,
+          "description": "Year-end bonus"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 5250.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 5250.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Bonus documented by pay stub. Regular deposits are bi-weekly salary.",
+      "reserves_months": 15
+    },
+    "loan": {
+      "amount": 450000.0,
+      "down_payment": 75000.0,
+      "closing_costs": 10000.0,
+      "estimated_payment": 3600.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 3600.0
+    },
+    "property": {
+      "purchase_price": 525000.0,
+      "appraised_value": 530000.0,
+      "condition": "C3 - Average",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required"
+    },
+    "dti_ratio": 0.23809523809523808,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-029",
+    "name": "Jessica Wilson",
+    "ssn": "112-33-4455",
+    "email": "jessica.w@bizmail.net",
+    "phone": "(555) 111-2222",
+    "address": "101 Cedar Avenue, Sacramento, CA 95814",
+    "credit_score": 660,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 1,
+      "late_payments_24mo": 3,
+      "collections": [],
+      "inquiries_6mo": 4,
+      "oldest_tradeline_years": 7.0,
+      "total_tradelines": 8,
+      "credit_notes": "One 30-day late payment 8 months ago on a credit card. Two 30-day late payments 18-22 months ago during a period of reduced income. No major derogatory marks, but higher credit card utilization."
+    },
+    "employment": {
+      "employer": "Capital Marketing Group",
+      "position": "Marketing Coordinator",
+      "years": 2.5,
+      "monthly_income": 6800.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Capital Marketing Group",
+          "position": "Marketing Coordinator",
+          "years": 2.5,
+          "income": 81600.0
+        },
+        {
+          "employer": "Local Retail Store",
+          "position": "Assistant Manager",
+          "years": 3.0,
+          "income": 55000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 81600.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 3000.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Performance bonus for 2024 was discretionary and not guaranteed for future years."
+      }
+    },
+    "debts": {
+      "car_loan": 500.0,
+      "student_loan": 250.0,
+      "credit_cards": 2100.0,
+      "personal_loan": 150.0,
+      "total_monthly_debt": 3000.0
+    },
+    "assets": {
+      "checking": 15000.0,
+      "savings": 20000.0,
+      "liquid_assets_total": 35000.0,
+      "401k": 30000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-22",
+          "amount": 3000.0,
+          "description": "Performance bonus"
+        },
+        {
+          "date": "2024-11-29",
+          "amount": 3400.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 3400.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Bonus check deposited in December. Other deposits are regular bi-weekly pay.",
+      "reserves_months": 4
+    },
+    "loan": {
+      "amount": 300000.0,
+      "down_payment": 40000.0,
+      "closing_costs": 7000.0,
+      "estimated_payment": 2500.0,
+      "property_type": "Townhouse",
+      "use": "Primary Residence",
+      "monthly_piti": 2500.0
+    },
+    "property": {
+      "purchase_price": 340000.0,
+      "appraised_value": 335000.0,
+      "condition": "C3 - Average",
+      "type": "Townhouse",
+      "required_repairs": 1500.0,
+      "repair_details": "Minor plumbing leak in bathroom, cosmetic paint touch-ups."
+    },
+    "dti_ratio": 0.4411764705882353,
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "MTG-2026-030",
+    "name": "Kevin Garcia",
+    "ssn": "778-88-9900",
+    "email": "k.garcia@gmail.com",
+    "phone": "(555) 333-4444",
+    "address": "222 Poplar Street, Stockton, CA 95202",
+    "credit_score": 610,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 2,
+      "late_payments_24mo": 5,
+      "collections": [
+        {
+          "type": "utility",
+          "amount": 350.0
+        },
+        {
+          "type": "medical",
+          "amount": 900.0
+        }
+      ],
+      "inquiries_6mo": 6,
+      "oldest_tradeline_years": 6.0,
+      "total_tradelines": 7,
+      "credit_notes": "Two recent 30-day late payments on credit cards. Two collections totaling $1,250 (utility and medical). High credit utilization and several recent credit inquiries."
+    },
+    "employment": {
+      "employer": "Local Construction Services",
+      "position": "Electrician",
+      "years": 1.0,
+      "monthly_income": 5500.0,
+      "type": "W2",
+      "employment_gap": "Yes",
+      "gap_explanation": "6-month gap due to layoff from previous construction company. New employer confirmed steady work, but probationary period just ended.",
+      "employment_history": [
+        {
+          "employer": "Local Construction Services",
+          "position": "Electrician",
+          "years": 1.0,
+          "income": 66000.0
+        },
+        {
+          "employer": "Bridge Builders Inc.",
+          "position": "Apprentice Electrician",
+          "years": 3.0,
+          "income": 50000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 66000.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "No bonus structure for this position."
+      }
+    },
+    "debts": {
+      "car_loan": 400.0,
+      "student_loan": 800.0,
+      "credit_cards": 1800.0,
+      "personal_loan": 300.0,
+      "total_monthly_debt": 3300.0
+    },
+    "assets": {
+      "checking": 8000.0,
+      "savings": 5000.0,
+      "liquid_assets_total": 13000.0,
+      "401k": 5000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-10",
+          "amount": 2750.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-26",
+          "amount": 2750.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "All deposits are regular bi-weekly salary. No unusual deposits.",
+      "reserves_months": 2
+    },
+    "loan": {
+      "amount": 250000.0,
+      "down_payment": 20000.0,
+      "closing_costs": 5000.0,
+      "estimated_payment": 2000.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 2000.0
+    },
+    "property": {
+      "purchase_price": 270000.0,
+      "appraised_value": 265000.0,
+      "condition": "C4 - Fair",
+      "type": "Single Family Home",
+      "required_repairs": 5000.0,
+      "repair_details": "Electrical wiring needs partial upgrade. Leaky faucet and outdated water heater."
+    },
+    "dti_ratio": 0.6,
+    "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-031",
+    "name": "Olivia Miller",
+    "ssn": "221-11-0099",
+    "email": "olivia.m@webmail.info",
+    "phone": "(555) 666-7777",
+    "address": "333 Willow Road, Fresno, CA 93701",
+    "credit_score": 540,
+    "credit_history": {
+      "bankruptcies": 1,
+      "foreclosures": 0,
+      "late_payments_12mo": 5,
+      "late_payments_24mo": 10,
+      "collections": [
+        {
+          "type": "medical",
+          "amount": 1800.0
+        },
+        {
+          "type": "credit_card",
+          "amount": 3500.0
+        },
+        {
+          "type": "utility",
+          "amount": 600.0
+        }
+      ],
+      "inquiries_6mo": 7,
+      "oldest_tradeline_years": 3.0,
+      "total_tradelines": 5,
+      "credit_notes": "Chapter 7 bankruptcy filed 1.5 years ago (discharged 8 months ago). Multiple recent and past late payments across all credit accounts. Three active collections totaling $5,900. High inquiry count following bankruptcy discharge."
+    },
+    "employment": {
+      "employer": "Self-Employed (Gig Worker)",
+      "position": "Delivery Driver / Freelancer",
+      "years": 1.0,
+      "monthly_income": 3500.0,
+      "type": "Self-Employed",
+      "employment_gap": "Yes",
+      "gap_explanation": "Frequent gaps due to nature of gig work. Income highly variable month-to-month. Previously unemployed for 9 months post-bankruptcy.",
+      "employment_history": [
+        {
+          "employer": "Self-Employed (Gig Worker)",
+          "position": "Delivery Driver / Freelancer",
+          "years": 1.0,
+          "income": 42000.0
+        },
+        {
+          "employer": "Unemployed",
+          "position": "N/A",
+          "years": 0.75,
+          "income": 0.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 0.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Self-employed, income derived from multiple apps (Uber Eats, DoorDash, Fiverr). 2024 income 15% lower than 2023 due to increased competition."
+      }
+    },
+    "debts": {
+      "car_loan": 450.0,
+      "student_loan": 800.0,
+      "credit_cards": 1200.0,
+      "personal_loan": 250.0,
+      "total_monthly_debt": 2700.0
+    },
+    "assets": {
+      "checking": 3000.0,
+      "savings": 1000.0,
+      "liquid_assets_total": 4000.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-15",
+          "amount": 1800.0,
+          "description": "Gig work income"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 1700.0,
+          "description": "Gig work income"
+        }
+      ],
+      "deposit_explanations": "Monthly deposits represent aggregate income from various gig platforms. No large unexplained deposits.",
+      "reserves_months": 0
+    },
+    "loan": {
+      "amount": 180000.0,
+      "down_payment": 10000.0,
+      "closing_costs": 4000.0,
+      "estimated_payment": 1500.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 1500.0
+    },
+    "property": {
+      "purchase_price": 190000.0,
+      "appraised_value": 185000.0,
+      "condition": "C5 - Poor",
+      "type": "Condominium",
+      "required_repairs": 10000.0,
+      "repair_details": "Extensive water damage in bathroom, broken kitchen appliances, aging HVAC system, major structural repairs needed for exterior balcony."
+    },
+    "dti_ratio": 0.7714285714285715,
+    "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-032",
+    "name": "Christopher Brown",
+    "ssn": "890-12-3456",
+    "email": "chris.brown@financeco.net",
+    "phone": "(555) 999-8888",
+    "address": "654 Plaza Drive, Irvine, CA 92606",
+    "credit_score": 705,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 2,
+      "oldest_tradeline_years": 12.0,
+      "total_tradelines": 11,
+      "credit_notes": "Solid credit history. All payments on time. Moderate credit utilization. No derogatory items. Multiple active accounts in good standing."
+    },
+    "employment": {
+      "employer": "Global Finance Partners",
+      "position": "Financial Analyst",
+      "years": 3.0,
+      "monthly_income": 9000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Global Finance Partners",
+          "position": "Financial Analyst",
+          "years": 3.0,
+          "income": 108000.0
+        },
+        {
+          "employer": "Local Bank Corp",
+          "position": "Jr. Financial Advisor",
+          "years": 2.0,
+          "income": 70000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 108000.0,
+        "bonus_2023": 10000.0,
+        "bonus_2024": 12000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Annual bonus program is consistent and expected to continue."
+      }
+    },
+    "debts": {
+      "car_loan": 600.0,
+      "student_loan": 400.0,
+      "credit_cards": 1200.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2200.0
+    },
+    "assets": {
+      "checking": 25000.0,
+      "savings": 40000.0,
+      "liquid_assets_total": 65000.0,
+      "401k": 80000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 12000.0,
+          "description": "Annual bonus"
+        },
+        {
+          "date": "2024-11-25",
+          "amount": 4500.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-10",
+          "amount": 4500.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Bonus confirmed with pay stub. Bi-weekly deposits are regular salary.",
+      "reserves_months": 7
+    },
+    "loan": {
+      "amount": 380000.0,
+      "down_payment": 60000.0,
+      "closing_costs": 9000.0,
+      "estimated_payment": 2900.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 2900.0
+    },
+    "property": {
+      "purchase_price": 440000.0,
+      "appraised_value": 445000.0,
+      "condition": "C3 - Average",
+      "type": "Condominium",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required"
+    },
+    "dti_ratio": 0.24444444444444444,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-033",
+    "name": "Emily White",
+    "ssn": "333-22-1111",
+    "email": "emily.w@examplecorp.com",
+    "phone": "555-111-2222",
+    "address": "789 Pine Ridge Way, Austin, TX 78704",
+    "credit_score": 785,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 1,
+      "oldest_tradeline_years": 18.0,
+      "total_tradelines": 15,
+      "credit_notes": "Excellent credit history. Longstanding accounts with perfect payment records. No derogatory marks or recent credit seeking. Very low credit utilization."
+    },
+    "employment": {
+      "employer": "Innovate Solutions Group",
+      "position": "Senior Data Scientist",
+      "years": 8.0,
+      "monthly_income": 13500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Innovate Solutions Group",
+          "position": "Senior Data Scientist",
+          "years": 8.0,
+          "income": 162000.0
+        },
+        {
+          "employer": "Data Metrics Inc.",
+          "position": "Data Analyst",
+          "years": 5.0,
+          "income": 85000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 162000.0,
+        "bonus_2023": 20000.0,
+        "bonus_2024": 25000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Annual bonus consistent and expected to continue based on company performance."
+      }
+    },
+    "debts": {
+      "car_loan": 800.0,
+      "student_loan": 0.0,
+      "credit_cards": 500.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1300.0
+    },
+    "assets": {
+      "checking": 95000.0,
+      "savings": 120000.0,
+      "liquid_assets_total": 215000.0,
+      "401k": 320000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-28",
+          "amount": 25000.0,
+          "description": "Annual performance bonus"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 6750.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Bonus deposit verified by pay stubs and employer letter. Regular deposits are bi-weekly salary.",
+      "reserves_months": 25
+    },
+    "loan": {
+      "amount": 500000.0,
+      "down_payment": 200000.0,
+      "closing_costs": 15000.0,
+      "estimated_payment": 3800.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 3800.0
+    },
+    "property": {
+      "purchase_price": 700000.0,
+      "appraised_value": 710000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No significant repairs required. Property well maintained."
+    },
+    "dti_ratio": 0.0962962962962963,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-034",
+    "name": "David Miller",
+    "ssn": "111-22-3333",
+    "email": "david.miller@contractor.co",
+    "phone": "(713) 555-4321",
+    "address": "456 Bay Leaf Lane, Houston, TX 77002",
+    "credit_score": 690,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 1,
+      "collections": [],
+      "inquiries_6mo": 3,
+      "oldest_tradeline_years": 10.0,
+      "total_tradelines": 8,
+      "credit_notes": "One 60-day late payment on a credit card 18 months ago, attributed to a medical emergency. All other payments on time. Moderate credit utilization."
+    },
+    "employment": {
+      "employer": "Self-Employed (IT Consultant)",
+      "position": "IT Consultant",
+      "years": 4.0,
+      "monthly_income": 8000.0,
+      "type": "Self-Employed",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Self-Employed (IT Consultant)",
+          "position": "IT Consultant",
+          "years": 4.0,
+          "income": 96000.0
+        },
+        {
+          "employer": "Systematics Solutions",
+          "position": "Network Engineer",
+          "years": 6.0,
+          "income": 70000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 0.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Self-employed, income verified via 2 years of tax returns. Gross income has been stable or slightly increasing."
+      }
+    },
+    "debts": {
+      "car_loan": 550.0,
+      "student_loan": 300.0,
+      "credit_cards": 1200.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2050.0
+    },
+    "assets": {
+      "checking": 45000.0,
+      "savings": 35000.0,
+      "liquid_assets_total": 80000.0,
+      "401k": 90000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-05",
+          "amount": 8000.0,
+          "description": "Client invoice payment"
+        },
+        {
+          "date": "2024-11-10",
+          "amount": 7500.0,
+          "description": "Client invoice payment"
+        }
+      ],
+      "deposit_explanations": "Regular client payments, documented with invoices and bank statements.",
+      "reserves_months": 11
+    },
+    "loan": {
+      "amount": 320000.0,
+      "down_payment": 80000.0,
+      "closing_costs": 9000.0,
+      "estimated_payment": 2500.0,
+      "property_type": "Townhome",
+      "use": "Primary Residence",
+      "monthly_piti": 2500.0
+    },
+    "property": {
+      "purchase_price": 400000.0,
+      "appraised_value": 405000.0,
+      "condition": "C3 - Average",
+      "type": "Townhome",
+      "required_repairs": 0.0,
+      "repair_details": "Minor cosmetic updates recommended, no structural issues."
+    },
+    "dti_ratio": 0.25625,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-035",
+    "name": "Jessica Lee",
+    "ssn": "444-55-6666",
+    "email": "j.lee@healthnet.org",
+    "phone": "(206) 555-7890",
+    "address": "101 Cherry Blossom Way, Seattle, WA 98101",
+    "credit_score": 730,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 2,
+      "oldest_tradeline_years": 12.0,
+      "total_tradelines": 10,
+      "credit_notes": "Good payment history across all accounts. Recent inquiries for a new credit card and car loan. Low credit utilization."
+    },
+    "employment": {
+      "employer": "Seattle Medical Center",
+      "position": "Registered Nurse (RN)",
+      "years": 7.0,
+      "monthly_income": 9000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Seattle Medical Center",
+          "position": "Registered Nurse (RN)",
+          "years": 7.0,
+          "income": 108000.0
+        },
+        {
+          "employer": "Community Health Clinic",
+          "position": "Staff Nurse",
+          "years": 3.0,
+          "income": 70000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 96000.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 12000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Annual retention bonus provided for all long-term staff, expected to continue."
+      }
+    },
+    "debts": {
+      "car_loan": 700.0,
+      "student_loan": 400.0,
+      "credit_cards": 900.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2000.0
+    },
+    "assets": {
+      "checking": 60000.0,
+      "savings": 75000.0,
+      "liquid_assets_total": 135000.0,
+      "401k": 180000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-10",
+          "amount": 12000.0,
+          "description": "Annual retention bonus"
+        },
+        {
+          "date": "2024-11-25",
+          "amount": 4000.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Bonus confirmed by paystub. All other deposits are regular bi-weekly salary.",
+      "reserves_months": 19
+    },
+    "loan": {
+      "amount": 420000.0,
+      "down_payment": 80000.0,
+      "closing_costs": 10000.0,
+      "estimated_payment": 3400.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 3400.0
+    },
+    "property": {
+      "purchase_price": 500000.0,
+      "appraised_value": 495000.0,
+      "condition": "C3 - Average",
+      "type": "Condominium",
+      "required_repairs": 0.0,
+      "repair_details": "No specific repairs required. Standard wear and tear."
+    },
+    "dti_ratio": 0.2222222222222222,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-036",
+    "name": "Daniel Garcia",
+    "ssn": "777-88-9999",
+    "email": "d.garcia@gmail.com",
+    "phone": "(901) 555-1234",
+    "address": "222 Riverbend Drive, Memphis, TN 38103",
+    "credit_score": 620,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 2,
+      "late_payments_24mo": 4,
+      "collections": [
+        {
+          "type": "medical",
+          "amount": 800.0
+        }
+      ],
+      "inquiries_6mo": 6,
+      "oldest_tradeline_years": 6.0,
+      "total_tradelines": 7,
+      "credit_notes": "Two 30-day late payments on credit cards in the last year. One medical collection from 1.5 years ago. High credit utilization on all revolving accounts. Multiple recent inquiries suggest financial distress or credit shopping."
+    },
+    "employment": {
+      "employer": "Local Logistics Co.",
+      "position": "Warehouse Supervisor",
+      "years": 3.0,
+      "monthly_income": 5500.0,
+      "type": "W2",
+      "employment_gap": "Yes",
+      "gap_explanation": "6-month employment gap prior to current job due to layoff from previous employer. Documented with severance and new offer letter.",
+      "employment_history": [
+        {
+          "employer": "Local Logistics Co.",
+          "position": "Warehouse Supervisor",
+          "years": 3.0,
+          "income": 66000.0
+        },
+        {
+          "employer": "Regional Distribution Corp.",
+          "position": "Warehouse Associate",
+          "years": 4.0,
+          "income": 50000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 66000.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Hourly wage with occasional overtime; overtime not guaranteed."
+      }
+    },
+    "debts": {
+      "car_loan": 400.0,
+      "student_loan": 250.0,
+      "credit_cards": 1800.0,
+      "personal_loan": 300.0,
+      "total_monthly_debt": 2750.0
+    },
+    "assets": {
+      "checking": 8000.0,
+      "savings": 5000.0,
+      "liquid_assets_total": 13000.0,
+      "401k": 15000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 2750.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-12-06",
+          "amount": 2750.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "All deposits are regular bi-weekly salary. No significant unexplained deposits.",
+      "reserves_months": 2
+    },
+    "loan": {
+      "amount": 250000.0,
+      "down_payment": 25000.0,
+      "closing_costs": 7000.0,
+      "estimated_payment": 2000.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 2000.0
+    },
+    "property": {
+      "purchase_price": 275000.0,
+      "appraised_value": 265000.0,
+      "condition": "C4 - Fair",
+      "type": "Single Family Home",
+      "required_repairs": 6000.0,
+      "repair_details": "Older roof with visible wear, potential plumbing issues in one bathroom, exterior paint peeling."
+    },
+    "dti_ratio": 0.5,
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "MTG-2026-037",
+    "name": "Sophia Rodriguez",
+    "ssn": "222-33-4444",
+    "email": "sophia.rod@university.edu",
+    "phone": "(617) 555-8765",
+    "address": "987 Beacon Street, Boston, MA 02108",
+    "credit_score": 700,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 4,
+      "oldest_tradeline_years": 7.0,
+      "total_tradelines": 6,
+      "credit_notes": "Good payment history. Relatively short credit history, but no negative items. Recent inquiries for potential new credit cards or other loans."
+    },
+    "employment": {
+      "employer": "Boston University",
+      "position": "Research Associate",
+      "years": 2.5,
+      "monthly_income": 6500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Boston University",
+          "position": "Research Associate",
+          "years": 2.5,
+          "income": 78000.0
+        },
+        {
+          "employer": "Graduate Student Researcher",
+          "position": "Student Researcher",
+          "years": 3.0,
+          "income": 35000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 78000.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Grant-funded position, renewable annually based on grant availability and performance. Next renewal expected in 6 months."
+      }
+    },
+    "debts": {
+      "car_loan": 0.0,
+      "student_loan": 500.0,
+      "credit_cards": 600.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1100.0
+    },
+    "assets": {
+      "checking": 25000.0,
+      "savings": 15000.0,
+      "liquid_assets_total": 40000.0,
+      "401k": 30000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-30",
+          "amount": 3250.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 3250.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "All deposits are regular bi-weekly salary. No unusual deposits.",
+      "reserves_months": 8
+    },
+    "loan": {
+      "amount": 300000.0,
+      "down_payment": 40000.0,
+      "closing_costs": 8000.0,
+      "estimated_payment": 2400.0,
+      "property_type": "Multi-Family (Duplex)",
+      "use": "Investment",
+      "monthly_piti": 2400.0
+    },
+    "property": {
+      "purchase_price": 340000.0,
+      "appraised_value": 345000.0,
+      "condition": "C3 - Average",
+      "type": "Duplex",
+      "required_repairs": 0.0,
+      "repair_details": "Tenant occupied. Minor cosmetic updates may be desired for future tenants."
+    },
+    "dti_ratio": 0.16923076923076924,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-038",
+    "name": "Elena Rodriguez",
+    "ssn": "111-22-3333",
+    "email": "elena.rodriguez@archfirm.com",
+    "phone": "503-555-1234",
+    "address": "789 Birch Lane, Portland, OR 97201",
+    "credit_score": 785,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 1,
+      "oldest_tradeline_years": 18.0,
+      "total_tradelines": 15,
+      "credit_notes": "Excellent payment history across all accounts. No derogatory marks. Very responsible credit utilization."
+    },
+    "employment": {
+      "employer": "Modern Arch Group",
+      "position": "Lead Architect",
+      "years": 10.0,
+      "monthly_income": 14000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Modern Arch Group",
+          "position": "Lead Architect",
+          "years": 10.0,
+          "income": 168000.0
+        },
+        {
+          "employer": "Urban Design Collective",
+          "position": "Architect",
+          "years": 7.0,
+          "income": 95000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 168000.0,
+        "bonus_2023": 25000.0,
+        "bonus_2024": 28000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Annual bonus consistent for past 5 years, expected to continue."
+      }
+    },
+    "debts": {
+      "car_loan": 450.0,
+      "student_loan": 300.0,
+      "credit_cards": 500.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1250.0
+    },
+    "assets": {
+      "checking": 95000.0,
+      "savings": 120000.0,
+      "liquid_assets_total": 215000.0,
+      "401k": 320000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 28000.0,
+          "description": "Annual bonus"
+        },
+        {
+          "date": "2024-12-01",
+          "amount": 7000.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 7000.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Annual bonus confirmed by employer letter. Bi-weekly deposits are regular salary.",
+      "reserves_months": 25
+    },
+    "loan": {
+      "amount": 600000.0,
+      "down_payment": 150000.0,
+      "closing_costs": 15000.0,
+      "estimated_payment": 4000.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 4000.0
+    },
+    "property": {
+      "purchase_price": 750000.0,
+      "appraised_value": 765000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required. Property in excellent condition."
+    },
+    "dti_ratio": 0.08928571428571429,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-039",
+    "name": "David Thompson",
+    "ssn": "444-55-6666",
+    "email": "david.thompson@digitalcorp.com",
+    "phone": "206-555-4321",
+    "address": "101 Cedar Way, Seattle, WA 98104",
+    "credit_score": 720,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 1,
+      "collections": [],
+      "inquiries_6mo": 3,
+      "oldest_tradeline_years": 10.0,
+      "total_tradelines": 10,
+      "credit_notes": "One 30-day late payment on a credit card 20 months ago, otherwise clean record. Credit utilization is healthy."
+    },
+    "employment": {
+      "employer": "Digital Innovators Inc.",
+      "position": "Marketing Manager",
+      "years": 5.0,
+      "monthly_income": 8500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Digital Innovators Inc.",
+          "position": "Marketing Manager",
+          "years": 5.0,
+          "income": 102000.0
+        },
+        {
+          "employer": "Creative Solutions Group",
+          "position": "Marketing Specialist",
+          "years": 3.0,
+          "income": 70000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 102000.0,
+        "bonus_2023": 5000.0,
+        "bonus_2024": 6000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Small annual bonus, stable for past 3 years."
+      }
+    },
+    "debts": {
+      "car_loan": 580.0,
+      "student_loan": 280.0,
+      "credit_cards": 1200.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2060.0
+    },
+    "assets": {
+      "checking": 45000.0,
+      "savings": 60000.0,
+      "liquid_assets_total": 105000.0,
+      "401k": 110000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-10",
+          "amount": 6000.0,
+          "description": "Year-end bonus"
+        },
+        {
+          "date": "2024-11-25",
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Year-end bonus as stated. Bi-weekly deposits are regular salary.",
+      "reserves_months": 15
+    },
+    "loan": {
+      "amount": 420000.0,
+      "down_payment": 70000.0,
+      "closing_costs": 10000.0,
+      "estimated_payment": 3000.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 3000.0
+    },
+    "property": {
+      "purchase_price": 490000.0,
+      "appraised_value": 485000.0,
+      "condition": "C3 - Average",
+      "type": "Condominium",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required. Standard wear and tear."
+    },
+    "dti_ratio": 0.24235294117647058,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-040",
+    "name": "Jessica Lee",
+    "ssn": "777-88-9999",
+    "email": "jessica.lee@freelancedesign.org",
+    "phone": "720-555-6789",
+    "address": "222 Elm Street, Denver, CO 80203",
+    "credit_score": 650,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 2,
+      "late_payments_24mo": 4,
+      "collections": [
+        {
+          "type": "utility",
+          "amount": 350.0
+        }
+      ],
+      "inquiries_6mo": 6,
+      "oldest_tradeline_years": 7.0,
+      "total_tradelines": 8,
+      "credit_notes": "Two 30-day late payments in the last year on credit cards. One small utility collection paid off 3 months ago. High recent inquiries for credit cards."
+    },
+    "employment": {
+      "employer": "Self-Employed (Graphic Design)",
+      "position": "Owner/Designer",
+      "years": 3.0,
+      "monthly_income": 6500.0,
+      "type": "Self-Employed",
+      "employment_gap": "None",
+      "gap_explanation": "Consistent self-employment since founding design studio.",
+      "employment_history": [
+        {
+          "employer": "Self-Employed (Graphic Design)",
+          "position": "Owner/Designer",
+          "years": 3.0,
+          "income": 78000.0
+        },
+        {
+          "employer": "DesignWorks Agency",
+          "position": "Senior Designer",
+          "years": 4.0,
+          "income": 65000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 0.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Self-employed, income verified via 2 years tax returns and 1099s. Income shows slight growth."
+      }
+    },
+    "debts": {
+      "car_loan": 1200.0,
+      "student_loan": 350.0,
+      "credit_cards": 2100.0,
+      "personal_loan": 150.0,
+      "total_monthly_debt": 3800.0
+    },
+    "assets": {
+      "checking": 18000.0,
+      "savings": 15000.0,
+      "liquid_assets_total": 33000.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-05",
+          "amount": 8000.0,
+          "description": "Client invoice payment"
+        },
+        {
+          "date": "2024-11-20",
+          "amount": 5000.0,
+          "description": "Client invoice payment"
+        }
+      ],
+      "deposit_explanations": "Regular deposits from various client payments, reconciled with invoices.",
+      "reserves_months": 4
+    },
+    "loan": {
+      "amount": 300000.0,
+      "down_payment": 40000.0,
+      "closing_costs": 7500.0,
+      "estimated_payment": 2300.0,
+      "property_type": "Townhome",
+      "use": "Primary Residence",
+      "monthly_piti": 2300.0
+    },
+    "property": {
+      "purchase_price": 340000.0,
+      "appraised_value": 335000.0,
+      "condition": "C3 - Average",
+      "type": "Townhome",
+      "required_repairs": 2500.0,
+      "repair_details": "Minor plumbing issue in bathroom, aging water heater needs replacement."
+    },
+    "dti_ratio": 0.5846153846153846,
+    "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-041",
+    "name": "Kevin Miller",
+    "ssn": "101-02-0303",
+    "email": "k.miller@personalmail.com",
+    "phone": "719-555-9876",
+    "address": "333 Aspen Way, Colorado Springs, CO 80903",
+    "credit_score": 580,
+    "credit_history": {
+      "bankruptcies": 1,
+      "foreclosures": 0,
+      "late_payments_12mo": 4,
+      "late_payments_24mo": 8,
+      "collections": [
+        {
+          "type": "medical",
+          "amount": 800.0
+        },
+        {
+          "type": "utility",
+          "amount": 250.0
+        }
+      ],
+      "inquiries_6mo": 7,
+      "oldest_tradeline_years": 1.0,
+      "total_tradelines": 4,
+      "credit_notes": "Chapter 7 bankruptcy discharged 1 year ago. Multiple recent 30-day and 60-day late payments post-bankruptcy. Two active collections. Very thin credit file post-bankruptcy."
+    },
+    "employment": {
+      "employer": "Retail Outlet Co.",
+      "position": "Retail Associate",
+      "years": 1.0,
+      "monthly_income": 3200.0,
+      "type": "W2",
+      "employment_gap": "Yes",
+      "gap_explanation": "6-month gap between bankruptcy and current employment due to job loss. Documented unemployment benefits.",
+      "employment_history": [
+        {
+          "employer": "Retail Outlet Co.",
+          "position": "Retail Associate",
+          "years": 1.0,
+          "income": 38400.0
+        },
+        {
+          "employer": "Former Employer Inc.",
+          "position": "Logistics Coordinator",
+          "years": 2.0,
+          "income": 45000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 38400.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Hourly wage, no bonuses or overtime expected. Currently part-time."
+      }
+    },
+    "debts": {
+      "car_loan": 400.0,
+      "student_loan": 800.0,
+      "credit_cards": 1000.0,
+      "personal_loan": 250.0,
+      "total_monthly_debt": 2450.0
+    },
+    "assets": {
+      "checking": 3500.0,
+      "savings": 1000.0,
+      "liquid_assets_total": 4500.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-15",
+          "amount": 1600.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-12-01",
+          "amount": 5000.0,
+          "description": "Cash deposit - source unknown"
+        }
+      ],
+      "deposit_explanations": "Cash deposit of $5,000 needs full sourcing documentation and explanation. Regular salary deposits.",
+      "reserves_months": 0
+    },
+    "loan": {
+      "amount": 200000.0,
+      "down_payment": 20000.0,
+      "closing_costs": 5000.0,
+      "estimated_payment": 1800.0,
+      "property_type": "Manufactured Home",
+      "use": "Primary Residence",
+      "monthly_piti": 1800.0
+    },
+    "property": {
+      "purchase_price": 220000.0,
+      "appraised_value": 205000.0,
+      "condition": "C5 - Poor",
+      "type": "Manufactured Home",
+      "required_repairs": 15000.0,
+      "repair_details": "Extensive structural repairs needed for foundation. Roof nearing end of life. HVAC system needs major overhaul."
+    },
+    "dti_ratio": 0.765625,
+    "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-042",
+    "name": "Sophia Garcia",
+    "ssn": "222-33-4444",
+    "email": "sophia.g@innovateco.com",
+    "phone": "619-555-1111",
+    "address": "444 Ocean Drive, San Diego, CA 92109",
+    "credit_score": 740,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 2,
+      "oldest_tradeline_years": 9.0,
+      "total_tradelines": 11,
+      "credit_notes": "Perfect payment history. Manages multiple credit lines responsibly. Low credit utilization."
+    },
+    "employment": {
+      "employer": "Innovate Marketing Group",
+      "position": "Marketing Director",
+      "years": 3.0,
+      "monthly_income": 11000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Innovate Marketing Group",
+          "position": "Marketing Director",
+          "years": 3.0,
+          "income": 132000.0
+        },
+        {
+          "employer": "Growth Solutions Agency",
+          "position": "Marketing Lead",
+          "years": 5.0,
+          "income": 95000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 132000.0,
+        "bonus_2023": 10000.0,
+        "bonus_2024": 12000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Consistent annual bonus, expected to continue with performance."
+      }
+    },
+    "debts": {
+      "car_loan": 1200.0,
+      "student_loan": 400.0,
+      "credit_cards": 800.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2400.0
+    },
+    "assets": {
+      "checking": 60000.0,
+      "savings": 80000.0,
+      "liquid_assets_total": 140000.0,
+      "401k": 180000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-18",
+          "amount": 12000.0,
+          "description": "Annual performance bonus"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 5500.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 5500.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "Annual bonus confirmed by pay stubs and employer. Other deposits are regular salary.",
+      "reserves_months": 15
+    },
+    "loan": {
+      "amount": 550000.0,
+      "down_payment": 100000.0,
+      "closing_costs": 13000.0,
+      "estimated_payment": 3800.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 3800.0
+    },
+    "property": {
+      "purchase_price": 650000.0,
+      "appraised_value": 660000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "Minor cosmetic updates recommended, but no required repairs."
+    },
+    "dti_ratio": 0.21818181818181817,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-043",
+    "name": "Emily White",
+    "ssn": "345-67-8901",
+    "email": "emily.white@consulting.com",
+    "phone": "(650) 555-1111",
+    "address": "456 Birch Lane, Palo Alto, CA 94301",
+    "credit_score": 780,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 1,
+      "oldest_tradeline_years": 18.0,
+      "total_tradelines": 15,
+      "credit_notes": "Long-standing credit history with excellent payment performance. No derogatory marks whatsoever. Responsible use of credit."
+    },
+    "employment": {
+      "employer": "Global Consulting Group",
+      "position": "Senior Management Consultant",
+      "years": 8.0,
+      "monthly_income": 15000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Global Consulting Group",
+          "position": "Senior Management Consultant",
+          "years": 8.0,
+          "income": 180000.0
+        },
+        {
+          "employer": "Strategy Inc.",
+          "position": "Consultant",
+          "years": 5.0,
+          "income": 100000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 180000.0,
+        "bonus_2023": 30000.0,
+        "bonus_2024": 35000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Bonus consistently paid out over last 5 years, expected to continue."
+      }
+    },
+    "debts": {
+      "car_loan": 900.0,
+      "student_loan": 0.0,
+      "credit_cards": 1000.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1900.0
+    },
+    "assets": {
+      "checking": 100000.0,
+      "savings": 150000.0,
+      "liquid_assets_total": 250000.0,
+      "401k": 380000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-28",
+          "amount": 15000.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 35000.0,
+          "description": "Annual bonus"
+        }
+      ],
+      "deposit_explanations": "All deposits sourced from documented employment and bonus income.",
+      "reserves_months": 25
+    },
+    "loan": {
+      "amount": 600000.0,
+      "down_payment": 200000.0,
+      "closing_costs": 18000.0,
+      "estimated_payment": 4500.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 4500.0
+    },
+    "property": {
+      "purchase_price": 800000.0,
+      "appraised_value": 820000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required, recently renovated."
+    },
+    "dti_ratio": 0.12666666666666668,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-044",
+    "name": "David Lee",
+    "ssn": "111-22-3333",
+    "email": "david.lee@innovate.net",
+    "phone": "(206) 555-7890",
+    "address": "789 Pine Ridge Road, Seattle, WA 98101",
+    "credit_score": 720,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 1,
+      "collections": [],
+      "inquiries_6mo": 3,
+      "oldest_tradeline_years": 10.0,
+      "total_tradelines": 10,
+      "credit_notes": "One 30-day late payment 20 months ago on a store credit card (account since paid off and closed). Otherwise, solid payment history. No major issues."
+    },
+    "employment": {
+      "employer": "Innovate Systems Inc.",
+      "position": "Data Analyst",
+      "years": 4.0,
+      "monthly_income": 8500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Innovate Systems Inc.",
+          "position": "Data Analyst",
+          "years": 4.0,
+          "income": 102000.0
+        },
+        {
+          "employer": "Marketing Solutions Co.",
+          "position": "Junior Analyst",
+          "years": 3.0,
+          "income": 65000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 102000.0,
+        "bonus_2023": 5000.0,
+        "bonus_2024": 6000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Small annual bonus is typical and expected to continue."
+      }
+    },
+    "debts": {
+      "car_loan": 500.0,
+      "student_loan": 300.0,
+      "credit_cards": 1500.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2300.0
+    },
+    "assets": {
+      "checking": 45000.0,
+      "savings": 60000.0,
+      "liquid_assets_total": 105000.0,
+      "401k": 80000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-20",
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-12-06",
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "All deposits are regular bi-weekly salary. Bonus received in January, documented.",
+      "reserves_months": 15
+    },
+    "loan": {
+      "amount": 320000.0,
+      "down_payment": 80000.0,
+      "closing_costs": 9000.0,
+      "estimated_payment": 2600.0,
+      "property_type": "Townhouse",
+      "use": "Primary Residence",
+      "monthly_piti": 2600.0
+    },
+    "property": {
+      "purchase_price": 400000.0,
+      "appraised_value": 405000.0,
+      "condition": "C3 - Average",
+      "type": "Townhouse",
+      "required_repairs": 0.0,
+      "repair_details": "Minor cosmetic updates recommended but not required."
+    },
+    "dti_ratio": 0.27058823529411763,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-045",
+    "name": "Jessica Garcia",
+    "ssn": "999-88-7777",
+    "email": "jessica.g@healthcare.org",
+    "phone": "(312) 555-4321",
+    "address": "101 Elmwood Drive, Chicago, IL 60601",
+    "credit_score": 650,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 2,
+      "late_payments_24mo": 3,
+      "collections": [
+        {
+          "type": "medical",
+          "amount": 800.0
+        }
+      ],
+      "inquiries_6mo": 4,
+      "oldest_tradeline_years": 7.0,
+      "total_tradelines": 8,
+      "credit_notes": "Two 30-day late payments on a credit card in the last year (due to unexpected expenses). One medical collection (paid in full 6 months ago). Several recent credit inquiries."
+    },
+    "employment": {
+      "employer": "City Medical Center",
+      "position": "Registered Nurse",
+      "years": 1.0,
+      "monthly_income": 7000.0,
+      "type": "W2",
+      "employment_gap": "Yes",
+      "gap_explanation": "3-month gap between nursing positions when relocating for family. New position is higher paying and stable.",
+      "employment_history": [
+        {
+          "employer": "City Medical Center",
+          "position": "Registered Nurse",
+          "years": 1.0,
+          "income": 84000.0
+        },
+        {
+          "employer": "Suburban Health Clinic",
+          "position": "Registered Nurse",
+          "years": 4.0,
+          "income": 70000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 84000.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "No bonuses for this position."
+      }
+    },
+    "debts": {
+      "car_loan": 400.0,
+      "student_loan": 550.0,
+      "credit_cards": 1200.0,
+      "personal_loan": 250.0,
+      "total_monthly_debt": 2400.0
+    },
+    "assets": {
+      "checking": 25000.0,
+      "savings": 15000.0,
+      "liquid_assets_total": 40000.0,
+      "401k": 30000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-25",
+          "amount": 3500.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-12-10",
+          "amount": 3500.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "All deposits are regular bi-weekly salary.",
+      "reserves_months": 5
+    },
+    "loan": {
+      "amount": 280000.0,
+      "down_payment": 20000.0,
+      "closing_costs": 7000.0,
+      "estimated_payment": 2200.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 2200.0
+    },
+    "property": {
+      "purchase_price": 300000.0,
+      "appraised_value": 295000.0,
+      "condition": "C3 - Average",
+      "type": "Condominium",
+      "required_repairs": 1500.0,
+      "repair_details": "Minor plumbing issue identified during inspection, easily fixable."
+    },
+    "dti_ratio": 0.34285714285714286,
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "MTG-2026-046",
+    "name": "Kevin Brown",
+    "ssn": "777-66-5555",
+    "email": "kevin.brown@craftsman.co",
+    "phone": "(713) 555-2222",
+    "address": "202 Bayou Street, Houston, TX 77002",
+    "credit_score": 580,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 4,
+      "late_payments_24mo": 6,
+      "collections": [
+        {
+          "type": "utility",
+          "amount": 450.0
+        },
+        {
+          "type": "medical",
+          "amount": 1500.0
+        }
+      ],
+      "inquiries_6mo": 7,
+      "oldest_tradeline_years": 3.0,
+      "total_tradelines": 5,
+      "credit_notes": "Multiple 30 and 60-day late payments across various accounts. Two active collections. High credit utilization on all cards. Credit inquiries suggest desperate credit seeking."
+    },
+    "employment": {
+      "employer": "Self-Employed (Craftsman/Carpenter)",
+      "position": "Owner/Operator",
+      "years": 2.5,
+      "monthly_income": 4500.0,
+      "type": "Self-Employed",
+      "employment_gap": "Yes",
+      "gap_explanation": "Inconsistent income with frequent periods of no work between contracts. Prior employment was short-term.",
+      "employment_history": [
+        {
+          "employer": "Self-Employed (Craftsman/Carpenter)",
+          "position": "Owner/Operator",
+          "years": 2.5,
+          "income": 54000.0
+        },
+        {
+          "employer": "Construction Crew Inc.",
+          "position": "Carpenter",
+          "years": 1.0,
+          "income": 40000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 0.0,
+        "bonus_2023": 0.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Self-employed, income highly variable. Last year's income was 20% lower than previous."
+      }
+    },
+    "debts": {
+      "car_loan": 350.0,
+      "student_loan": 800.0,
+      "credit_cards": 900.0,
+      "personal_loan": 300.0,
+      "total_monthly_debt": 2350.0
+    },
+    "assets": {
+      "checking": 5000.0,
+      "savings": 2000.0,
+      "liquid_assets_total": 7000.0,
+      "401k": 0.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-18",
+          "amount": 2000.0,
+          "description": "Client payment"
+        },
+        {
+          "date": "2024-11-25",
+          "amount": 1500.0,
+          "description": "Client payment"
+        }
+      ],
+      "deposit_explanations": "Irregular client payments. Bank statements show frequent overdrafts.",
+      "reserves_months": 1
+    },
+    "loan": {
+      "amount": 200000.0,
+      "down_payment": 10000.0,
+      "closing_costs": 5000.0,
+      "estimated_payment": 1800.0,
+      "property_type": "Single Family",
       "use": "Primary Residence",
       "monthly_piti": 1800.0
     },
     "property": {
       "purchase_price": 210000.0,
-      "appraised_value": 205000.0,
+      "appraised_value": 195000.0,
       "condition": "C5 - Poor",
-      "type": "Condominium",
-      "required_repairs": 10000.0,
-      "repair_details": "Extensive water damage in bathroom, broken kitchen appliances, aging HVAC system, exterior facade crumbling."
+      "type": "Single Family Home",
+      "required_repairs": 15000.0,
+      "repair_details": "Significant water damage in bathroom, foundation needs repair, roof leaking, HVAC needs full replacement."
     },
-    "dti_ratio": 0.9428571428571428,
+    "dti_ratio": 0.5222222222222223,
     "expected_decision": "REJECTED"
+  },
+  {
+    "case_id": "MTG-2026-047",
+    "name": "Olivia Wilson",
+    "ssn": "234-56-7890",
+    "email": "olivia.w@investment.co",
+    "phone": "(303) 555-3333",
+    "address": "909 Summit View, Denver, CO 80203",
+    "credit_score": 750,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 0,
+      "oldest_tradeline_years": 20.0,
+      "total_tradelines": 11,
+      "credit_notes": "Excellent and extensive credit history. High credit limits, low utilization. No negative remarks. Actively monitors credit."
+    },
+    "employment": {
+      "employer": "Wealth Management Group",
+      "position": "Financial Advisor (Commission-Based)",
+      "years": 12.0,
+      "monthly_income": 20000.0,
+      "type": "W2 + Commission",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Wealth Management Group",
+          "position": "Financial Advisor",
+          "years": 12.0,
+          "income": 240000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 80000.0,
+        "bonus_2023": 150000.0,
+        "bonus_2024": 160000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Commission and bonus structure is well-established and consistent over many years, with upward trend."
+      }
+    },
+    "debts": {
+      "car_loan": 0.0,
+      "student_loan": 0.0,
+      "credit_cards": 800.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 800.0
+    },
+    "assets": {
+      "checking": 150000.0,
+      "savings": 200000.0,
+      "liquid_assets_total": 350000.0,
+      "401k": 600000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-30",
+          "amount": 10000.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 160000.0,
+          "description": "Annual commission payout"
+        }
+      ],
+      "deposit_explanations": "Commission and salary deposits are well-documented and consistent with income history.",
+      "reserves_months": 58
+    },
+    "loan": {
+      "amount": 750000.0,
+      "down_payment": 250000.0,
+      "closing_costs": 25000.0,
+      "estimated_payment": 5500.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 5500.0
+    },
+    "property": {
+      "purchase_price": 1000000.0,
+      "appraised_value": 1050000.0,
+      "condition": "C1 - Excellent",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "Brand new construction, no repairs needed."
+    },
+    "dti_ratio": 0.04,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-048",
+    "name": "Daniel Kim",
+    "ssn": "876-54-3210",
+    "email": "daniel.kim@designs.com",
+    "phone": "(617) 555-6789",
+    "address": "321 Beacon Street, Boston, MA 02108",
+    "credit_score": 690,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 2,
+      "oldest_tradeline_years": 9.0,
+      "total_tradelines": 7,
+      "credit_notes": "Consistent payment history. Recently closed a small personal loan. Responsible credit card use. No major derogatory items."
+    },
+    "employment": {
+      "employer": "Architectural Design Studio",
+      "position": "Architect",
+      "years": 5.0,
+      "monthly_income": 10500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Architectural Design Studio",
+          "position": "Architect",
+          "years": 5.0,
+          "income": 126000.0
+        },
+        {
+          "employer": "Urban Planners LLC",
+          "position": "Junior Architect",
+          "years": 3.0,
+          "income": 70000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 126000.0,
+        "bonus_2023": 7000.0,
+        "bonus_2024": 8500.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Annual bonus is standard for performance, expected to continue."
+      }
+    },
+    "debts": {
+      "car_loan": 700.0,
+      "student_loan": 600.0,
+      "credit_cards": 1000.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 2300.0
+    },
+    "assets": {
+      "checking": 40000.0,
+      "savings": 55000.0,
+      "liquid_assets_total": 95000.0,
+      "401k": 90000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-29",
+          "amount": 5250.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 8500.0,
+          "description": "Annual bonus"
+        }
+      ],
+      "deposit_explanations": "December deposits include bi-weekly salary and annual performance bonus.",
+      "reserves_months": 11
+    },
+    "loan": {
+      "amount": 420000.0,
+      "down_payment": 80000.0,
+      "closing_costs": 10000.0,
+      "estimated_payment": 3400.0,
+      "property_type": "Condo",
+      "use": "Primary Residence",
+      "monthly_piti": 3400.0
+    },
+    "property": {
+      "purchase_price": 500000.0,
+      "appraised_value": 495000.0,
+      "condition": "C3 - Average",
+      "type": "Condominium",
+      "required_repairs": 0.0,
+      "repair_details": "No repairs required. Unit in good living condition."
+    },
+    "dti_ratio": 0.21904761904761905,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-049",
+    "name": "Emily Davis",
+    "ssn": "345-67-8901",
+    "email": "emily.davis@innovatesolutions.com",
+    "phone": "(555) 111-2222",
+    "address": "789 Pinecone Lane, Seattle, WA 98101",
+    "credit_score": 785,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 0,
+      "late_payments_24mo": 0,
+      "collections": [],
+      "inquiries_6mo": 1,
+      "oldest_tradeline_years": 18.0,
+      "total_tradelines": 14,
+      "credit_notes": "Consistently excellent payment history across all credit lines. No derogatory remarks or late payments. Very low credit utilization."
+    },
+    "employment": {
+      "employer": "Innovate Solutions Group",
+      "position": "Lead Data Scientist",
+      "years": 7.0,
+      "monthly_income": 18000.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Innovate Solutions Group",
+          "position": "Lead Data Scientist",
+          "years": 7.0,
+          "income": 216000.0
+        },
+        {
+          "employer": "Data Insights Co.",
+          "position": "Data Analyst",
+          "years": 5.0,
+          "income": 90000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 216000.0,
+        "bonus_2023": 20000.0,
+        "bonus_2024": 25000.0,
+        "bonus_stable": true,
+        "employer_confirmation": "Annual bonus historically consistent and expected to continue per employer statement."
+      }
+    },
+    "debts": {
+      "car_loan": 600.0,
+      "student_loan": 400.0,
+      "credit_cards": 800.0,
+      "personal_loan": 0,
+      "total_monthly_debt": 1800.0
+    },
+    "assets": {
+      "checking": 70000.0,
+      "savings": 130000.0,
+      "liquid_assets_total": 200000.0,
+      "401k": 280000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-28",
+          "amount": 25000.0,
+          "description": "Annual performance bonus"
+        },
+        {
+          "date": "2024-12-15",
+          "amount": 9000.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 9000.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "December bonus fully documented. All other deposits are regular bi-weekly salary.",
+      "reserves_months": 14
+    },
+    "loan": {
+      "amount": 600000.0,
+      "down_payment": 150000.0,
+      "closing_costs": 18000.0,
+      "estimated_payment": 4000.0,
+      "property_type": "Single Family",
+      "use": "Primary Residence",
+      "monthly_piti": 4000.0
+    },
+    "property": {
+      "purchase_price": 750000.0,
+      "appraised_value": 765000.0,
+      "condition": "C2 - Good",
+      "type": "Single Family Home",
+      "required_repairs": 0.0,
+      "repair_details": "Property in excellent condition, recent inspection found no required repairs."
+    },
+    "dti_ratio": 0.1,
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "MTG-2026-050",
+    "name": "Daniel Williams",
+    "ssn": "012-34-5678",
+    "email": "daniel.williams@creativems.net",
+    "phone": "(206) 555-3333",
+    "address": "456 Lakeview Drive, Tacoma, WA 98402",
+    "credit_score": 670,
+    "credit_history": {
+      "bankruptcies": 0,
+      "foreclosures": 0,
+      "late_payments_12mo": 1,
+      "late_payments_24mo": 2,
+      "collections": [],
+      "inquiries_6mo": 4,
+      "oldest_tradeline_years": 9.0,
+      "total_tradelines": 8,
+      "credit_notes": "One 60-day late payment 14 months ago on a department store card (disputed and resolved). Another 30-day late 20 months ago due to oversight. Several recent inquiries."
+    },
+    "employment": {
+      "employer": "Creative Marketing Solutions",
+      "position": "Marketing Specialist",
+      "years": 4.5,
+      "monthly_income": 8500.0,
+      "type": "W2",
+      "employment_gap": "None",
+      "gap_explanation": "N/A",
+      "employment_history": [
+        {
+          "employer": "Creative Marketing Solutions",
+          "position": "Marketing Specialist",
+          "years": 4.5,
+          "income": 102000.0
+        },
+        {
+          "employer": "Local Retail Group",
+          "position": "Assistant Manager",
+          "years": 3.0,
+          "income": 60000.0
+        }
+      ],
+      "income_details": {
+        "base_salary": 102000.0,
+        "bonus_2023": 3000.0,
+        "bonus_2024": 0.0,
+        "bonus_stable": false,
+        "employer_confirmation": "Bonuses are performance-based and not guaranteed annually."
+      }
+    },
+    "debts": {
+      "car_loan": 550.0,
+      "student_loan": 350.0,
+      "credit_cards": 700.0,
+      "personal_loan": 150.0,
+      "total_monthly_debt": 1750.0
+    },
+    "assets": {
+      "checking": 25000.0,
+      "savings": 10000.0,
+      "liquid_assets_total": 35000.0,
+      "401k": 80000.0,
+      "recent_deposits": [
+        {
+          "date": "2024-12-15",
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-30",
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
+        },
+        {
+          "date": "2024-11-15",
+          "amount": 4250.0,
+          "description": "Bi-weekly salary"
+        }
+      ],
+      "deposit_explanations": "All deposits are regular bi-weekly salary. No significant irregular deposits.",
+      "reserves_months": 9
+    },
+    "loan": {
+      "amount": 270000.0,
+      "down_payment": 30000.0,
+      "closing_costs": 9000.0,
+      "estimated_payment": 2000.0,
+      "property_type": "Townhouse",
+      "use": "Primary Residence",
+      "monthly_piti": 2000.0
+    },
+    "property": {
+      "purchase_price": 300000.0,
+      "appraised_value": 298000.0,
+      "condition": "C3 - Average",
+      "type": "Townhouse",
+      "required_repairs": 1500.0,
+      "repair_details": "Minor exterior paint touch-ups and garage door servicing recommended."
+    },
+    "dti_ratio": 0.20588235294117646,
+    "expected_decision": "CONDITIONAL"
   }
 ]
