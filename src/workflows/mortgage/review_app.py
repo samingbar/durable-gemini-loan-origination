@@ -290,7 +290,30 @@ async def index() -> HTMLResponse:
     entries = _load_manifest()
     if not entries:
         entries = _scan_cases()
-    entries = sorted(entries, key=lambda item: item.get("created_at", ""), reverse=True)
+
+    entries_by_case = {entry.get("case_id", ""): entry for entry in entries if entry.get("case_id")}
+
+    # Pull in any running workflows that were started outside the UI (e.g., demo script).
+    try:
+        async for workflow in client.list_workflows(
+            query='WorkflowType = "MortgageUnderwritingWorkflow" and ExecutionStatus = "Running"',
+            limit=50,
+        ):
+            workflow_id = workflow.id
+            if not workflow_id.startswith("mortgage-"):
+                continue
+            case_id = workflow_id.replace("mortgage-", "", 1)
+            if case_id not in entries_by_case:
+                created_at = workflow.start_time.isoformat()
+                entries_by_case[case_id] = {
+                    "case_id": case_id,
+                    "created_at": created_at,
+                    "image_dir": "",
+                }
+    except TemporalError:
+        pass
+
+    entries = sorted(entries_by_case.values(), key=lambda item: item.get("created_at", ""), reverse=True)
 
     rows = []
     for entry in entries:
