@@ -13,7 +13,6 @@ with workflow.unsafe.imports_passed_through():
         run_agent_analysis,
         run_critic_review,
         run_decision_memo,
-        run_supervisor,
     )
 from .mortgage_models import (
     AgentTask,
@@ -24,7 +23,6 @@ from .mortgage_models import (
     HumanReviewPacket,
     HumanReviewResult,
     ApplicationOcrTask,
-    SupervisorTask,
     UnderwritingAnalyses,
     UnderwritingInput,
     UnderwritingOutput,
@@ -90,7 +88,6 @@ class MortgageUnderwritingWorkflow:
             "assets": "asset verification, reserves requirements, large deposits",
             "collateral": "property condition, appraisal requirements, repairs",
             "decision": "overall underwriting decision thresholds",
-            "supervisor": "underwriting workflow routing and documentation sequencing",
         }
 
         policy_futures = {
@@ -103,60 +100,9 @@ class MortgageUnderwritingWorkflow:
         }
         policy_context = {key: await fut for key, fut in policy_futures.items()}
 
-        # Agentic loop: supervisor decides which specialist to run next.
+        # Run specialist analyses in a fixed, deterministic order.
         analyses = UnderwritingAnalyses(credit="", income="", assets="", collateral="")
-        completed: set[str] = set()
-        max_steps = 10
-
-        for _ in range(max_steps):
-            remaining = [
-                agent
-                for agent in ["credit", "income", "assets", "collateral"]
-                if agent not in completed
-            ]
-            if not remaining:
-                break
-
-            supervisor_decision = await workflow.execute_activity(
-                run_supervisor,
-                SupervisorTask(
-                    applicant=sanitized_payload,
-                    metrics=metrics,
-                    completed_agents=sorted(completed),
-                remaining_agents=remaining,
-                risk_flags=risk_flags,
-                policy_context=policy_context["supervisor"],
-                ),
-            start_to_close_timeout=timedelta(seconds=30),
-            )
-
-            # Ensure we only run an agent that is still missing.
-            next_agent = supervisor_decision.next_agent
-            if next_agent not in remaining:
-                next_agent = remaining[0]
-
-            agent_task = AgentTask(
-                agent_name=next_agent.title(),
-                applicant=sanitized_payload,
-                metrics=metrics,
-                policy_context=policy_context[next_agent],
-            )
-            result = await workflow.execute_activity(
-                run_agent_analysis,
-                agent_task,
-                start_to_close_timeout=timedelta(seconds=60),
-            )
-
-            setattr(analyses, next_agent, result.analysis)
-            completed.add(next_agent)
-
-        # Run any remaining specialist analyses not covered by the supervisor. Deterministic protection to avoid skipping steps.
-        remaining = [
-            agent
-            for agent in ["credit", "income", "assets", "collateral"]
-            if agent not in completed
-        ]
-        for agent in remaining:
+        for agent in ["credit", "income", "assets", "collateral"]:
             result = await workflow.execute_activity(
                 run_agent_analysis,
                 AgentTask(
@@ -168,7 +114,6 @@ class MortgageUnderwritingWorkflow:
                 start_to_close_timeout=timedelta(seconds=60),
             )
             setattr(analyses, agent, result.analysis)
-            completed.add(agent)
 
         # Critic pass to check for missed risks or inconsistencies.
         critic_policy = policy_context["decision"]
