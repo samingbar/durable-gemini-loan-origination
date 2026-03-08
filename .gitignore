@@ -18,6 +18,7 @@ coverage.xml
 
 # Data
 bin/
+datasets/uploads/
 
 # MacOS
 .DS_Store

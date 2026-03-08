@@ -1,124 +1,156 @@
-# Temporal Python SDK Project Template
+# Durable Gemini Loan Origination
 
-![GitHub CI](https://github.com/kawofong/temporal-python-template/actions/workflows/ci.yml/badge.svg)
-[![Code Coverage](https://img.shields.io/codecov/c/github/kawofong/temporal-python-template.svg?maxAge=86400)](https://codecov.io/github/kawofong/temporal-python-template?branch=master)
-[![GitHub License](https://img.shields.io/github/license/kawofong/temporal-python-template)](https://github.com/kawofong/temporal-python-template/blob/main/LICENSE)
+[![CI](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml/badge.svg)](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/samingbar/durable-gemini-loan-origination)](LICENSE)
 
-## Introduction
+A Temporal-powered mortgage underwriting demo that pairs Gemini OCR with structured, policy-grounded analysis and a human review UI.
 
-A modern, production-ready template for building Temporal applications using [Temporal Python SDK](https://docs.temporal.io/dev-guide/python). This template provides a solid foundation for developing Workflow-based applications with comprehensive testing, linting, and modern Python tooling.
+> This is a demo system using synthetic data and simplified policy logic. Do not use it for real lending decisions.
 
-### What's Included
+**What you can learn here**
+- How to structure deterministic Temporal workflows with non-deterministic activities
+- How to ground LLM outputs with policy text
+- How to build a human review gate with signals and queries
+- How to validate structured LLM output with Pydantic and fallbacks
 
-- Complete testing setup (pytest) with async support
-- Pre-configured development tooling (e.g. ruff, pre-commit) and CI
-- Comprehensive documentation and guides
-- [AGENTS.md](https://agents.md/) to provide the context and instructions to help AI coding agents work on your project
+## Repository Map
 
-## Getting Started
+- `src/` contains all workflow code, activities, and models.
+- `src/workflows/mortgage_fixed_flow/` is the deterministic baseline pipeline.
+- `src/workflows/mortgage_embedded_agent/` adds a supervisor that picks the next specialist to run.
+- `datasets/` contains synthetic inputs and UI uploads.
+- `resources/` contains policy PDFs and test cases.
+- `docs/` contains Temporal patterns and testing guidance.
+
+If you’re new to Temporal, start with `docs/temporal-primitives.md`.
+
+## Quickstart
 
 ### Prerequisites
+- Python 3.12+
+- `uv` for dependency management
+- Temporal CLI (for a local dev server)
+- A Gemini API key
 
-- [uv](https://docs.astral.sh/uv/)
-- [Temporal CLI](https://docs.temporal.io/cli#install)
+### Install
 
-### Quick Start
+```bash
+uv sync --dev
+```
 
-1. **Clone and setup the project:**
+### Configure Environment
 
-   ```bash
-   git clone https://github.com/kawofong/temporal-python-template.git
-   cd temporal-python-template
-   uv sync --dev
-   ```
+```bash
+# Use either GEMINI_API_KEY or GOOGLE_API_KEY
+export GEMINI_API_KEY="your_api_key"
+# export GOOGLE_API_KEY="your_api_key"
 
-1. **Install development hooks:**
+# Optional: override Gemini model (default: gemini-2.5-flash)
+export GEMINI_MODEL="gemini-2.5-flash"
 
-   ```bash
-   uv run poe pre-commit-install
-   ```
+# Optional: Temporal server address (default: localhost:7233)
+export TEMPORAL_ADDRESS="localhost:7233"
 
-1. **Run tests:**
+# Optional: task queue (default: mortgage-underwriting)
+export MORTGAGE_TASK_QUEUE="mortgage-underwriting"
 
-   ```bash
-   uv run poe test
-   ```
+# Optional: upload directory for the review UI
+export UPLOAD_ROOT="datasets/uploads"
+```
 
-1. **Start Temporal Server**:
+### Start Temporal
 
-   ```bash
-   temporal server start-dev
-   ```
+```bash
+temporal server start-dev
+```
 
-1. **Run the example workflow** (in a separate terminal):
+### Choose a Workflow
 
-   ```bash
-   # Start the worker
-   uv run -m src.workflows.http.worker
+**Fixed flow (deterministic baseline)**
+- Best when you want repeatable, predictable behavior.
+- Specialists always run in the same order.
 
-   # In another terminal, execute a workflow
-   uv run -m src.workflows.http.http_workflow
-   ```
+```bash
+uv run -m src.workflows.mortgage_fixed_flow.worker
+```
 
-### Mortgage Underwriting Demo (Agentic + Human Review)
+**Embedded agent flow (supervisor routing)**
+- Best when you want LLM-driven routing and adaptive sequencing.
 
-This demo runs the Temporal-based mortgage underwriting workflow with Gemini-powered agents and a local human review UI.
+```bash
+uv run -m src.workflows.mortgage_embedded_agent.worker
+```
 
-1. **Install dependencies:**
+### Run the Human Review UI (Optional)
 
-   ```bash
-   uv sync --dev
-   ```
+```bash
+# Fixed flow UI
+uv run uvicorn src.workflows.mortgage_fixed_flow.review_app:app --reload
 
-1. **Set environment variables:**
+# Embedded agent UI
+uv run uvicorn src.workflows.mortgage_embedded_agent.review_app:app --reload
+```
 
-   ```bash
-   export GEMINI_API_KEY="your_api_key"
-   # Optional: override the Gemini model
-   export GEMINI_MODEL="gemini-2.5-flash"
-   # Optional: Temporal server address (defaults to localhost:7233)
-   export TEMPORAL_ADDRESS="localhost:7233"
-   ```
+Open `http://localhost:8000` and upload images named like `CASEID_p1.png`, `CASEID_p2.png`, etc.
 
-1. **Start a local Temporal server:**
+### Run Sample Cases (Embedded Agent)
 
-   ```bash
-   temporal server start-dev
-   ```
+```bash
+uv run -m src.workflows.mortgage_embedded_agent.demo --image-dir datasets/images
+```
 
-1. **Start the worker (new terminal):**
+If your images are not case-scoped, the demo will process all images as a single case called `DEMO-UNSCOPED`.
 
-   ```bash
-   uv run -m src.workflows.mortgage.worker
-   ```
+## How It Works (Conceptual Flow)
 
-1. **Start the human review UI (new terminal):**
+1. **OCR Intake**: Images are converted to a structured `MortgageApplication` using Gemini multimodal OCR.
+2. **Sanitize + Metrics**: PII is masked and deterministic metrics (DTI/LTV) are computed.
+3. **Policy Retrieval**: Relevant policy text is pulled from `resources/underwriting_policies.pdf`.
+4. **Specialist Analyses**: Credit, income, assets, and collateral analyses are generated.
+5. **Critic Review**: A critic pass checks for missing risks or inconsistencies.
+6. **Decision Memo**: LLM drafts a structured decision memo, validated with fallbacks.
+7. **Human Review Gate**: Conditional decisions wait for a reviewer signal.
 
-   ```bash
-   uv run uvicorn src.workflows.mortgage.review_app:app --reload
-   ```
+## Data Assets
 
-   Open the UI in your browser:
+- `resources/underwriting_policies.pdf` grounds LLM prompts.
+- `resources/mortgage_test_cases.json` contains synthetic seed cases.
+- `datasets/images` and `datasets/pdfs` hold generated sample inputs.
+- `datasets/uploads` is created by the UI for new uploads (git-ignored).
 
-   ```text
-   http://localhost:8000
-   ```
+## Testing & Quality
 
-1. **Run the demo workflow (new terminal):**
+```bash
+# Run tests with coverage
+uv run poe test
 
-   ```bash
-   uv run -m src.workflows.mortgage.demo
-   ```
+# Lint and auto-fix
+uv run poe lint
 
-   If a case pauses for human review, use the UI to submit a decision.
+# Format code
+uv run poe format
+```
 
-### Next Steps
+## Common Tasks
 
-- Check out some [example prompts](./docs/example-prompts.md) to generate Temporal Workflows using your favorite tool.
-- After you have built your first Temporal Workflow, read [DEVELOPERS.md](./DEVELOPERS.md) to learn about development tips & tricks using this template.
-- See [`docs/temporal-patterns.md`](./docs/temporal-patterns.md) for advanced Temporal patterns
-- Check [`docs/testing.md`](./docs/testing.md) for Temporal testing best practices
+Reset the review UI cache history:
+
+```bash
+uv run poe reset-cache
+```
+
+Purge uploads as well:
+
+```bash
+uv run poe reset-cache -- --purge-uploads
+```
+
+## Troubleshooting
+
+- **Workflow won’t start**: Confirm the worker is running and `TEMPORAL_ADDRESS` matches the server.
+- **OCR returns invalid JSON**: The workflow has deterministic fallbacks; check logs for the raw response.
+- **No cases in UI**: Verify `UPLOAD_ROOT` exists and the UI can write to it.
 
 ## License
 
-[MIT License](LICENSE).
+MIT License. See `LICENSE`.

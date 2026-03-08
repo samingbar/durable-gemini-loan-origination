@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "durable-gemini-loan-origination",
+			"path": "."
+		},
+		{
+			"name": "example workflow",
+			"path": "../durable-gemini-agent-docimage/example workflow"
+		}
+	],
+	"settings": {}
+}
