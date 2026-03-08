@@ -14,8 +14,8 @@ import fitz  # PyMuPDF
 from google import genai
 from google.genai import types
 
-from .mortgage_models import MortgageApplication
-from .mortgage_utils import compute_metrics, determine_decision, parse_llm_json
+from .src.workflows.mortgage_embedded_agent.mortgage_models import MortgageApplication
+from .src.workflows.mortgage_embedded_agent.mortgage_utils import compute_metrics, determine_decision, parse_llm_json
 
 DEFAULT_MODEL = "gemini-2.5-flash"
 DEFAULT_BATCH_SIZE = 5
@@ -295,10 +295,8 @@ Seed profiles (schema examples):
         for item in batch:
             if not isinstance(item, dict):
                 continue
-            try:
-                profile = _normalize_profile(item, template, len(profiles) + 1)
-            except Exception:
-                continue
+
+            profile = _normalize_profile(item, template, len(profiles) + 1)
             profiles.append(profile)
             if len(profiles) >= count:
                 break
