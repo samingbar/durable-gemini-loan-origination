@@ -171,6 +171,9 @@ uv run poe pre-commit-update
 
 # List all available tasks
 uv run poe --help
+
+# Reset review UI cache history (cases.json)
+uv run poe reset-cache
 ```
 
 **Important**: Always use `uv run poe test` instead of `uv run pytest` directly, as the poe task properly configures `PYTHONPATH=.` to ensure imports work correctly.

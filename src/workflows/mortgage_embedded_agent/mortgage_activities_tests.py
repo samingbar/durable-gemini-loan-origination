@@ -6,8 +6,8 @@ import json
 
 import pytest
 
-from src.workflows.mortgage import mortgage_activities as activities
-from src.workflows.mortgage.mortgage_models import (
+from src.workflows.mortgage_embedded_agent import mortgage_activities as activities
+from src.workflows.mortgage_embedded_agent.mortgage_models import (
     AgentTask,
     ApplicationOcrTask,
     CriticTask,
@@ -16,7 +16,10 @@ from src.workflows.mortgage.mortgage_models import (
     SupervisorTask,
     UnderwritingAnalyses,
 )
-from src.workflows.mortgage.mortgage_utils import compute_metrics, derive_risk_flags
+from src.workflows.mortgage_embedded_agent.mortgage_utils import (
+    compute_metrics,
+    derive_risk_flags,
+)
 
 pytestmark = pytest.mark.asyncio
 

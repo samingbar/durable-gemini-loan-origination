@@ -28,7 +28,7 @@ def calculate_dti_ratio(monthly_debt: float, monthly_income: float) -> float:
     """Calculate Debt-to-Income ratio as a decimal (e.g., 0.43)."""
 
     if monthly_income <= 0:
-        raise ValueError("Monthly income must be greater than 0")
+        return 0.0
     return monthly_debt / monthly_income
 
 
@@ -36,7 +36,7 @@ def calculate_ltv_ratio(loan_amount: float, property_value: float) -> float:
     """Calculate Loan-to-Value ratio as a decimal (e.g., 0.80)."""
 
     if property_value <= 0:
-        raise ValueError("Property value must be greater than 0")
+        return 0.0
     return loan_amount / property_value
 
 

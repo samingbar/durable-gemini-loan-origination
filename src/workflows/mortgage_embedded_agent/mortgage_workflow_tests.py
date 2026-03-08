@@ -10,7 +10,7 @@ import pytest
 from temporalio import activity
 from temporalio.worker import Worker
 
-from src.workflows.mortgage.mortgage_models import (
+from src.workflows.mortgage_embedded_agent.mortgage_models import (
     AgentResult,
     AgentTask,
     ApplicationOcrTask,
@@ -25,7 +25,7 @@ from src.workflows.mortgage.mortgage_models import (
     SupervisorTask,
     UnderwritingInput,
 )
-from src.workflows.mortgage.mortgage_workflow import MortgageUnderwritingWorkflow
+from src.workflows.mortgage_embedded_agent.mortgage_workflow import MortgageUnderwritingWorkflow
 
 TASK_QUEUE = "test-mortgage-queue"
 

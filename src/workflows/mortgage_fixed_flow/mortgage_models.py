@@ -7,7 +7,7 @@ from typing import Literal, Optional
 from pydantic import BaseModel, ConfigDict, Field
 
 Decision = Literal["APPROVED", "CONDITIONAL", "REJECTED", "HUMAN_REVIEW"]
-HumanDecision = Literal["APPROVED", "CONDITIONAL", "REJECTED"]
+HumanDecision = Literal["APPROVED", "REJECTED"]
 
 
 class CollectionItem(BaseModel):
@@ -238,24 +238,6 @@ class AgentResult(BaseModel):
     """Activity output for a specialist agent."""
 
     analysis: str
-
-
-class SupervisorTask(BaseModel):
-    """Activity input for the supervisor agent."""
-
-    applicant: MortgageApplication
-    metrics: UnderwritingMetrics
-    completed_agents: list[str]
-    remaining_agents: list[str]
-    risk_flags: list[str]
-    policy_context: str
-
-
-class SupervisorDecision(BaseModel):
-    """Supervisor routing decision."""
-
-    next_agent: str
-    rationale: str
 
 
 class ApplicationOcrTask(BaseModel):

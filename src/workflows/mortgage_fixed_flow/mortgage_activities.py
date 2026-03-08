@@ -1,4 +1,9 @@
-"""Temporal activities for the mortgage underwriting workflow."""
+"""Temporal activities for the mortgage underwriting workflow.
+
+This module intentionally hosts all non-deterministic operations (I/O, LLM calls,
+PDF parsing, and OCR) as *activities*. Workflows orchestrate these activities but
+must remain deterministic, so keeping side effects here is critical.
+"""
 
 from __future__ import annotations
 
@@ -31,12 +36,15 @@ DEFAULT_MODEL = "gemini-2.5-flash"
 
 @lru_cache(maxsize=1)
 def _repo_root() -> Path:
+    # Resolve once so callers can refer to project resources without guessing CWD.
     return Path(__file__).resolve().parents[3]
 
 
 @lru_cache(maxsize=1)
 def _load_policy_chunks() -> list[str]:
     # Load and chunk policy PDF text for lightweight retrieval.
+    # In a real system you would likely use a vector store. For this example,
+    # a simple "chunk + lexical match" keeps dependencies light and is easy to read.
     policy_path = _repo_root() / "resources" / "underwriting_policies.pdf"
     reader = PdfReader(policy_path)
     pages = [page.extract_text() or "" for page in reader.pages]
@@ -46,6 +54,7 @@ def _load_policy_chunks() -> list[str]:
     chunks: list[str] = []
     current = []
     current_len = 0
+    # Keep chunks small enough to fit into a single LLM prompt without truncation.
     max_chars = 1200
 
     for para in paragraphs:
@@ -65,6 +74,7 @@ def _load_policy_chunks() -> list[str]:
 
 def _retrieve_policies(query: str, top_k: int = 4) -> str:
     # Simple token-overlap ranking for top-k policy snippets.
+    # This is intentionally transparent and predictable for a public example.
     chunks = _load_policy_chunks()
     query_tokens = tokenize(query)
     scored = [(score_chunk(query_tokens, chunk), chunk) for chunk in chunks]
@@ -76,6 +86,7 @@ def _retrieve_policies(query: str, top_k: int = 4) -> str:
 @lru_cache(maxsize=1)
 def _gemini_client() -> genai.Client:
     # Build a cached Gemini client (uses GEMINI_API_KEY / GOOGLE_API_KEY).
+    # We keep retries low to surface failures early during demos.
     api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
     if not api_key:
         raise RuntimeError("Set GEMINI_API_KEY (or GOOGLE_API_KEY) to use Gemini.")
@@ -88,11 +99,13 @@ def _gemini_client() -> genai.Client:
 
 
 def _model_name() -> str:
+    # Allow easy experimentation without code changes.
     return os.environ.get("GEMINI_MODEL", DEFAULT_MODEL)
 
 
 async def _generate_text(prompt: str) -> str:
     # Shared helper for LLM text generation.
+    # Centralizing this keeps logging/telemetry and model selection consistent.
     client = _gemini_client()
     response = await client.aio.models.generate_content(
         model=_model_name(),
@@ -103,6 +116,7 @@ async def _generate_text(prompt: str) -> str:
 
 def _list_image_paths(image_dir: Path, case_id: str) -> list[Path]:
     # Prefer case-scoped page files, otherwise use all images in the directory.
+    # This keeps demo data layouts flexible while preserving deterministic ordering.
     if not image_dir.exists():
         return []
 
@@ -118,6 +132,8 @@ def _list_image_paths(image_dir: Path, case_id: str) -> list[Path]:
 
 def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
     # Normalize common OCR output variants into MortgageApplication schema.
+    # The OCR prompt asks for a strict schema, but in practice OCR/LLM outputs
+    # drift. Normalization makes downstream validation resilient and predictable.
     data = dict(payload)
 
     applicant_info = data.pop("applicant_information", None)
@@ -136,6 +152,7 @@ def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
             elif "history" in credit_info:
                 data["credit_history"] = credit_info["history"]
 
+    # Map several "nearby" section names into the canonical schema keys.
     for source_key, target_key in (
         ("employment_information", "employment"),
         ("income_information", "employment"),
@@ -152,9 +169,11 @@ def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
         if isinstance(section, dict) and target_key not in data:
             data[target_key] = section
 
+    # Ensure a case_id is always present for traceability.
     if not data.get("case_id"):
         data["case_id"] = case_id
 
+    # Fill in missing subfields so Pydantic can validate deterministically.
     credit_history = data.get("credit_history")
     if isinstance(credit_history, dict):
         credit_history.setdefault("late_payments_12mo", 0)
@@ -163,6 +182,7 @@ def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
         credit_history.setdefault("inquiries_6mo", 0)
         credit_history.setdefault("credit_notes", "")
 
+    # Compute totals when only line items are present.
     debts = data.get("debts")
     if isinstance(debts, dict) and "total_monthly_debt" not in debts:
         total = 0.0
@@ -174,6 +194,7 @@ def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
                 continue
         debts["total_monthly_debt"] = total
 
+    # Derive liquid totals and annotate deposits when OCR omits descriptions.
     assets = data.get("assets")
     if isinstance(assets, dict):
         if "liquid_assets_total" not in assets:
@@ -189,6 +210,7 @@ def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
                 if isinstance(deposit, dict) and "description" not in deposit:
                     deposit["description"] = "Not provided"
 
+    # Stabilize income details for bonus fields used later in heuristics.
     employment = data.get("employment")
     if isinstance(employment, dict):
         income_details = employment.get("income_details")
@@ -198,6 +220,7 @@ def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
             income_details.setdefault("bonus_stable", False)
             income_details.setdefault("employer_confirmation", "")
 
+    # Align property type fields between loan and property sections.
     loan = data.get("loan")
     property_info = data.get("property")
     if isinstance(property_info, dict):
@@ -209,6 +232,7 @@ def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
             if prop_type:
                 loan["property_type"] = prop_type
 
+    # Precompute DTI when enough inputs exist to avoid recomputation later.
     if "dti_ratio" not in data:
         monthly_debt = None
         monthly_income = None
@@ -227,6 +251,7 @@ def _normalize_ocr_payload(payload: dict, case_id: str) -> dict:
 
 async def _ocr_application_from_images(image_paths: list[Path], case_id: str) -> str:
     # Send all image pages in one request to extract a single JSON object.
+    # A single call avoids cross-page inconsistencies in the LLM output.
     client = _gemini_client()
     schema = json.dumps(MortgageApplication.model_json_schema(), indent=2)
     contents: list[types.Part | str] = [
@@ -260,6 +285,7 @@ async def _ocr_application_from_images(image_paths: list[Path], case_id: str) ->
 
 
 def _format_applicant(task: AgentTask | CriticTask | DecisionTask) -> str:
+    # Format as JSON to preserve structure for the LLM and for prompt readability.
     return json.dumps(task.applicant.model_dump(by_alias=True), indent=2)
 
 
@@ -268,6 +294,7 @@ async def retrieve_policy_context(query: str) -> str:
     """Retrieve relevant policy chunks from the underwriting PDF."""
 
     activity.logger.info("Retrieving policy context for query: %s", query)
+    # Run PDF parsing / retrieval in a thread to avoid blocking the event loop.
     return await asyncio.to_thread(_retrieve_policies, query)
 
 
@@ -276,12 +303,14 @@ async def extract_application_from_images(task: ApplicationOcrTask) -> MortgageA
     """Extract mortgage application data from a directory of scanned images."""
 
     # Collect images in deterministic order and fail fast if none exist.
+    # Determinism matters for reproducible demos and test fixtures.
     image_dir = Path(task.image_dir)
     image_paths = _list_image_paths(image_dir, task.case_id)
     if not image_paths:
         raise RuntimeError(f"No images found in {image_dir} for case {task.case_id}")
 
     # OCR -> JSON -> normalize -> strict validation.
+    # This pattern keeps the untrusted LLM output at the edge of the system.
     raw_text = await _ocr_application_from_images(image_paths, task.case_id)
     data = parse_llm_json(raw_text)
     if not isinstance(data, dict):
@@ -296,6 +325,7 @@ async def run_agent_analysis(task: AgentTask) -> AgentResult:
     """Run a specialist agent analysis using Gemini."""
 
     activity.logger.info("Running %s agent analysis", task.agent_name)
+    # Prompts are plain-English to keep the example approachable for readers.
     prompt = f"""
 You are the {task.agent_name} analyst for a mortgage underwriting team.
 Write a short, plain-English analysis (6-10 bullet points) using the policy text and applicant data.
@@ -325,6 +355,7 @@ async def run_critic_review(task: CriticTask) -> CriticResult:
     """Run a critic review to check for missing risks or inconsistencies."""
 
     activity.logger.info("Running critic review")
+    # The critic prompt validates the specialist outputs and encourages dissent.
     prompt = f"""
 You are a senior underwriting critic.
 Review the specialist analyses for consistency and completeness.
@@ -363,6 +394,8 @@ async def run_decision_memo(task: DecisionTask) -> DecisionResult:
     """Draft a decision memo using Gemini."""
 
     activity.logger.info("Drafting decision memo")
+    # We ask for structured JSON so downstream systems can parse decisions
+    # without brittle text parsing.
     prompt = f"""
 You are a senior underwriter writing a decision memo.
 Summarize the applicant profile, key risks, and policy alignment.
@@ -401,6 +434,7 @@ Write your response ONLY as JSON:
     data = parse_llm_json(raw_response)
 
     # Validate structured output and fall back deterministically if needed.
+    # This keeps the pipeline reliable even when the LLM output is malformed.
     decision = str(data.get("decision", "")).upper()
     risk_score = data.get("risk_score")
     if isinstance(risk_score, str) and risk_score.isdigit():

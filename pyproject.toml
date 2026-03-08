@@ -97,6 +97,10 @@ cmd = "pre-commit run --all-files"
 help = "Update pre-commit hook versions."
 cmd = "pre-commit autoupdate"
 
+[tool.poe.tasks.reset-cache]
+help = "Reset the review UI cache history (cases.json)."
+cmd = "python -m src.workflows.reset_cache"
+
 [tool.bandit]
 exclude_dirs = ["tests", "*_tests.py"]
 skips = ["B101"]  # Skip assert_used test

@@ -5,8 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from src.workflows.mortgage.mortgage_models import MortgageApplication
-from src.workflows.mortgage.mortgage_utils import (
+from src.workflows.mortgage_embedded_agent.mortgage_models import MortgageApplication
+from src.workflows.mortgage_embedded_agent.mortgage_utils import (
     calculate_dti_ratio,
     calculate_ltv_ratio,
     compute_metrics,

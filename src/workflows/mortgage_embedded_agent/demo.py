@@ -14,7 +14,7 @@ from temporalio.contrib.pydantic import pydantic_data_converter
 from .mortgage_models import UnderwritingInput
 from .mortgage_workflow import MortgageUnderwritingWorkflow
 
-TASK_QUEUE = "mortgage-underwriting"
+TASK_QUEUE = os.environ.get("MORTGAGE_TASK_QUEUE", "mortgage-underwriting")
 TEMPORAL_ADDRESS = os.environ.get("TEMPORAL_ADDRESS", "localhost:7233")
 
 
@@ -50,6 +50,13 @@ def _find_case_ids(image_dir: Path) -> list[str]:
         if match:
             case_ids.add(match.group("case_id"))
     return sorted(case_ids)
+
+
+def _has_any_images(image_dir: Path) -> bool:
+    for pattern in ("*.png", "*.jpg", "*.jpeg"):
+        if any(image_dir.glob(pattern)):
+            return True
+    return False
 
 
 async def _run_case(client: Client, case_id: str, image_dir: str) -> None:
@@ -94,8 +101,12 @@ async def main() -> None:
     image_dir = Path(args.image_dir)
     case_ids = _find_case_ids(image_dir)
     if not case_ids:
-        print(f"No case images found in {image_dir}.")
-        return
+        if not _has_any_images(image_dir):
+            print(f"No case images found in {image_dir}.")
+            return
+        # Fall back to a single synthetic case ID to process all images in the directory.
+        case_ids = ["DEMO-UNSCOPED"]
+        print("No case-scoped filenames found. Processing all images as DEMO-UNSCOPED.")
 
     client = await Client.connect(
         TEMPORAL_ADDRESS,

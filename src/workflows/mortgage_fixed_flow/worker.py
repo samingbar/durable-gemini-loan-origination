@@ -14,13 +14,13 @@ from .mortgage_activities import (
     extract_application_from_images,
     retrieve_policy_context,
     run_agent_analysis,
-    run_supervisor,
     run_critic_review,
     run_decision_memo,
 )
 from .mortgage_workflow import MortgageUnderwritingWorkflow
 
 TASK_QUEUE = os.environ.get("MORTGAGE_TASK_QUEUE", "mortgage-underwriting")
+TEMPORAL_ADDRESS = os.environ.get("TEMPORAL_ADDRESS", "localhost:7233")
 
 
 def _load_dotenv() -> None:
@@ -47,7 +47,7 @@ async def main() -> None:
 
     _load_dotenv()
     client = await Client.connect(
-        "localhost:7233",
+        TEMPORAL_ADDRESS,
         data_converter=pydantic_data_converter,
     )
     worker = Worker(
@@ -58,7 +58,6 @@ async def main() -> None:
             extract_application_from_images,
             retrieve_policy_context,
             run_agent_analysis,
-            run_supervisor,
             run_critic_review,
             run_decision_memo,
         ],

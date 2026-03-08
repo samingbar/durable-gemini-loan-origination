@@ -3,52 +3,33 @@
 [![CI](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml/badge.svg)](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/samingbar/durable-gemini-loan-origination)](LICENSE)
 
-Temporal-powered mortgage underwriting demo with Gemini for OCR + agentic analysis and a built-in human review UI.
-
-This repository showcases an end-to-end workflow that:
-- Ingests scanned loan documents (PNG/JPG)
-- Extracts structured mortgage applications with Gemini multimodal OCR
-- Runs specialist underwriting analyses (credit, income, assets, collateral)
-- Grounds decisions against a policy PDF
-- Produces a structured decision memo and risk score
-- Gates conditional decisions for human review via a FastAPI UI
+A Temporal-powered mortgage underwriting demo that pairs Gemini OCR with structured, policy-grounded analysis and a human review UI.
 
 > This is a demo system using synthetic data and simplified policy logic. Do not use it for real lending decisions.
 
-## Workflow At A Glance
+**What you can learn here**
+- How to structure deterministic Temporal workflows with non-deterministic activities
+- How to ground LLM outputs with policy text
+- How to build a human review gate with signals and queries
+- How to validate structured LLM output with Pydantic and fallbacks
 
-```mermaid
-flowchart TD
-    A[Scanned Images] --> B[OCR via Gemini]
-    B --> C[Sanitize PII + Metrics]
-    C --> D[Policy Retrieval]
-    D --> E[Supervisor Routes Specialist Agents]
-    E --> F[Credit / Income / Assets / Collateral Analyses]
-    F --> G[Critic Review]
-    G --> H[Decision Memo + Risk Score]
-    H --> I{Conditional?}
-    I -- No --> J[Final Decision]
-    I -- Yes --> K[Human Review UI]
-    K --> J
-```
+## Repository Map
 
-## Key Capabilities
+- `src/` contains all workflow code, activities, and models.
+- `src/workflows/mortgage_fixed_flow/` is the deterministic baseline pipeline.
+- `src/workflows/mortgage_embedded_agent/` adds a supervisor that picks the next specialist to run.
+- `datasets/` contains synthetic inputs and UI uploads.
+- `resources/` contains policy PDFs and test cases.
+- `docs/` contains Temporal patterns and testing guidance.
 
-- OCR-first intake from image bundles in `datasets/images` or uploads from the UI
-- PII sanitization before LLM prompts, with bias signal scanning on outputs
-- Policy grounding using `resources/underwriting_policies.pdf` and token overlap retrieval
-- Supervisor-driven routing that prioritizes missing specialist analyses
-- Deterministic fallbacks if LLM JSON is malformed
-- Human review gates for conditional decisions, implemented via Temporal signals
-- Test coverage for activities, utilities, and workflow signaling
+If you’re new to Temporal, start with `docs/temporal-primitives.md`.
 
-## Quickstart (Local)
+## Quickstart
 
 ### Prerequisites
-
 - Python 3.12+
 - `uv` for dependency management
-- Temporal CLI (for local dev server)
+- Temporal CLI (for a local dev server)
 - A Gemini API key
 
 ### Install
@@ -63,74 +44,79 @@ uv sync --dev
 # Use either GEMINI_API_KEY or GOOGLE_API_KEY
 export GEMINI_API_KEY="your_api_key"
 # export GOOGLE_API_KEY="your_api_key"
+
 # Optional: override Gemini model (default: gemini-2.5-flash)
 export GEMINI_MODEL="gemini-2.5-flash"
+
 # Optional: Temporal server address (default: localhost:7233)
 export TEMPORAL_ADDRESS="localhost:7233"
+
 # Optional: task queue (default: mortgage-underwriting)
 export MORTGAGE_TASK_QUEUE="mortgage-underwriting"
+
 # Optional: upload directory for the review UI
 export UPLOAD_ROOT="datasets/uploads"
 ```
 
-Notes:
-- `src/workflows/mortgage/worker.py` currently connects to `localhost:7233` directly. If you need a remote Temporal server, update that file.
-- `demo.py` and `worker.py` load `.env` from the repo root if present.
-
-### Run The Demo
-
-1. Start Temporal dev server:
+### Start Temporal
 
 ```bash
 temporal server start-dev
 ```
 
-1. Start the worker (new terminal):
+### Choose a Workflow
+
+**Fixed flow (deterministic baseline)**
+- Best when you want repeatable, predictable behavior.
+- Specialists always run in the same order.
 
 ```bash
-uv run -m src.workflows.mortgage.worker
+uv run -m src.workflows.mortgage_fixed_flow.worker
 ```
 
-1. Start the human review UI (new terminal):
+**Embedded agent flow (supervisor routing)**
+- Best when you want LLM-driven routing and adaptive sequencing.
 
 ```bash
-uv run uvicorn src.workflows.mortgage.review_app:app --reload
+uv run -m src.workflows.mortgage_embedded_agent.worker
 ```
 
-1. Run sample cases (new terminal):
+### Run the Human Review UI (Optional)
 
 ```bash
-uv run -m src.workflows.mortgage.demo --image-dir datasets/images
+# Fixed flow UI
+uv run uvicorn src.workflows.mortgage_fixed_flow.review_app:app --reload
+
+# Embedded agent UI
+uv run uvicorn src.workflows.mortgage_embedded_agent.review_app:app --reload
 ```
 
-1. Open the UI:
+Open `http://localhost:8000` and upload images named like `CASEID_p1.png`, `CASEID_p2.png`, etc.
 
-```text
-http://localhost:8000
+### Run Sample Cases (Embedded Agent)
+
+```bash
+uv run -m src.workflows.mortgage_embedded_agent.demo --image-dir datasets/images
 ```
 
-You can also upload your own case images from the UI. The workflow expects files named like `CASEID_p1.png`, `CASEID_p2.png`, etc. If no case-scoped files exist, the OCR step will use all images in the directory.
+If your images are not case-scoped, the demo will process all images as a single case called `DEMO-UNSCOPED`.
+
+## How It Works (Conceptual Flow)
+
+1. **OCR Intake**: Images are converted to a structured `MortgageApplication` using Gemini multimodal OCR.
+2. **Sanitize + Metrics**: PII is masked and deterministic metrics (DTI/LTV) are computed.
+3. **Policy Retrieval**: Relevant policy text is pulled from `resources/underwriting_policies.pdf`.
+4. **Specialist Analyses**: Credit, income, assets, and collateral analyses are generated.
+5. **Critic Review**: A critic pass checks for missing risks or inconsistencies.
+6. **Decision Memo**: LLM drafts a structured decision memo, validated with fallbacks.
+7. **Human Review Gate**: Conditional decisions wait for a reviewer signal.
 
 ## Data Assets
 
-- `resources/underwriting_policies.pdf` is used to ground LLM prompts.
-- `resources/mortgage_test_cases.json` contains 3 synthetic cases used in tests.
+- `resources/underwriting_policies.pdf` grounds LLM prompts.
+- `resources/mortgage_test_cases.json` contains synthetic seed cases.
 - `datasets/images` and `datasets/pdfs` hold generated sample inputs.
-- `datasets/profiles.json` contains the raw synthetic profile data.
-
-### Regenerating Synthetic Data (Optional)
-
-The dataset generator creates synthetic profiles, PDFs, and OCR-ready images using Gemini.
-
-```bash
-uv run -m src.workflows.mortgage.dataset_generator --count 25 --output datasets
-```
-
-The generator uses PyMuPDF (`fitz`) for PDF rendering. Install it if you plan to run this step:
-
-```bash
-uv add pymupdf
-```
+- `datasets/uploads` is created by the UI for new uploads (git-ignored).
 
 ## Testing & Quality
 
@@ -145,16 +131,25 @@ uv run poe lint
 uv run poe format
 ```
 
-## Repository Layout
+## Common Tasks
 
-- `src/workflows/mortgage/mortgage_workflow.py` - Temporal workflow orchestration
-- `src/workflows/mortgage/mortgage_activities.py` - OCR, policy retrieval, agent calls
-- `src/workflows/mortgage/review_app.py` - FastAPI human review UI
-- `src/workflows/mortgage/demo.py` - CLI runner for sample cases
-- `src/workflows/mortgage/mortgage_models.py` - Pydantic data models
-- `resources/` - policy PDF and test cases
-- `datasets/` - synthetic inputs and uploads
-- `docs/` - Temporal patterns and testing guidance
+Reset the review UI cache history:
+
+```bash
+uv run poe reset-cache
+```
+
+Purge uploads as well:
+
+```bash
+uv run poe reset-cache -- --purge-uploads
+```
+
+## Troubleshooting
+
+- **Workflow won’t start**: Confirm the worker is running and `TEMPORAL_ADDRESS` matches the server.
+- **OCR returns invalid JSON**: The workflow has deterministic fallbacks; check logs for the raw response.
+- **No cases in UI**: Verify `UPLOAD_ROOT` exists and the UI can write to it.
 
 ## License
 
