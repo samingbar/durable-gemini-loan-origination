@@ -1,0 +1,213 @@
+[
+  {
+    "case_id": "CLM-2026-001",
+    "name": "Elena Ramirez",
+    "policy_number": "POL-8842-1137",
+    "email": "elena.ramirez@example.com",
+    "phone": "555-111-2233",
+    "address": "123 Harbor Street, San Diego, CA 92101",
+    "policy": {
+      "line_of_business": "Property & Casualty",
+      "policy_type": "Homeowners",
+      "coverage_confirmed": true,
+      "coverage_limit": 50000.0,
+      "deductible": 1000.0,
+      "premium_status": "Current",
+      "policy_status": "Active",
+      "years_insured": 8.5,
+      "prior_claims_3y": 0,
+      "exclusions_noted": []
+    },
+    "incident": {
+      "date_of_loss": "2026-01-18",
+      "reported_date": "2026-01-19",
+      "claim_type": "Water Damage",
+      "description": "Supply line burst under the kitchen sink caused cabinet and flooring damage.",
+      "location": "123 Harbor Street, San Diego, CA 92101",
+      "police_report_filed": false,
+      "weather_related": false
+    },
+    "loss": {
+      "claimed_amount": 12000.0,
+      "estimated_damage": 11850.0,
+      "emergency_mitigation": 850.0,
+      "depreciation_applied": 400.0,
+      "salvage_value": 0.0,
+      "repair_status": "Temporary mitigation complete; final repair estimate approved",
+      "damaged_items": [
+        {
+          "description": "Kitchen cabinetry",
+          "category": "Dwelling",
+          "estimated_cost": 7200.0
+        },
+        {
+          "description": "Hardwood flooring",
+          "category": "Dwelling",
+          "estimated_cost": 4650.0
+        }
+      ],
+      "loss_notes": "Mitigation invoice and contractor estimate were provided."
+    },
+    "documents": {
+      "photos_received": true,
+      "repair_estimates_count": 2,
+      "receipts_count": 3,
+      "witness_statements_count": 0,
+      "proof_of_ownership": true,
+      "adjuster_notes": "Damage is consistent with sudden accidental discharge.",
+      "missing_documents": []
+    },
+    "parties": {
+      "third_party_involved": false,
+      "third_party_details": "",
+      "injuries_reported": false,
+      "claimant_statement": "Water pooled after the supply line failed while the claimant was at work.",
+      "witness_summary": ""
+    },
+    "expected_decision": "APPROVED"
+  },
+  {
+    "case_id": "CLM-2026-002",
+    "name": "Marcus Lee",
+    "policy_number": "AUTO-9921-4418",
+    "email": "marcus.lee@example.com",
+    "phone": "555-444-8899",
+    "address": "890 Juniper Avenue, Sacramento, CA 95814",
+    "policy": {
+      "line_of_business": "Auto",
+      "policy_type": "Private Passenger Auto",
+      "coverage_confirmed": true,
+      "coverage_limit": 35000.0,
+      "deductible": 1000.0,
+      "premium_status": "Current",
+      "policy_status": "Active",
+      "years_insured": 3.0,
+      "prior_claims_3y": 2,
+      "exclusions_noted": []
+    },
+    "incident": {
+      "date_of_loss": "2026-02-01",
+      "reported_date": "2026-02-18",
+      "claim_type": "Collision",
+      "description": "Rear-end collision at an intersection with alleged neck pain and disputed fault.",
+      "location": "16th Street and P Street, Sacramento, CA",
+      "police_report_filed": false,
+      "weather_related": true
+    },
+    "loss": {
+      "claimed_amount": 29000.0,
+      "estimated_damage": 21000.0,
+      "emergency_mitigation": 0.0,
+      "depreciation_applied": 1500.0,
+      "salvage_value": 2500.0,
+      "repair_status": "Vehicle at body shop pending supplemental estimate",
+      "damaged_items": [
+        {
+          "description": "Rear bumper assembly",
+          "category": "Vehicle",
+          "estimated_cost": 8500.0
+        },
+        {
+          "description": "Liftgate and sensors",
+          "category": "Vehicle",
+          "estimated_cost": 12500.0
+        }
+      ],
+      "loss_notes": "Medical complaint reported and liability still under investigation."
+    },
+    "documents": {
+      "photos_received": true,
+      "repair_estimates_count": 1,
+      "receipts_count": 0,
+      "witness_statements_count": 0,
+      "proof_of_ownership": true,
+      "adjuster_notes": "Repair estimate likely incomplete and police report is still outstanding.",
+      "missing_documents": [
+        "police report",
+        "medical note",
+        "second repair estimate"
+      ]
+    },
+    "parties": {
+      "third_party_involved": true,
+      "third_party_details": "Other driver alleges claimant stopped abruptly.",
+      "injuries_reported": true,
+      "claimant_statement": "Claimant reports being rear-ended while stopped at a red light.",
+      "witness_summary": ""
+    },
+    "expected_decision": "CONDITIONAL"
+  },
+  {
+    "case_id": "CLM-2026-003",
+    "name": "Nina Brooks",
+    "policy_number": "REN-1212-7788",
+    "email": "nina.brooks@example.com",
+    "phone": "555-000-1212",
+    "address": "45 Elm Court, Portland, OR 97205",
+    "policy": {
+      "line_of_business": "Renters",
+      "policy_type": "Renters",
+      "coverage_confirmed": false,
+      "coverage_limit": 15000.0,
+      "deductible": 1000.0,
+      "premium_status": "Past Due",
+      "policy_status": "Cancelled",
+      "years_insured": 1.0,
+      "prior_claims_3y": 1,
+      "exclusions_noted": [
+        "unconfirmed theft coverage"
+      ]
+    },
+    "incident": {
+      "date_of_loss": "2026-01-05",
+      "reported_date": "2026-02-20",
+      "claim_type": "Theft",
+      "description": "Claimant reports several electronics stolen from apartment while away.",
+      "location": "45 Elm Court, Portland, OR 97205",
+      "police_report_filed": false,
+      "weather_related": false
+    },
+    "loss": {
+      "claimed_amount": 18500.0,
+      "estimated_damage": 16000.0,
+      "emergency_mitigation": 0.0,
+      "depreciation_applied": 0.0,
+      "salvage_value": 0.0,
+      "repair_status": "No recovery or replacement documentation submitted",
+      "damaged_items": [
+        {
+          "description": "Laptop",
+          "category": "Electronics",
+          "estimated_cost": 3500.0
+        },
+        {
+          "description": "Camera equipment",
+          "category": "Electronics",
+          "estimated_cost": 12500.0
+        }
+      ],
+      "loss_notes": "No receipts or serial-number documentation were provided."
+    },
+    "documents": {
+      "photos_received": false,
+      "repair_estimates_count": 0,
+      "receipts_count": 0,
+      "witness_statements_count": 0,
+      "proof_of_ownership": false,
+      "adjuster_notes": "Policy status and proof-of-loss documentation are both deficient.",
+      "missing_documents": [
+        "proof of ownership",
+        "police report",
+        "itemized receipts"
+      ]
+    },
+    "parties": {
+      "third_party_involved": false,
+      "third_party_details": "",
+      "injuries_reported": false,
+      "claimant_statement": "Claimant returned home and noticed electronics missing.",
+      "witness_summary": ""
+    },
+    "expected_decision": "REJECTED"
+  }
+]
