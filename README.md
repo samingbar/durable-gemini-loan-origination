@@ -3,7 +3,7 @@
 [![CI](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml/badge.svg)](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/samingbar/durable-gemini-loan-origination)](LICENSE)
 
-A Temporal-powered mortgage underwriting demo that pairs Gemini OCR with structured, policy-grounded analysis and a human review UI.
+A Temporal-powered set of mortgage underwriting and insurance claims demos that pair Gemini OCR with structured, policy-grounded analysis and human review UIs.
 
 > This is a demo system using synthetic data and simplified policy logic. Do not use it for real lending decisions.
 
@@ -16,8 +16,9 @@ A Temporal-powered mortgage underwriting demo that pairs Gemini OCR with structu
 ## Repository Map
 
 - `src/` contains all workflow code, activities, and models.
-- `src/workflows/mortgage_fixed_flow/` is the deterministic baseline pipeline.
+- `src/workflows/mortgage_fixed_flow/` is the deterministic mortgage baseline pipeline.
 - `src/workflows/mortgage_embedded_agent/` adds a supervisor that picks the next specialist to run.
+- `src/workflows/insurance_claims_fixed_flow/` is the deterministic insurance claims pipeline.
 - `datasets/` contains synthetic inputs and UI uploads.
 - `resources/` contains policy PDFs and test cases.
 - `docs/` contains Temporal patterns and testing guidance.
@@ -51,11 +52,20 @@ export GEMINI_MODEL="gemini-2.5-flash"
 # Optional: Temporal server address (default: localhost:7233)
 export TEMPORAL_ADDRESS="localhost:7233"
 
-# Optional: task queue (default: mortgage-underwriting)
+# Optional: mortgage task queue (default: mortgage-underwriting)
 export MORTGAGE_TASK_QUEUE="mortgage-underwriting"
 
-# Optional: upload directory for the review UI
+# Optional: insurance task queue (default: insurance-claims)
+export INSURANCE_TASK_QUEUE="insurance-claims"
+
+# Optional: upload directory for the mortgage review UI
 export UPLOAD_ROOT="datasets/uploads"
+
+# Optional: upload directory for the insurance review UI
+export INSURANCE_UPLOAD_ROOT="datasets/uploads/insurance_claims"
+
+# Optional: override the insurance policy corpus path
+export INSURANCE_POLICY_PATH="resources/insurance_claim_policies.pdf"
 ```
 
 ### Start Temporal
@@ -74,6 +84,20 @@ temporal server start-dev
 uv run -m src.workflows.mortgage_fixed_flow.worker
 ```
 
+**Insurance claims fixed flow**
+- Best when you want the same deterministic OCR+LLM pattern for claim adjudication.
+- Coverage, liability, damages, and fraud specialists always run in the same order.
+
+```bash
+uv run -m src.workflows.insurance_claims_fixed_flow.worker
+```
+
+Generate sample insurance PDFs and OCR images:
+
+```bash
+uv run -m src.workflows.insurance_claims_fixed_flow.sample_case_generator
+```
+
 **Embedded agent flow (supervisor routing)**
 - Best when you want LLM-driven routing and adaptive sequencing.
 
@@ -86,6 +110,9 @@ uv run -m src.workflows.mortgage_embedded_agent.worker
 ```bash
 # Fixed flow UI
 uv run uvicorn src.workflows.mortgage_fixed_flow.review_app:app --reload
+
+# Insurance claims UI
+uv run uvicorn src.workflows.insurance_claims_fixed_flow.review_app:app --reload
 
 # Embedded agent UI
 uv run uvicorn src.workflows.mortgage_embedded_agent.review_app:app --reload
@@ -101,22 +128,31 @@ uv run -m src.workflows.mortgage_embedded_agent.demo --image-dir datasets/images
 
 If your images are not case-scoped, the demo will process all images as a single case called `DEMO-UNSCOPED`.
 
+### Run Sample Cases (Insurance Claims)
+
+```bash
+uv run -m src.workflows.insurance_claims_fixed_flow.demo --image-dir datasets/insurance_claims/images
+```
+
 ## How It Works (Conceptual Flow)
 
-1. **OCR Intake**: Images are converted to a structured `MortgageApplication` using Gemini multimodal OCR.
+1. **OCR Intake**: Images are converted to a structured mortgage or insurance payload using Gemini multimodal OCR.
 2. **Sanitize + Metrics**: PII is masked and deterministic metrics (DTI/LTV) are computed.
-3. **Policy Retrieval**: Relevant policy text is pulled from `resources/underwriting_policies.pdf`.
-4. **Specialist Analyses**: Credit, income, assets, and collateral analyses are generated.
+3. **Policy Retrieval**: Relevant policy text is pulled from the workflow's policy corpus.
+4. **Specialist Analyses**: Domain-specific specialist analyses are generated in a deterministic order.
 5. **Critic Review**: A critic pass checks for missing risks or inconsistencies.
 6. **Decision Memo**: LLM drafts a structured decision memo, validated with fallbacks.
 7. **Human Review Gate**: Conditional decisions wait for a reviewer signal.
 
 ## Data Assets
 
-- `resources/underwriting_policies.pdf` grounds LLM prompts.
+- `resources/underwriting_policies.pdf` grounds mortgage prompts.
+- `resources/insurance_claim_policies.pdf` grounds insurance claim prompts.
 - `resources/mortgage_test_cases.json` contains synthetic seed cases.
+- `resources/insurance_claim_test_cases.json` contains synthetic insurance claim cases.
 - `datasets/images` and `datasets/pdfs` hold generated sample inputs.
-- `datasets/uploads` is created by the UI for new uploads (git-ignored).
+- `datasets/insurance_claims/images` and `datasets/insurance_claims/pdfs` hold generated insurance sample inputs.
+- `datasets/uploads` is created by the UIs for new uploads (git-ignored).
 
 ## Testing & Quality
 
