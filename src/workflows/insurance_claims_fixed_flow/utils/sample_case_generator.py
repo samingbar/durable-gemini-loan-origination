@@ -9,7 +9,7 @@ from pathlib import Path
 
 import fitz
 
-from src.workflows.insurance_claims_fixed_flow.insurance_models import InsuranceClaim
+from ..insurance_models import InsuranceClaim
 
 DEFAULT_OUTPUT_DIR = "datasets/insurance_claims"
 DEFAULT_DPI = 200
@@ -31,7 +31,7 @@ TITLE_LINE_HEIGHT = 22
 
 def _repo_root() -> Path:
     """Return the repository root."""
-    return Path(__file__).resolve().parents[4]
+    return Path(__file__).resolve().parents[3]
 
 
 def _load_cases() -> list[InsuranceClaim]:

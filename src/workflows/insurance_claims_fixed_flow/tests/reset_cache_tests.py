@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
     import pytest
 
-from src.workflows.insurance_claims_fixed_flow.tools import reset_cache
+from src.workflows.insurance_claims_fixed_flow.utils import reset_cache
 
 
 def test_resolve_upload_root_is_repo_relative(

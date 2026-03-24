@@ -3,37 +3,39 @@
 [![CI](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml/badge.svg)](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/samingbar/durable-gemini-loan-origination)](LICENSE)
 
-A Temporal-powered set of mortgage underwriting and insurance claims demos that pair Gemini OCR with structured, policy-grounded analysis and human review UIs.
+Temporal-based mortgage underwriting and insurance claims demos that combine Gemini OCR, policy-grounded analysis, and human review UIs.
 
-> This is a demo system using synthetic data and simplified policy logic. Do not use it for real lending decisions.
+> This repository is a demo system built around synthetic data and simplified policy logic. Do not use it for real lending or claims decisions.
 
-**What you can learn here**
-- How to structure deterministic Temporal workflows with non-deterministic activities
-- How to ground LLM outputs with policy text
-- How to build a human review gate with signals and queries
-- How to validate structured LLM output with Pydantic and fallbacks
+## Overview
 
-## Repository Map
+This repo contains three runnable workflow packages:
 
-- `src/` contains all workflow code, activities, and models.
-- `src/workflows/mortgage_fixed_flow/` is the deterministic mortgage baseline pipeline.
-- `src/workflows/mortgage_embedded_agent/` adds a supervisor that picks the next specialist to run.
-- `src/workflows/insurance_claims_fixed_flow/` is the deterministic insurance claims pipeline.
-- `datasets/` contains synthetic inputs and UI uploads.
-- `resources/` contains policy PDFs and test cases.
-- `docs/` contains Temporal patterns and testing guidance.
+| Workflow | Pattern | Best For |
+| --- | --- | --- |
+| `mortgage_fixed_flow` | Deterministic, fixed-order pipeline | Baseline underwriting behavior and repeatable demos |
+| `mortgage_embedded_agent` | Supervisor-driven routing | Comparing fixed orchestration against adaptive sequencing |
+| `insurance_claims_fixed_flow` | Deterministic, fixed-order pipeline | A claims-focused variant with a hardened review UI |
 
-If you’re new to Temporal, start with `docs/temporal-primitives.md`.
+If you are new to Temporal, start with `docs/temporal-primitives.md`.
+
+## Repository Layout
+
+- `src/workflows/` contains the workflow packages, their activities, review UIs, and tests.
+- `resources/` contains policy PDFs and synthetic test cases.
+- `datasets/` contains sample images, generated PDFs, and uploaded review UI cases.
+- `docs/` contains Temporal patterns, testing guidance, and workflow authoring notes.
 
 ## Quickstart
 
 ### Prerequisites
+
 - Python 3.12+
-- `uv` for dependency management
-- Temporal CLI (for a local dev server)
+- `uv`
+- Temporal CLI
 - A Gemini API key
 
-### Install
+### Install Dependencies
 
 ```bash
 uv sync --dev
@@ -41,33 +43,21 @@ uv sync --dev
 
 ### Configure Environment
 
+Workers load `.env` from the repository root if it exists. Review UIs inherit the current shell environment, so export variables before starting `uvicorn`.
+
 ```bash
-# Use either GEMINI_API_KEY or GOOGLE_API_KEY
 export GEMINI_API_KEY="your_api_key"
-# export GOOGLE_API_KEY="your_api_key"
-
-# Optional: override Gemini model
-export GEMINI_MODEL="gemini-3.1-flash-image-preview"
-
-# Optional: Temporal server address (default: localhost:7233)
 export TEMPORAL_ADDRESS="localhost:7233"
 
-# Optional: mortgage task queue (default: mortgage-underwriting)
+# Optional overrides
+export GEMINI_MODEL="your-preferred-model"
 export MORTGAGE_TASK_QUEUE="mortgage-underwriting"
-
-# Optional: insurance task queue (default: insurance-claims)
 export INSURANCE_TASK_QUEUE="insurance-claims"
-
-# Optional: upload directory for the mortgage review UI
 export UPLOAD_ROOT="datasets/uploads"
-
-# Optional: upload directory for the insurance review UI
 export INSURANCE_UPLOAD_ROOT="datasets/uploads/insurance_claims"
-
-# Optional: override the insurance policy corpus path
 export INSURANCE_POLICY_PATH="resources/insurance_claim_policies.pdf"
 
-# Optional: insurance review UI upload limits
+# Insurance review UI upload limits
 export INSURANCE_MAX_FILES="10"
 export INSURANCE_MAX_FILE_BYTES="10485760"
 export INSURANCE_MAX_TOTAL_BYTES="26214400"
@@ -79,124 +69,116 @@ export INSURANCE_MAX_TOTAL_BYTES="26214400"
 temporal server start-dev
 ```
 
-### Choose a Workflow
+### Start a Worker
 
-**Fixed flow (deterministic baseline)**
-- Best when you want repeatable, predictable behavior.
-- Specialists always run in the same order.
+Mortgage fixed flow:
 
 ```bash
 uv run -m src.workflows.mortgage_fixed_flow.worker
 ```
 
-**Insurance claims fixed flow**
-- Best when you want the same deterministic OCR+LLM pattern for claim adjudication.
-- Coverage, liability, damages, and fraud specialists always run in the same order.
-
-```bash
-uv run -m src.workflows.insurance_claims_fixed_flow.worker
-```
-
-Generate sample insurance PDFs and OCR images:
-
-```bash
-uv run -m src.workflows.insurance_claims_fixed_flow.sample_case_generator
-```
-
-**Embedded agent flow (supervisor routing)**
-- Best when you want LLM-driven routing and adaptive sequencing.
+Mortgage embedded agent:
 
 ```bash
 uv run -m src.workflows.mortgage_embedded_agent.worker
 ```
 
-### Run the Human Review UI (Optional)
+Insurance claims fixed flow:
 
 ```bash
-# Fixed flow UI
+uv run -m src.workflows.insurance_claims_fixed_flow.worker
+```
+
+### Start a Review UI
+
+Mortgage fixed flow:
+
+```bash
 uv run uvicorn src.workflows.mortgage_fixed_flow.review_app:app --reload
+```
 
-# Insurance claims UI
-uv run uvicorn src.workflows.insurance_claims_fixed_flow.review_app:app --reload
+Mortgage embedded agent:
 
-# Embedded agent UI
+```bash
 uv run uvicorn src.workflows.mortgage_embedded_agent.review_app:app --reload
 ```
 
-Open `http://localhost:8000` and upload images named like `CASEID_p1.png`, `CASEID_p2.png`, etc.
+Insurance claims fixed flow:
 
-The insurance review UI now persists explicit case states (`QUEUED`, `RUNNING`, `AWAITING_REVIEW`,
-`COMPLETED`, `FAILED`, `START_FAILED`), exposes a retry action for failed cases, and provides
-`/healthz` and `/readyz` endpoints for process and dependency readiness checks.
+```bash
+uv run uvicorn src.workflows.insurance_claims_fixed_flow.review_app:app --reload
+```
 
-### Run Sample Cases (Embedded Agent)
+Open `http://localhost:8000` and upload page images named like `CASEID_p1.png`, `CASEID_p2.png`, and so on.
+
+## Sample Inputs
+
+Run the embedded-agent mortgage demo against the checked-in sample images:
 
 ```bash
 uv run -m src.workflows.mortgage_embedded_agent.demo --image-dir datasets/images
 ```
 
-If your images are not case-scoped, the demo will process all images as a single case called `DEMO-UNSCOPED`.
-
-### Run Sample Cases (Insurance Claims)
+Generate insurance claim PDFs and OCR page images from the checked-in fixtures:
 
 ```bash
-uv run -m src.workflows.insurance_claims_fixed_flow.demo --image-dir datasets/insurance_claims/images
+uv run -m src.workflows.insurance_claims_fixed_flow.utils.sample_case_generator
 ```
 
-## How It Works (Conceptual Flow)
+The generator writes output under `datasets/insurance_claims/pdfs` and `datasets/insurance_claims/images`. The insurance package does not currently include a separate CLI demo runner; use the review UI or start workflows programmatically.
 
-1. **OCR Intake**: Images are converted to a structured mortgage or insurance payload using Gemini multimodal OCR.
-2. **Sanitize + Metrics**: PII is masked and deterministic metrics (DTI/LTV) are computed.
-3. **Policy Retrieval**: Relevant policy text is pulled from the workflow's policy corpus.
-4. **Specialist Analyses**: Domain-specific specialist analyses are generated in a deterministic order.
-5. **Critic Review**: A critic pass checks for missing risks or inconsistencies.
-6. **Decision Memo**: LLM drafts a structured decision memo, validated with fallbacks.
-7. **Human Review Gate**: Conditional decisions wait for a reviewer signal.
+## Review UI Notes
 
-## Data Assets
+- Mortgage review UIs use `UPLOAD_ROOT`, defaulting to `datasets/uploads`.
+- The insurance review UI uses `INSURANCE_UPLOAD_ROOT`, defaulting to `datasets/uploads/insurance_claims`.
+- The insurance review UI persists explicit case states: `QUEUED`, `RUNNING`, `AWAITING_REVIEW`, `COMPLETED`, `FAILED`, and `START_FAILED`.
+- Failed insurance cases can be retried from the UI.
+- The insurance review UI exposes `GET /healthz` and `GET /readyz` and stays online in degraded mode when Temporal is unavailable.
 
-- `resources/underwriting_policies.pdf` grounds mortgage prompts.
-- `resources/insurance_claim_policies.pdf` grounds insurance claim prompts.
-- `resources/mortgage_test_cases.json` contains synthetic seed cases.
-- `resources/insurance_claim_test_cases.json` contains synthetic insurance claim cases.
-- `datasets/images` and `datasets/pdfs` hold generated sample inputs.
-- `datasets/insurance_claims/images` and `datasets/insurance_claims/pdfs` hold generated insurance sample inputs.
-- `datasets/uploads` is created by the UIs for new uploads (git-ignored).
+## Testing And Quality
 
-## Testing & Quality
+Run the full test suite:
 
 ```bash
-# Run tests with coverage
 uv run poe test
+```
 
-# Lint and auto-fix
+Run a workflow-specific suite:
+
+```bash
+uv run poe test -- src/workflows/mortgage_fixed_flow/tests
+uv run poe test -- src/workflows/mortgage_embedded_agent/tests
+uv run poe test -- src/workflows/insurance_claims_fixed_flow/tests
+```
+
+Lint and format:
+
+```bash
 uv run poe lint
-
-# Format code
 uv run poe format
 ```
 
-## Common Tasks
+## Common Utilities
 
-Reset the review UI cache history:
+Reset the insurance review UI cache manifest:
 
 ```bash
-uv run poe reset-cache
+uv run -m src.workflows.insurance_claims_fixed_flow.utils.reset_cache
 ```
 
-Purge uploads as well:
+Reset the manifest and purge uploaded insurance cases:
 
 ```bash
-uv run poe reset-cache -- --purge-uploads
+uv run -m src.workflows.insurance_claims_fixed_flow.utils.reset_cache --purge-uploads
 ```
 
 ## Troubleshooting
 
-- **Workflow won’t start**: Confirm the worker is running and `TEMPORAL_ADDRESS` matches the server.
-- **OCR returns invalid JSON**: The workflow has deterministic fallbacks; check logs for the raw response.
-- **No cases in UI**: Verify `INSURANCE_UPLOAD_ROOT` exists and the UI can write to it.
-- **UI is in degraded mode**: Check `/readyz` and confirm the Temporal server is reachable.
+- If a workflow will not start, confirm the matching worker is running and `TEMPORAL_ADDRESS` points to the same Temporal server.
+- If OCR returns malformed JSON, check worker logs. The workflows use deterministic fallbacks, but the raw model response is still the fastest debugging signal.
+- If a review UI shows no cases, verify that its upload root exists and is writable.
+- If the insurance review UI reports degraded readiness, check `GET /readyz` and confirm Temporal and the upload root are both available.
 
 ## License
 
-MIT License. See `LICENSE`.
+MIT. See `LICENSE`.
