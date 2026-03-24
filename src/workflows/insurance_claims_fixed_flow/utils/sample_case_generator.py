@@ -9,7 +9,7 @@ from pathlib import Path
 
 import fitz
 
-from .insurance_models import InsuranceClaim
+from ..insurance_models import InsuranceClaim
 
 DEFAULT_OUTPUT_DIR = "datasets/insurance_claims"
 DEFAULT_DPI = 200

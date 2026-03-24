@@ -1,20 +1,24 @@
-# Mortgage Fixed Flow Workflow
+# Mortgage Fixed Flow
 
-This workflow is the deterministic baseline. It runs specialist agents in a fixed order and is easier to reason about when you want consistent behavior.
+This package is the deterministic mortgage-underwriting baseline. It always runs the same specialists in the same order, which makes it the easiest flow to reason about, test, and compare against more adaptive variants.
 
-**When to use this flow**
-- You want a stable, repeatable pipeline with fewer moving parts.
-- You want the simplest baseline for demos or tests.
+## Use This Package When
 
-**Key files**
-- `mortgage_workflow.py` orchestrates the fixed-order pipeline and the human review gate.
-- `mortgage_activities.py` handles OCR, policy retrieval, and LLM calls.
-- `mortgage_models.py` defines Pydantic models for all inputs and outputs.
-- `mortgage_utils.py` contains deterministic metrics, policy checks, and sanitization.
-- `review_app.py` is a FastAPI UI for uploads and human review decisions.
-- `worker.py` runs the Temporal worker for this workflow.
+- You want the simplest underwriting pipeline in the repository.
+- You want repeatable, fixed-order behavior for demos or regression testing.
+- You want a clear reference implementation before reading the embedded-agent version.
 
-**Run it locally**
+## Package Layout
+
+- `mortgage_workflow.py` orchestrates the fixed-order workflow and human review gate.
+- `mortgage_activities.py` handles OCR, policy retrieval, and specialist prompts.
+- `mortgage_models.py` defines Pydantic inputs and outputs.
+- `mortgage_utils.py` contains deterministic metrics, policy checks, and sanitization helpers.
+- `review_app.py` is the FastAPI review console.
+- `worker.py` runs the Temporal worker.
+- `tests/` contains activity, utility, workflow, and review-app coverage.
+
+## Run Locally
 
 1. Start a Temporal dev server.
 
@@ -22,16 +26,39 @@ This workflow is the deterministic baseline. It runs specialist agents in a fixe
 temporal server start-dev
 ```
 
-1. Run the worker.
+2. Start the worker.
 
 ```bash
 uv run -m src.workflows.mortgage_fixed_flow.worker
 ```
 
-1. Start the review UI and upload a case.
+3. Start the review UI.
 
 ```bash
 uv run uvicorn src.workflows.mortgage_fixed_flow.review_app:app --reload
 ```
 
-Upload images named like `CASEID_p1.png`, `CASEID_p2.png`, etc. The UI will start the workflow automatically.
+4. Upload mortgage page images named like `CASEID_p1.png`, `CASEID_p2.png`, and so on.
+
+The worker uses `MORTGAGE_TASK_QUEUE` and `TEMPORAL_ADDRESS` if they are set. The review UI writes uploads to `UPLOAD_ROOT`, which defaults to `datasets/uploads`.
+
+## Review UI Notes
+
+- The UI starts a workflow immediately after upload.
+- Review submission is allowed only while the workflow is running and the current recommendation is `CONDITIONAL`.
+- This UI is intentionally simpler than the insurance review console. It does not include the insurance flow's degraded-mode, retry, or health-check behavior.
+
+## Sample Inputs
+
+There is no dedicated CLI demo runner for this package. Use the review UI with your own page images or with the checked-in mortgage sample images in `datasets/images`.
+
+## Run Tests
+
+```bash
+uv run poe test -- src/workflows/mortgage_fixed_flow/tests
+```
+
+## Data And Policy Inputs
+
+- `resources/mortgage_test_cases.json` contains the structured synthetic mortgage fixtures.
+- `resources/underwriting_policies.pdf` is the default policy corpus used for grounding.

@@ -31,7 +31,7 @@ TASK_QUEUE = "test-mortgage-queue"
 
 
 def _load_case(index: int) -> dict:
-    repo_root = Path(__file__).resolve().parents[3]
+    repo_root = Path(__file__).resolve().parents[4]
     data_path = repo_root / "resources" / "mortgage_test_cases.json"
     payload = json.loads(data_path.read_text())
     return payload["test_cases"][index]

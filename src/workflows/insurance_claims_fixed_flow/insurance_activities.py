@@ -32,7 +32,7 @@ from .insurance_utils import (
     tokenize,
 )
 
-DEFAULT_MODEL = "gemini-2.5-flash"
+DEFAULT_MODEL = "gemini-3.1-flash-image-preview"
 
 
 @lru_cache(maxsize=1)
