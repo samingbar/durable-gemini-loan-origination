@@ -99,7 +99,7 @@ cmd = "pre-commit autoupdate"
 
 [tool.poe.tasks.reset-cache]
 help = "Reset the review UI cache history (cases.json)."
-cmd = "python -m src.workflows.reset_cache"
+cmd = "python -m src.workflows.insurance_claims_fixed_flow.tools.reset_cache"
 
 [tool.bandit]
 exclude_dirs = ["tests", "*_tests.py"]

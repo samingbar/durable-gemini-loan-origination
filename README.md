@@ -46,8 +46,8 @@ uv sync --dev
 export GEMINI_API_KEY="your_api_key"
 # export GOOGLE_API_KEY="your_api_key"
 
-# Optional: override Gemini model (default: gemini-2.5-flash)
-export GEMINI_MODEL="gemini-2.5-flash"
+# Optional: override Gemini model
+export GEMINI_MODEL="gemini-3.1-flash-image-preview"
 
 # Optional: Temporal server address (default: localhost:7233)
 export TEMPORAL_ADDRESS="localhost:7233"
@@ -66,6 +66,11 @@ export INSURANCE_UPLOAD_ROOT="datasets/uploads/insurance_claims"
 
 # Optional: override the insurance policy corpus path
 export INSURANCE_POLICY_PATH="resources/insurance_claim_policies.pdf"
+
+# Optional: insurance review UI upload limits
+export INSURANCE_MAX_FILES="10"
+export INSURANCE_MAX_FILE_BYTES="10485760"
+export INSURANCE_MAX_TOTAL_BYTES="26214400"
 ```
 
 ### Start Temporal
@@ -119,6 +124,10 @@ uv run uvicorn src.workflows.mortgage_embedded_agent.review_app:app --reload
 ```
 
 Open `http://localhost:8000` and upload images named like `CASEID_p1.png`, `CASEID_p2.png`, etc.
+
+The insurance review UI now persists explicit case states (`QUEUED`, `RUNNING`, `AWAITING_REVIEW`,
+`COMPLETED`, `FAILED`, `START_FAILED`), exposes a retry action for failed cases, and provides
+`/healthz` and `/readyz` endpoints for process and dependency readiness checks.
 
 ### Run Sample Cases (Embedded Agent)
 
@@ -185,7 +194,8 @@ uv run poe reset-cache -- --purge-uploads
 
 - **Workflow won’t start**: Confirm the worker is running and `TEMPORAL_ADDRESS` matches the server.
 - **OCR returns invalid JSON**: The workflow has deterministic fallbacks; check logs for the raw response.
-- **No cases in UI**: Verify `UPLOAD_ROOT` exists and the UI can write to it.
+- **No cases in UI**: Verify `INSURANCE_UPLOAD_ROOT` exists and the UI can write to it.
+- **UI is in degraded mode**: Check `/readyz` and confirm the Temporal server is reachable.
 
 ## License
 

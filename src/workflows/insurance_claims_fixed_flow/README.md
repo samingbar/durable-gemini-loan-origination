@@ -34,7 +34,16 @@ uv run -m src.workflows.insurance_claims_fixed_flow.worker
 uv run uvicorn src.workflows.insurance_claims_fixed_flow.review_app:app --reload
 ```
 
-Upload images named like `CASEID_p1.png`, `CASEID_p2.png`, etc. The UI will start the workflow automatically.
+Upload images named like `CASEID_p1.png`, `CASEID_p2.png`, etc. The UI will start the workflow
+automatically, persist explicit case states, and expose retry actions for failed cases.
+
+**Insurance review UI defaults**
+- Upload limits default to `10` files, `10 MiB` per file, and `25 MiB` total.
+- Override limits with `INSURANCE_MAX_FILES`, `INSURANCE_MAX_FILE_BYTES`,
+  and `INSURANCE_MAX_TOTAL_BYTES`.
+- Use `GET /healthz` for process health and `GET /readyz` for Temporal/upload-root readiness.
+- When Temporal is unavailable, the UI stays up in degraded mode and disables upload, retry,
+  and review-submission actions until connectivity returns.
 
 **Generate sample OCR cases**
 

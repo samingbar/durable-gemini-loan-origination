@@ -26,7 +26,7 @@ EXPECTED_RISK_SCORE = 88
 
 
 def _load_case(index: int) -> dict:
-    repo_root = Path(__file__).resolve().parents[3]
+    repo_root = Path(__file__).resolve().parents[4]
     data_path = repo_root / "resources" / "insurance_claim_test_cases.json"
     payload = json.loads(data_path.read_text())
     return payload["test_cases"][index]
