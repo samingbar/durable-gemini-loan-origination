@@ -1,14 +1,14 @@
 # Mortgage Embedded Agent
 
-This package demonstrates a more agentic mortgage-underwriting workflow. A supervisor activity decides which specialist should run next based on the current state of the case and the risk signals gathered so far.
+This package is the more agentic mortgage-underwriting flow in the repository. A supervisor activity decides which specialist should run next based on the current case state and the risk signals gathered so far.
 
 ## Use This Package When
 
 - You want to compare adaptive routing against the fixed baseline.
 - You want a workflow that makes sequencing decisions with model output.
-- You want a CLI demo runner for the mortgage flows.
+- You want the mortgage package with a built-in CLI demo runner.
 
-## Package Layout
+## Key Files
 
 - `mortgage_workflow.py` orchestrates the supervisor loop and human review gate.
 - `mortgage_activities.py` handles OCR, policy retrieval, specialist prompts, and the supervisor call.
@@ -20,6 +20,8 @@ This package demonstrates a more agentic mortgage-underwriting workflow. A super
 - `tests/` contains activity, utility, and workflow coverage.
 
 ## Run Locally
+
+Set `GEMINI_API_KEY` before starting the flow. You can also set `TEMPORAL_ADDRESS`, `MORTGAGE_TASK_QUEUE`, and `UPLOAD_ROOT` if you need overrides.
 
 1. Start a Temporal dev server.
 
@@ -45,11 +47,12 @@ uv run uvicorn src.workflows.mortgage_embedded_agent.review_app:app --reload
 uv run -m src.workflows.mortgage_embedded_agent.demo --image-dir datasets/images
 ```
 
-The worker and demo use `MORTGAGE_TASK_QUEUE` and `TEMPORAL_ADDRESS` if they are set. The review UI writes uploads to `UPLOAD_ROOT`, which defaults to `datasets/uploads`.
+Open `http://localhost:8000` if you are using the review UI. Uploads are written under `UPLOAD_ROOT`, which defaults to `datasets/uploads`.
 
-## Review UI Notes
+## Demo And Review Notes
 
 - Upload page images named like `CASEID_p1.png`, `CASEID_p2.png`, and so on.
+- The demo runner prefers case-scoped filenames. If a directory contains generic images without case prefixes, it falls back to a single `DEMO-UNSCOPED` workflow.
 - The UI starts a workflow when the upload completes successfully.
 - Human review is enabled only when the workflow is still running and the current recommendation is `CONDITIONAL`.
 
@@ -63,3 +66,7 @@ The worker and demo use `MORTGAGE_TASK_QUEUE` and `TEMPORAL_ADDRESS` if they are
 ```bash
 uv run poe test -- src/workflows/mortgage_embedded_agent/tests
 ```
+
+## Compare With
+
+If you want the deterministic baseline first, read [`../mortgage_fixed_flow/README.md`](../mortgage_fixed_flow/README.md).

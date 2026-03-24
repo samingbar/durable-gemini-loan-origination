@@ -1,6 +1,6 @@
 # Insurance Claims Fixed Flow
 
-This package is the deterministic insurance-claims baseline. It follows a fixed pipeline: OCR intake, policy retrieval, specialist analyses, critic review, structured decision memo generation, and a human review gate.
+This package is the deterministic insurance-claims baseline. It follows a fixed pipeline from OCR intake through policy retrieval, specialist analyses, structured decision generation, and a human review gate.
 
 ## Use This Package When
 
@@ -8,7 +8,7 @@ This package is the deterministic insurance-claims baseline. It follows a fixed 
 - You want a clean OCR-plus-LLM baseline before experimenting with agentic routing.
 - You want the most capable review UI in this repository.
 
-## Package Layout
+## Key Files
 
 - `insurance_workflow.py` orchestrates the fixed-order workflow and human review gate.
 - `insurance_activities.py` handles OCR, policy retrieval, and model calls.
@@ -21,6 +21,8 @@ This package is the deterministic insurance-claims baseline. It follows a fixed 
 - `tests/` contains activity, utility, workflow, reset-cache, and review-app coverage.
 
 ## Run Locally
+
+Set `GEMINI_API_KEY` before starting the flow. You can also set `TEMPORAL_ADDRESS`, `INSURANCE_TASK_QUEUE`, `INSURANCE_UPLOAD_ROOT`, and `INSURANCE_POLICY_PATH` if you need overrides.
 
 1. Start a Temporal dev server.
 
@@ -40,9 +42,9 @@ uv run -m src.workflows.insurance_claims_fixed_flow.worker
 uv run uvicorn src.workflows.insurance_claims_fixed_flow.review_app:app --reload
 ```
 
-4. Upload claim page images named like `CASEID_p1.png`, `CASEID_p2.png`, and so on.
+4. Open `http://localhost:8000` and upload claim page images named like `CASEID_p1.png`, `CASEID_p2.png`, and so on.
 
-The worker uses `INSURANCE_TASK_QUEUE` and `TEMPORAL_ADDRESS` if they are set. The review UI writes uploads to `INSURANCE_UPLOAD_ROOT`, which defaults to `datasets/uploads/insurance_claims`.
+Uploads are written under `INSURANCE_UPLOAD_ROOT`, which defaults to `datasets/uploads/insurance_claims`.
 
 ## Review UI Behavior
 

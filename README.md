@@ -3,30 +3,30 @@
 [![CI](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml/badge.svg)](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/samingbar/durable-gemini-loan-origination)](LICENSE)
 
-Temporal-based mortgage underwriting and insurance claims demos that combine Gemini OCR, policy-grounded analysis, and human review UIs.
+Temporal demos for mortgage underwriting and insurance claim adjudication built with Gemini OCR, policy-grounded analysis, and human review UIs.
 
 > This repository is a demo system built around synthetic data and simplified policy logic. Do not use it for real lending or claims decisions.
 
-## Overview
+## Choose A Workflow
 
-This repo contains three runnable workflow packages:
+This repository currently ships three runnable workflow packages:
 
-| Workflow | Pattern | Best For |
+| Workflow | Pattern | Best for |
 | --- | --- | --- |
-| `mortgage_fixed_flow` | Deterministic, fixed-order pipeline | Baseline underwriting behavior and repeatable demos |
-| `mortgage_embedded_agent` | Supervisor-driven routing | Comparing fixed orchestration against adaptive sequencing |
-| `insurance_claims_fixed_flow` | Deterministic, fixed-order pipeline | A claims-focused variant with a hardened review UI |
+| [`mortgage_fixed_flow`](src/workflows/mortgage_fixed_flow/README.md) | Deterministic, fixed-order mortgage pipeline | Baseline underwriting behavior, regression testing, and the simplest review flow |
+| [`mortgage_embedded_agent`](src/workflows/mortgage_embedded_agent/README.md) | Supervisor-routed mortgage pipeline | Comparing fixed orchestration against adaptive specialist sequencing |
+| [`insurance_claims_fixed_flow`](src/workflows/insurance_claims_fixed_flow/README.md) | Deterministic, fixed-order claims pipeline | Claims adjudication demos and the most capable review UI in the repo |
 
-If you are new to Temporal, start with `docs/temporal-primitives.md`.
+For a package-level index, read [`src/workflows/README.md`](src/workflows/README.md). If you are new to Temporal, start with [`docs/temporal-primitives.md`](docs/temporal-primitives.md).
 
 ## Repository Layout
 
-- `src/workflows/` contains the workflow packages, their activities, review UIs, and tests.
-- `resources/` contains policy PDFs and synthetic test cases.
-- `datasets/` contains sample images, generated PDFs, and uploaded review UI cases.
+- `src/workflows/` contains the runnable workflow packages, their review UIs, workers, and tests.
+- `resources/` contains policy documents and structured synthetic fixtures.
+- `datasets/` contains sample OCR images, generated PDFs, and uploaded review UI cases.
 - `docs/` contains Temporal patterns, testing guidance, and workflow authoring notes.
 
-## Quickstart
+## Quick Start
 
 ### Prerequisites
 
@@ -43,7 +43,7 @@ uv sync --dev
 
 ### Configure Environment
 
-Workers load `.env` from the repository root if it exists. Review UIs inherit the current shell environment, so export variables before starting `uvicorn`.
+Export variables before starting workers, demos, or `uvicorn`. Some worker and demo scripts also load a repo-level `.env` for runtime values such as API keys, but the review UIs use whatever is already present in the shell at startup.
 
 ```bash
 export GEMINI_API_KEY="your_api_key"
@@ -69,49 +69,29 @@ export INSURANCE_MAX_TOTAL_BYTES="26214400"
 temporal server start-dev
 ```
 
-### Start a Worker
+### Start A Worker
 
-Mortgage fixed flow:
+Pick the workflow you want to run:
 
 ```bash
 uv run -m src.workflows.mortgage_fixed_flow.worker
-```
-
-Mortgage embedded agent:
-
-```bash
 uv run -m src.workflows.mortgage_embedded_agent.worker
-```
-
-Insurance claims fixed flow:
-
-```bash
 uv run -m src.workflows.insurance_claims_fixed_flow.worker
 ```
 
-### Start a Review UI
+### Start A Review UI
 
-Mortgage fixed flow:
+Pick the matching review UI:
 
 ```bash
 uv run uvicorn src.workflows.mortgage_fixed_flow.review_app:app --reload
-```
-
-Mortgage embedded agent:
-
-```bash
 uv run uvicorn src.workflows.mortgage_embedded_agent.review_app:app --reload
-```
-
-Insurance claims fixed flow:
-
-```bash
 uv run uvicorn src.workflows.insurance_claims_fixed_flow.review_app:app --reload
 ```
 
 Open `http://localhost:8000` and upload page images named like `CASEID_p1.png`, `CASEID_p2.png`, and so on.
 
-## Sample Inputs
+## Sample Runs And Utilities
 
 Run the embedded-agent mortgage demo against the checked-in sample images:
 
@@ -119,13 +99,27 @@ Run the embedded-agent mortgage demo against the checked-in sample images:
 uv run -m src.workflows.mortgage_embedded_agent.demo --image-dir datasets/images
 ```
 
-Generate insurance claim PDFs and OCR page images from the checked-in fixtures:
+Generate the checked-in insurance fixtures as PDFs and page images:
 
 ```bash
 uv run -m src.workflows.insurance_claims_fixed_flow.utils.sample_case_generator
 ```
 
-The generator writes output under `datasets/insurance_claims/pdfs` and `datasets/insurance_claims/images`. The insurance package does not currently include a separate CLI demo runner; use the review UI or start workflows programmatically.
+The generator writes output under `datasets/insurance_claims/pdfs` and `datasets/insurance_claims/images`.
+
+Reset the insurance review UI cache manifest:
+
+```bash
+uv run -m src.workflows.insurance_claims_fixed_flow.utils.reset_cache
+```
+
+Reset the manifest and purge uploaded insurance cases:
+
+```bash
+uv run -m src.workflows.insurance_claims_fixed_flow.utils.reset_cache --purge-uploads
+```
+
+The insurance package does not currently include a standalone demo runner; use the review UI or start workflows programmatically.
 
 ## Review UI Notes
 
@@ -158,24 +152,11 @@ uv run poe lint
 uv run poe format
 ```
 
-## Common Utilities
-
-Reset the insurance review UI cache manifest:
-
-```bash
-uv run -m src.workflows.insurance_claims_fixed_flow.utils.reset_cache
-```
-
-Reset the manifest and purge uploaded insurance cases:
-
-```bash
-uv run -m src.workflows.insurance_claims_fixed_flow.utils.reset_cache --purge-uploads
-```
-
 ## Troubleshooting
 
 - If a workflow will not start, confirm the matching worker is running and `TEMPORAL_ADDRESS` points to the same Temporal server.
-- If OCR returns malformed JSON, check worker logs. The workflows use deterministic fallbacks, but the raw model response is still the fastest debugging signal.
+- If a review UI cannot connect, re-export the environment variables before starting `uvicorn`.
+- If OCR returns malformed JSON, check worker logs. The workflows include deterministic fallbacks, but the raw model response is still the fastest debugging signal.
 - If a review UI shows no cases, verify that its upload root exists and is writable.
 - If the insurance review UI reports degraded readiness, check `GET /readyz` and confirm Temporal and the upload root are both available.
 

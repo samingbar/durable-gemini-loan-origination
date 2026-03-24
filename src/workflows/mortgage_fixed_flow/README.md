@@ -1,6 +1,6 @@
 # Mortgage Fixed Flow
 
-This package is the deterministic mortgage-underwriting baseline. It always runs the same specialists in the same order, which makes it the easiest flow to reason about, test, and compare against more adaptive variants.
+This package is the deterministic mortgage-underwriting baseline. It always runs the same stages in the same order, which makes it the easiest flow to reason about, test, and compare against more adaptive variants.
 
 ## Use This Package When
 
@@ -8,9 +8,9 @@ This package is the deterministic mortgage-underwriting baseline. It always runs
 - You want repeatable, fixed-order behavior for demos or regression testing.
 - You want a clear reference implementation before reading the embedded-agent version.
 
-## Package Layout
+## Key Files
 
-- `mortgage_workflow.py` orchestrates the fixed-order workflow and human review gate.
+- `mortgage_workflow.py` orchestrates OCR intake, specialist analysis, memo generation, and the human review gate.
 - `mortgage_activities.py` handles OCR, policy retrieval, and specialist prompts.
 - `mortgage_models.py` defines Pydantic inputs and outputs.
 - `mortgage_utils.py` contains deterministic metrics, policy checks, and sanitization helpers.
@@ -19,6 +19,8 @@ This package is the deterministic mortgage-underwriting baseline. It always runs
 - `tests/` contains activity, utility, workflow, and review-app coverage.
 
 ## Run Locally
+
+Set `GEMINI_API_KEY` before starting the flow. You can also set `TEMPORAL_ADDRESS`, `MORTGAGE_TASK_QUEUE`, and `UPLOAD_ROOT` if you need overrides.
 
 1. Start a Temporal dev server.
 
@@ -38,11 +40,11 @@ uv run -m src.workflows.mortgage_fixed_flow.worker
 uv run uvicorn src.workflows.mortgage_fixed_flow.review_app:app --reload
 ```
 
-4. Upload mortgage page images named like `CASEID_p1.png`, `CASEID_p2.png`, and so on.
+4. Open `http://localhost:8000` and upload mortgage page images named like `CASEID_p1.png`, `CASEID_p2.png`, and so on.
 
-The worker uses `MORTGAGE_TASK_QUEUE` and `TEMPORAL_ADDRESS` if they are set. The review UI writes uploads to `UPLOAD_ROOT`, which defaults to `datasets/uploads`.
+Uploads are written under `UPLOAD_ROOT`, which defaults to `datasets/uploads`.
 
-## Review UI Notes
+## Review UI Behavior
 
 - The UI starts a workflow immediately after upload.
 - Review submission is allowed only while the workflow is running and the current recommendation is `CONDITIONAL`.
@@ -62,3 +64,7 @@ uv run poe test -- src/workflows/mortgage_fixed_flow/tests
 
 - `resources/mortgage_test_cases.json` contains the structured synthetic mortgage fixtures.
 - `resources/underwriting_policies.pdf` is the default policy corpus used for grounding.
+
+## Compare With
+
+If you want to see the adaptive variant next, read [`../mortgage_embedded_agent/README.md`](../mortgage_embedded_agent/README.md).
