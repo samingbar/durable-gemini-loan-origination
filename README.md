@@ -3,7 +3,7 @@
 [![CI](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml/badge.svg)](https://github.com/samingbar/durable-gemini-loan-origination/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/samingbar/durable-gemini-loan-origination)](LICENSE)
 
-Temporal demos for mortgage underwriting and insurance claim adjudication built with Gemini OCR, policy-grounded analysis, and human review UIs.
+Temporal demos for mortgage underwriting and insurance claim adjudication built with model-backed extraction, policy-grounded analysis, human review UIs, and an operational state mirror for downstream workflows.
 
 > This repository is a demo system built around synthetic data and simplified policy logic. Do not use it for real lending or claims decisions.
 
@@ -56,6 +56,9 @@ export INSURANCE_TASK_QUEUE="insurance-claims"
 export UPLOAD_ROOT="datasets/uploads"
 export INSURANCE_UPLOAD_ROOT="datasets/uploads/insurance_claims"
 export INSURANCE_POLICY_PATH="resources/insurance_claim_policies.pdf"
+export INSURANCE_AGENT_PROVIDER="gemini"
+export LAKEBASE_DB_PATH="datasets/operations/lakebase_demo.sqlite3"
+export CLAIMS_SYSTEM_OUTBOX_PATH="datasets/operations/claim_system_updates.jsonl"
 
 # Insurance review UI upload limits
 export INSURANCE_MAX_FILES="10"
@@ -125,6 +128,8 @@ The insurance package does not currently include a standalone demo runner; use t
 
 - Mortgage review UIs use `UPLOAD_ROOT`, defaulting to `datasets/uploads`.
 - The insurance review UI uses `INSURANCE_UPLOAD_ROOT`, defaulting to `datasets/uploads/insurance_claims`.
+- The insurance worker mirrors case, review, and downstream sync state into `LAKEBASE_DB_PATH`.
+- Final insurance decisions are written idempotently to `CLAIMS_SYSTEM_OUTBOX_PATH` to emulate a downstream claims system.
 - The insurance review UI persists explicit case states: `QUEUED`, `RUNNING`, `AWAITING_REVIEW`, `COMPLETED`, `FAILED`, and `START_FAILED`.
 - Failed insurance cases can be retried from the UI.
 - The insurance review UI exposes `GET /healthz` and `GET /readyz` and stays online in degraded mode when Temporal is unavailable.

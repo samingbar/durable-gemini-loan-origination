@@ -26,7 +26,13 @@ from .mortgage_models import (
     SupervisorDecision,
     SupervisorTask,
 )
-from .mortgage_utils import compute_risk_score, determine_decision, parse_llm_json, score_chunk, tokenize
+from .mortgage_utils import (
+    compute_risk_score,
+    determine_decision,
+    parse_llm_json,
+    score_chunk,
+    tokenize,
+)
 
 DEFAULT_MODEL = "gemini-2.5-flash"
 

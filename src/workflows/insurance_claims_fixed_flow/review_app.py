@@ -510,11 +510,7 @@ def _records_payload(records: list[CaseRecord]) -> list[dict]:
 
 def _record_with_updates(record: CaseRecord, **changes: object) -> CaseRecord:
     """Return a case record with only the changed values updated."""
-    changed = {
-        key: value
-        for key, value in changes.items()
-        if getattr(record, key) != value
-    }
+    changed = {key: value for key, value in changes.items() if getattr(record, key) != value}
     if not changed:
         return record
     changed.setdefault("updated_at", _utc_now_iso())
@@ -567,8 +563,7 @@ async def _prepare_uploads(files: list[UploadFile]) -> list[tuple[str, bytes]]:
             raise ValueError(message)
         if len(content) > _max_file_bytes():
             message = (
-                f"Uploaded file {filename or 'unnamed upload'} exceeds "
-                f"{_max_file_bytes()} bytes."
+                f"Uploaded file {filename or 'unnamed upload'} exceeds {_max_file_bytes()} bytes."
             )
             raise ValueError(message)
         total_bytes += len(content)
@@ -819,8 +814,7 @@ async def index(  # noqa: C901, PLR0912
                     records_by_case[case_id] = _placeholder_record(case_id, created_at)
         except TemporalError as exc:
             live_lookup_warning = (
-                "Unable to refresh the live workflow list: "
-                f"{_maybe_failure_text(exc)}"
+                f"Unable to refresh the live workflow list: {_maybe_failure_text(exc)}"
             )
 
         current_records = list(records_by_case.values())
@@ -963,6 +957,14 @@ async def case_view(  # noqa: C901, PLR0912, PLR0915
     final_decision_block = ""
     if snapshot.record.status == CaseStatus.COMPLETED:
         if snapshot.result is not None:
+            downstream_block = ""
+            if snapshot.result.downstream_action is not None:
+                external_record_id = _escape(snapshot.result.downstream_action.external_record_id)
+                downstream_block = f"""
+  <p><strong>Downstream Sync:</strong> {_escape(snapshot.result.downstream_action.status)}</p>
+  <p><strong>Target System:</strong> {_escape(snapshot.result.downstream_action.target_system)}</p>
+  <p><strong>External Record:</strong> {external_record_id}</p>
+"""
             final_decision_block = f"""
 <div class="card">
   <h2>Final Outcome</h2>
@@ -970,6 +972,7 @@ async def case_view(  # noqa: C901, PLR0912, PLR0915
   <p><strong>Final Decision:</strong> {_escape(snapshot.result.final_decision)}</p>
   <p><strong>Risk Score:</strong> {_escape(snapshot.result.risk_score)}</p>
   <p><strong>Human Review Required:</strong> {_escape(snapshot.result.human_review_required)}</p>
+  {downstream_block}
   <p><strong>Decision Memo (Preview):</strong></p>
   <pre>{_escape(snapshot.result.decision_memo[:800])}</pre>
 </div>
@@ -1144,7 +1147,7 @@ async def case_view(  # noqa: C901, PLR0912, PLR0915
     body = f"""
 <h1>Case {_escape(case_id)}{display_name}</h1>
 <p class="muted">Workflow ID: {_escape(snapshot.record.workflow_id)}</p>
-{''.join(alert_blocks)}
+{"".join(alert_blocks)}
 
 <div class="card">
   <h2>Status</h2>

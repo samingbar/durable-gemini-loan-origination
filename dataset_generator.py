@@ -15,7 +15,11 @@ from google import genai
 from google.genai import types
 
 from .src.workflows.mortgage_embedded_agent.mortgage_models import MortgageApplication
-from .src.workflows.mortgage_embedded_agent.mortgage_utils import compute_metrics, determine_decision, parse_llm_json
+from .src.workflows.mortgage_embedded_agent.mortgage_utils import (
+    compute_metrics,
+    determine_decision,
+    parse_llm_json,
+)
 
 DEFAULT_MODEL = "gemini-2.5-flash"
 DEFAULT_BATCH_SIZE = 5
@@ -84,7 +88,9 @@ def _merge_defaults(template: Any, data: Any) -> Any:
     return data if data is not None else copy.deepcopy(template)
 
 
-def _normalize_profile(raw: dict[str, Any], template: dict[str, Any], index: int) -> MortgageApplication:
+def _normalize_profile(
+    raw: dict[str, Any], template: dict[str, Any], index: int
+) -> MortgageApplication:
     merged = _merge_defaults(template, raw)
     merged["case_id"] = f"MTG-2026-{index:03d}"
 
@@ -212,7 +218,9 @@ def _render_pdf(profile: MortgageApplication, output_path: Path) -> None:
     if assets.recent_deposits:
         add_line("Recent Deposits:")
         for deposit in assets.recent_deposits:
-            add_line(f"- {deposit.date}: {_format_currency(deposit.amount)} ({deposit.description})")
+            add_line(
+                f"- {deposit.date}: {_format_currency(deposit.amount)} ({deposit.description})"
+            )
     y += 6
 
     add_line("Loan Details", bold=True, size=12)

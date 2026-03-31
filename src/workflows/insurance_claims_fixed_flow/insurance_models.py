@@ -8,6 +8,8 @@ from pydantic import BaseModel, Field
 
 Decision = Literal["APPROVED", "CONDITIONAL", "REJECTED", "HUMAN_REVIEW"]
 HumanDecision = Literal["APPROVED", "REJECTED"]
+ReviewTaskStatus = Literal["OPEN", "COMPLETED"]
+DownstreamActionStatus = Literal["PUBLISHED", "ALREADY_PUBLISHED"]
 
 
 class DamagedItem(BaseModel):
@@ -181,6 +183,7 @@ class ClaimAdjudicationOutput(BaseModel):
     policy_violations: list[str]
     human_review_required: bool
     human_review: HumanReviewResult | None = None
+    downstream_action: DownstreamActionResult | None = None
     timestamp: str
 
 
@@ -237,3 +240,68 @@ class DecisionResult(BaseModel):
 
     recommendation: DecisionRecommendation
     raw_response: str
+
+
+class OperationalClaimStateTask(BaseModel):
+    """Activity input for mirroring case and workflow state externally."""
+
+    case_id: str
+    workflow_id: str
+    run_id: str
+    stage: str
+    status: str
+    orchestration_mode: str = "fixed"
+    display_name: str | None = None
+    image_dir: str | None = None
+    current_decision: Decision | None = None
+    risk_score: int | None = None
+    human_review_required: bool | None = None
+    metadata: dict[str, object] = Field(default_factory=dict)
+
+
+class OperationalAnalysisTask(BaseModel):
+    """Activity input for persisting an analysis artifact."""
+
+    case_id: str
+    workflow_id: str
+    analysis_name: str
+    summary: str
+    payload: dict[str, object] = Field(default_factory=dict)
+
+
+class OperationalReviewTask(BaseModel):
+    """Activity input for mirroring review work items to the operational store."""
+
+    review_task_id: str
+    case_id: str
+    workflow_id: str
+    status: ReviewTaskStatus
+    reason: str | None = None
+    reviewer: str | None = None
+    decision: HumanDecision | None = None
+    notes: str | None = None
+    payload: dict[str, object] = Field(default_factory=dict)
+
+
+class DownstreamActionResult(BaseModel):
+    """Result of publishing the final decision to a downstream system."""
+
+    target_system: str
+    action_name: str
+    status: DownstreamActionStatus
+    external_record_id: str
+    idempotency_key: str
+    outbox_location: str
+
+
+class ClaimSystemUpdateTask(BaseModel):
+    """Activity input for publishing a claim decision downstream."""
+
+    case_id: str
+    workflow_id: str
+    run_id: str
+    final_decision: Decision
+    risk_score: int
+    decision_memo: str
+    reviewer: str | None = None
+    metadata: dict[str, object] = Field(default_factory=dict)

@@ -23,6 +23,7 @@ PROTECTED_TERMS = [
     "pregnancy",
 ]
 
+
 def calculate_dti_ratio(monthly_debt: float, monthly_income: float) -> float:
     """Calculate Debt-to-Income ratio as a decimal (e.g., 0.43)."""
 

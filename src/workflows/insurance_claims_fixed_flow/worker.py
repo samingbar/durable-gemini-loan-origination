@@ -17,6 +17,12 @@ from .insurance_activities import (
     run_critic_review,
     run_decision_memo,
 )
+from .insurance_operational_activities import (
+    publish_claim_update,
+    record_analysis_result,
+    record_case_state,
+    upsert_review_task,
+)
 from .insurance_workflow import InsuranceClaimAdjudicationWorkflow
 
 TASK_QUEUE = os.environ.get("INSURANCE_TASK_QUEUE", "insurance-claims")
@@ -58,6 +64,10 @@ async def main() -> None:
             run_agent_analysis,
             run_critic_review,
             run_decision_memo,
+            record_case_state,
+            record_analysis_result,
+            upsert_review_task,
+            publish_claim_update,
         ],
     )
     await worker.run()

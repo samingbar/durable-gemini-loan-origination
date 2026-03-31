@@ -144,7 +144,7 @@ class MortgageUnderwritingWorkflow:
         decision_recommendation = DecisionRecommendation.model_validate(
             decision_result.recommendation.model_dump()
         )
-        
+
         # Re-inject the real name only in the final memo (not in LLM inputs).
         real_name = applicant.name or "[APPLICANT_NAME]"
         memo_with_name = decision_recommendation.memo.replace("[APPLICANT_NAME]", real_name)

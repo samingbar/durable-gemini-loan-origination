@@ -7,11 +7,13 @@ import json
 import os
 from functools import lru_cache
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from google import genai
-from google.genai import types
 from pypdf import PdfReader
 from temporalio import activity
+
+from src.platform.agents.agent_bricks_provider import AgentBricksInsuranceProvider
+from src.platform.agents.gemini_provider import GeminiInsuranceProvider
 
 from .insurance_models import (
     AgentResult,
@@ -32,7 +34,8 @@ from .insurance_utils import (
     tokenize,
 )
 
-DEFAULT_MODEL = "gemini-3.1-flash-image-preview"
+if TYPE_CHECKING:
+    from src.platform.agents.interface import InsuranceAgentProvider
 
 
 @lru_cache(maxsize=1)
@@ -96,33 +99,20 @@ def _retrieve_policies(query: str, top_k: int = 4) -> str:
 
 
 @lru_cache(maxsize=1)
-def _gemini_client() -> genai.Client:
-    """Build and cache a Gemini client."""
-    api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
-    if not api_key:
-        message = "Set GEMINI_API_KEY (or GOOGLE_API_KEY) to use Gemini."
-        raise RuntimeError(message)
-    return genai.Client(
-        api_key=api_key,
-        http_options=types.HttpOptions(
-            retry_options=types.HttpRetryOptions(attempts=1),
-        ),
-    )
-
-
-def _model_name() -> str:
-    """Return the configured Gemini model name."""
-    return os.environ.get("GEMINI_MODEL", DEFAULT_MODEL)
+def _insurance_provider() -> InsuranceAgentProvider:
+    """Build and cache the configured insurance intelligence provider."""
+    provider_name = os.environ.get("INSURANCE_AGENT_PROVIDER", "gemini").strip().lower()
+    if provider_name == "gemini":
+        return GeminiInsuranceProvider()
+    if provider_name in {"agent_bricks", "agentbricks"}:
+        return AgentBricksInsuranceProvider()
+    message = "Unsupported INSURANCE_AGENT_PROVIDER value. Use 'gemini' or 'agent_bricks'."
+    raise RuntimeError(message)
 
 
 async def _generate_text(prompt: str) -> str:
-    """Generate text from Gemini using a consistent helper."""
-    client = _gemini_client()
-    response = await client.aio.models.generate_content(
-        model=_model_name(),
-        contents=prompt,
-    )
-    return response.text or ""
+    """Generate text through the configured provider."""
+    return await _insurance_provider().generate_text(prompt)
 
 
 def _list_image_paths(image_dir: Path, case_id: str) -> list[Path]:
@@ -257,34 +247,13 @@ def _normalize_ocr_payload(  # noqa: C901, PLR0912, PLR0915
 
 
 async def _ocr_claim_from_images(image_paths: list[Path], case_id: str) -> str:
-    """Extract the claim JSON from uploaded images with a single multimodal prompt."""
-    client = _gemini_client()
+    """Extract the claim JSON from uploaded images using the configured provider."""
     schema = json.dumps(InsuranceClaim.model_json_schema(), indent=2)
-    contents: list[types.Part | str] = [
-        "Extract the insurance claim data from these images.\n"
-        "Return JSON ONLY (no markdown) that matches the InsuranceClaim schema exactly.\n"
-        "Rules:\n"
-        f"- Use case_id exactly as: {case_id}\n"
-        "- Output a single JSON object with the exact field names.\n"
-        "- Include ALL required fields even if blank.\n"
-        "- Optional fields may be null.\n"
-        "- If a numeric value is missing, use 0.\n"
-        "- If a boolean value is missing, use false.\n"
-        "- If a string value is missing, use an empty string.\n"
-        "- If a list is missing, use an empty list.\n"
-        "Schema:\n"
-        f"{schema}",
-    ]
-
-    for path in image_paths:
-        mime_type = "image/jpeg" if path.suffix.lower() in {".jpg", ".jpeg"} else "image/png"
-        contents.append(types.Part.from_bytes(data=path.read_bytes(), mime_type=mime_type))
-
-    response = await client.aio.models.generate_content(
-        model=_model_name(),
-        contents=contents,
+    return await _insurance_provider().extract_insurance_claim_json(
+        image_paths,
+        case_id=case_id,
+        schema=schema,
     )
-    return response.text or ""
 
 
 def _format_claim(task: AgentTask | CriticTask | DecisionTask) -> str:

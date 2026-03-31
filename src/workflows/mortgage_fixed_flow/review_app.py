@@ -219,7 +219,7 @@ def _format_money(value: float) -> str:
 
 def _render_list(items: list[str]) -> str:
     if not items:
-        return "<p class=\"muted\">None</p>"
+        return '<p class="muted">None</p>'
     return "<ul>" + "".join([f"<li>{_escape(item)}</li>" for item in items]) + "</ul>"
 
 
@@ -285,7 +285,9 @@ async def _fetch_status(client: Client, case_id: str) -> str:
     return "UNKNOWN"
 
 
-def _redirect_with_message(case_id: str, message: str | None = None, error: str | None = None) -> RedirectResponse:
+def _redirect_with_message(
+    case_id: str, message: str | None = None, error: str | None = None
+) -> RedirectResponse:
     query = []
     if message:
         query.append(f"message={quote(message)}")
@@ -324,7 +326,9 @@ async def index() -> HTMLResponse:
     except TemporalError:
         pass
 
-    entries = sorted(entries_by_case.values(), key=lambda item: item.get("created_at", ""), reverse=True)
+    entries = sorted(
+        entries_by_case.values(), key=lambda item: item.get("created_at", ""), reverse=True
+    )
 
     rows = []
     for entry in entries:
@@ -332,9 +336,9 @@ async def index() -> HTMLResponse:
         status = await _fetch_status(client, case_id) if case_id else "UNKNOWN"
         rows.append(
             f"<tr>"
-            f"<td><a href=\"/case/{_escape(case_id)}\">{_escape(case_id)}</a></td>"
+            f'<td><a href="/case/{_escape(case_id)}">{_escape(case_id)}</a></td>'
             f"<td>{_escape(entry.get('created_at', ''))}</td>"
-            f"<td><span class=\"badge\">{_escape(status)}</span></td>"
+            f'<td><span class="badge">{_escape(status)}</span></td>'
             f"</tr>"
         )
 
@@ -362,7 +366,7 @@ async def index() -> HTMLResponse:
       </tr>
     </thead>
     <tbody>
-      {''.join(rows) if rows else '<tr><td colspan="3" class="muted">No cases yet.</td></tr>'}
+      {"".join(rows) if rows else '<tr><td colspan="3" class="muted">No cases yet.</td></tr>'}
     </tbody>
   </table>
 </div>
@@ -376,7 +380,9 @@ async def case_redirect(case_id: str) -> HTMLResponse:
 
 
 @app.get("/case/{case_id}", response_class=HTMLResponse)
-async def case_view(case_id: str, message: str | None = None, error: str | None = None) -> HTMLResponse:
+async def case_view(
+    case_id: str, message: str | None = None, error: str | None = None
+) -> HTMLResponse:
     client = await _get_client()
     handle = client.get_workflow_handle(
         _workflow_id(case_id),
@@ -416,9 +422,9 @@ async def case_view(case_id: str, message: str | None = None, error: str | None 
 
     alert_block = ""
     if message:
-        alert_block = f"<div class=\"alert alert-success\">{_escape(message)}</div>"
+        alert_block = f'<div class="alert alert-success">{_escape(message)}</div>'
     if error:
-        alert_block = f"<div class=\"alert alert-error\">{_escape(error)}</div>"
+        alert_block = f'<div class="alert alert-error">{_escape(error)}</div>'
 
     packet = None
     try:
@@ -532,11 +538,14 @@ async def case_view(case_id: str, message: str | None = None, error: str | None 
 {recommendation_block}
 {details_block}
 
-{"""
+{
+        '''
 <div class="card">
   <h2>Submit Review</h2>
   <form method="post" action="/submit">
-    <input type="hidden" name="case_id" value=\"""" + _escape(case_id) + """\" />
+    <input type="hidden" name="case_id" value=\"'''
+        + _escape(case_id)
+        + '''\" />
     <label>Reviewer</label>
     <input name="reviewer" placeholder="Senior Underwriter" required />
 
@@ -552,7 +561,10 @@ async def case_view(case_id: str, message: str | None = None, error: str | None 
     <button type="submit">Submit Review</button>
   </form>
 </div>
-""" if allow_submit else ""}
+'''
+        if allow_submit
+        else ""
+    }
 """
     refresh_seconds = 10 if status_label == "RUNNING" else None
     return _page(f"Case {case_id}", body, refresh_seconds=refresh_seconds)
@@ -578,15 +590,25 @@ async def submit_review(
 
     try:
         description = await handle.describe()
-        status = description.status.name.replace("WORKFLOW_EXECUTION_STATUS_", "") if description.status else "UNKNOWN"
+        status = (
+            description.status.name.replace("WORKFLOW_EXECUTION_STATUS_", "")
+            if description.status
+            else "UNKNOWN"
+        )
         if status != "RUNNING":
-            return _redirect_with_message(case_id, error=f"Cannot submit review: workflow status is {status}.")
+            return _redirect_with_message(
+                case_id, error=f"Cannot submit review: workflow status is {status}."
+            )
 
         packet = await handle.query(MortgageUnderwritingWorkflow.get_review_packet)
         if packet is None:
-            return _redirect_with_message(case_id, error="Cannot submit review: no review packet available yet.")
+            return _redirect_with_message(
+                case_id, error="Cannot submit review: no review packet available yet."
+            )
         if packet.decision_recommendation.decision != "CONDITIONAL":
-            return _redirect_with_message(case_id, error="Cannot submit review: workflow is not awaiting human review.")
+            return _redirect_with_message(
+                case_id, error="Cannot submit review: workflow is not awaiting human review."
+            )
 
         await handle.signal(
             MortgageUnderwritingWorkflow.submit_human_review,

@@ -1,6 +1,6 @@
 # Insurance Claims Fixed Flow
 
-This package is the deterministic insurance-claims baseline. It follows a fixed pipeline from OCR intake through policy retrieval, specialist analyses, structured decision generation, and a human review gate.
+This package is the deterministic insurance-claims baseline. It follows a fixed pipeline from OCR intake through policy retrieval, specialist analyses, structured decision generation, a human review gate, and an idempotent downstream claims-system sync.
 
 ## Use This Package When
 
@@ -23,6 +23,13 @@ This package is the deterministic insurance-claims baseline. It follows a fixed 
 ## Run Locally
 
 Set `GEMINI_API_KEY` before starting the flow. You can also set `TEMPORAL_ADDRESS`, `INSURANCE_TASK_QUEUE`, `INSURANCE_UPLOAD_ROOT`, and `INSURANCE_POLICY_PATH` if you need overrides.
+
+Optional platform-integration settings:
+
+- `INSURANCE_AGENT_PROVIDER=gemini|agent_bricks`
+- `LAKEBASE_DB_PATH=datasets/operations/lakebase_demo.sqlite3`
+- `CLAIMS_SYSTEM_OUTBOX_PATH=datasets/operations/claim_system_updates.jsonl`
+- `AGENT_BRICKS_TEXT_URL` and `AGENT_BRICKS_INSURANCE_OCR_URL` when `INSURANCE_AGENT_PROVIDER=agent_bricks`
 
 1. Start a Temporal dev server.
 
@@ -51,6 +58,7 @@ Uploads are written under `INSURANCE_UPLOAD_ROOT`, which defaults to `datasets/u
 - Uploads are validated before workflow start.
 - The UI persists explicit case states: `QUEUED`, `RUNNING`, `AWAITING_REVIEW`, `COMPLETED`, `FAILED`, and `START_FAILED`.
 - Failed and start-failed cases can be retried from the case page.
+- Completed cases display downstream sync metadata when available.
 - `GET /healthz` reports process health.
 - `GET /readyz` reports Temporal connectivity and upload-root readiness.
 - When Temporal is unavailable, the UI stays online in degraded mode and disables actions that depend on Temporal.
@@ -99,3 +107,4 @@ uv run poe test -- src/workflows/insurance_claims_fixed_flow/tests
 - `resources/insurance_claim_test_cases.json` contains the synthetic claim fixtures.
 - `resources/insurance_claim_policies.pdf` is the default policy corpus used for grounding.
 - `datasets/insurance_claims/` contains generated sample PDFs and OCR images.
+- `datasets/operations/` contains the local Lakebase demo database and downstream claims outbox when the flow runs.

@@ -122,11 +122,11 @@ class MortgageUnderwritingWorkflow:
                     applicant=sanitized_payload,
                     metrics=metrics,
                     completed_agents=sorted(completed),
-                remaining_agents=remaining,
-                risk_flags=risk_flags,
-                policy_context=policy_context["supervisor"],
+                    remaining_agents=remaining,
+                    risk_flags=risk_flags,
+                    policy_context=policy_context["supervisor"],
                 ),
-            start_to_close_timeout=timedelta(seconds=30),
+                start_to_close_timeout=timedelta(seconds=30),
             )
 
             # Ensure we only run an agent that is still missing.

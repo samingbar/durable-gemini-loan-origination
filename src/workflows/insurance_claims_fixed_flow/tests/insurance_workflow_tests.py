@@ -12,6 +12,7 @@ import pytest
 from temporalio import activity
 from temporalio.worker import Worker
 
+from src.platform.lakebase.repository import LakebaseRepository
 from src.workflows.insurance_claims_fixed_flow.insurance_models import (
     AgentResult,
     AgentTask,
@@ -24,6 +25,12 @@ from src.workflows.insurance_claims_fixed_flow.insurance_models import (
     DecisionTask,
     HumanReviewInput,
     InsuranceClaim,
+)
+from src.workflows.insurance_claims_fixed_flow.insurance_operational_activities import (
+    publish_claim_update,
+    record_analysis_result,
+    record_case_state,
+    upsert_review_task,
 )
 from src.workflows.insurance_claims_fixed_flow.insurance_workflow import (
     InsuranceClaimAdjudicationWorkflow,
@@ -82,8 +89,17 @@ async def fake_run_decision_memo(_task: DecisionTask) -> DecisionResult:
 
 
 @pytest.mark.asyncio
-async def test_workflow_human_review_signal(client: Client, tmp_path: Path) -> None:
+async def test_workflow_human_review_signal(
+    client: Client,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     """Wait for the review packet, signal a reviewer decision, and complete."""
+    db_path = tmp_path / "lakebase.sqlite3"
+    outbox_path = tmp_path / "claim_updates.jsonl"
+    monkeypatch.setenv("LAKEBASE_DB_PATH", str(db_path))
+    monkeypatch.setenv("CLAIMS_SYSTEM_OUTBOX_PATH", str(outbox_path))
+
     async with Worker(
         client,
         task_queue=TASK_QUEUE,
@@ -94,6 +110,10 @@ async def test_workflow_human_review_signal(client: Client, tmp_path: Path) -> N
             fake_run_agent_analysis,
             fake_run_critic_review,
             fake_run_decision_memo,
+            record_case_state,
+            record_analysis_result,
+            upsert_review_task,
+            publish_claim_update,
         ],
     ):
         case = _load_case(1)
@@ -134,8 +154,31 @@ async def test_workflow_human_review_signal(client: Client, tmp_path: Path) -> N
         result = await handle.result()
         assert result.final_decision == "APPROVED"
         assert result.human_review is not None
+        assert result.downstream_action is not None
+        assert result.downstream_action.status == "PUBLISHED"
         assert result.analyses.coverage
         assert result.analyses.liability
         assert result.analyses.damages
         assert result.analyses.fraud
         assert "[CLAIMANT_NAME]" not in result.decision_memo
+
+    repository = LakebaseRepository(db_path)
+    case_record = repository.fetch_case(case["case_id"])
+    assert case_record is not None
+    assert case_record.status == "COMPLETED"
+    assert case_record.current_decision == "APPROVED"
+
+    workflow_run = repository.fetch_workflow_run(handle.id)
+    assert workflow_run is not None
+    assert workflow_run.stage == "COMPLETED"
+
+    review_task = repository.fetch_review_task(f"{case['case_id']}:human-review")
+    assert review_task is not None
+    assert review_task.status == "COMPLETED"
+    assert review_task.decision == "APPROVED"
+
+    downstream_action = repository.fetch_downstream_action(f"{handle.id}:claim-decision")
+    assert downstream_action is not None
+    assert downstream_action.status == "PUBLISHED"
+    assert downstream_action.target_system == "claims-system-demo"
+    assert outbox_path.exists()

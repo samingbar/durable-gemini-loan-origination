@@ -301,8 +301,7 @@ def test_derive_case_status_identifies_awaiting_review() -> None:
         == review_app.CaseStatus.AWAITING_REVIEW
     )
     assert (
-        review_app._derive_case_status("RUNNING", approved_packet)
-        == review_app.CaseStatus.RUNNING
+        review_app._derive_case_status("RUNNING", approved_packet) == review_app.CaseStatus.RUNNING
     )
 
 

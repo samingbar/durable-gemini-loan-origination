@@ -205,6 +205,7 @@ async def test_run_decision_memo_json(monkeypatch) -> None:
         "memo": "All good",
         "conditions": [],
     }
+
     async def fake_generate_text(prompt: str) -> str:
         return json.dumps(payload)
 

@@ -8,7 +8,7 @@ Each subdirectory in `src/workflows/` is a self-contained workflow package with 
 | --- | --- | --- | --- | --- | --- |
 | `mortgage_fixed_flow` | Fixed-order mortgage underwriting | You want the simplest, most repeatable baseline | [README](mortgage_fixed_flow/README.md) | `uv run -m src.workflows.mortgage_fixed_flow.worker` | `uv run poe test -- src/workflows/mortgage_fixed_flow/tests` |
 | `mortgage_embedded_agent` | Supervisor-routed mortgage underwriting | You want adaptive specialist ordering and a more agentic flow | [README](mortgage_embedded_agent/README.md) | `uv run -m src.workflows.mortgage_embedded_agent.worker` | `uv run poe test -- src/workflows/mortgage_embedded_agent/tests` |
-| `insurance_claims_fixed_flow` | Fixed-order insurance claim adjudication | You want a deterministic claims pipeline with a more resilient review console | [README](insurance_claims_fixed_flow/README.md) | `uv run -m src.workflows.insurance_claims_fixed_flow.worker` | `uv run poe test -- src/workflows/insurance_claims_fixed_flow/tests` |
+| `insurance_claims_fixed_flow` | Fixed-order insurance claim adjudication | You want a deterministic claims pipeline with a resilient review console, mirrored operational state, and downstream sync | [README](insurance_claims_fixed_flow/README.md) | `uv run -m src.workflows.insurance_claims_fixed_flow.worker` | `uv run poe test -- src/workflows/insurance_claims_fixed_flow/tests` |
 
 ## Shared Conventions
 
